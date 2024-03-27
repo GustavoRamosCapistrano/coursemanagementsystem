@@ -8,7 +8,7 @@ package coursemanagementsystem;
  *
  * @author grc29
  */
-class User {
+public class User {
     private String username;
     private String password;
     private String role;

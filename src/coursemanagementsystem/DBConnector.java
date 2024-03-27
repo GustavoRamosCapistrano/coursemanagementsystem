@@ -19,7 +19,6 @@ public class DBConnector {
     private final String PASSWORD = "pooa2024";
 
     public DBConnector() {
-        // Initialize the database connection when the DBConnector object is created
         try {
             Class.forName("com.mysql.jdbc.Driver");
         } catch (ClassNotFoundException e) {
@@ -35,11 +34,10 @@ public class DBConnector {
             statement.setString(1, username);
             statement.setString(2, password);
             try (ResultSet resultSet = statement.executeQuery()) {
-                return resultSet.next(); // Returns true if user exists
+                return resultSet.next();
             }
         } catch (SQLException e) {
             e.printStackTrace();
-            // Handle SQL error
             return false;
         }
     }
@@ -53,10 +51,9 @@ public class DBConnector {
             statement.setString(2, password);
             statement.setString(3, role);
             int rowsAffected = statement.executeUpdate();
-            return rowsAffected > 0; // Returns true if user was successfully added
+            return rowsAffected > 0;
         } catch (SQLException e) {
             e.printStackTrace();
-            // Handle SQL error
             return false;
         }
     }
@@ -69,10 +66,9 @@ public class DBConnector {
             statement.setString(1, newPassword);
             statement.setString(2, username);
             int rowsAffected = statement.executeUpdate();
-            return rowsAffected > 0; // Returns true if password was successfully updated
+            return rowsAffected > 0;
         } catch (SQLException e) {
             e.printStackTrace();
-            // Handle SQL error
             return false;
         }
     }
@@ -84,10 +80,9 @@ public class DBConnector {
              PreparedStatement statement = conn.prepareStatement(sql)) {
             statement.setString(1, username);
             int rowsAffected = statement.executeUpdate();
-            return rowsAffected > 0; // Returns true if user was successfully deleted
+            return rowsAffected > 0;
         } catch (SQLException e) {
             e.printStackTrace();
-            // Handle SQL error
             return false;
         }
     }
@@ -102,19 +97,17 @@ public class DBConnector {
                 if (resultSet.next()) {
                     return resultSet.getString("role");
                 } else {
-                    return null; // User not found
+                    return null;
                 }
             }
         } catch (SQLException e) {
             e.printStackTrace();
-            // Handle SQL error
             return null;
         }
     }
-    
 
     // Method to close database connection
     public void closeConnection() {
-        // Close any open resources if needed
     }
-}
+  
+    }
