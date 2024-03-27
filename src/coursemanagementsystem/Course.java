@@ -9,17 +9,17 @@ package coursemanagementsystem;
  * @author grc29
  */
 public class Course {
-
+    private int courseId;
     private String courseName;
     private String programmeName;
     private String lecturerName;
     private String roomName;
+    private int enrolledStudents;
 
-    public Course(String courseName, String programmeName, String lecturerName, String roomName) {
-        this.courseName = courseName;
-        this.programmeName = programmeName;
-        this.lecturerName = lecturerName;
-        this.roomName = roomName;
+    // Constructor, getters, and setters
+
+    public int getCourseId() {
+        return courseId;
     }
 
     public String getCourseName() {
@@ -37,4 +37,33 @@ public class Course {
     public String getRoomName() {
         return roomName;
     }
+
+    public int getEnrolledStudents() {
+        return enrolledStudents;
+    }
+
+    public void setCourseId(int courseId) {
+        this.courseId = courseId;
+    }
+
+    public void setCourseName(String courseName) {
+        this.courseName = courseName;
+    }
+
+    public void setProgrammeName(String programmeName) {
+        this.programmeName = programmeName;
+    }
+
+    public void setLecturerName(String lecturerName) {
+        this.lecturerName = lecturerName;
+    }
+
+    public void setRoomName(String roomName) {
+        this.roomName = roomName;
+    }
+
+    public void setEnrolledStudents(int enrolledStudents) {
+        this.enrolledStudents = enrolledStudents;
+    }
+    
 }

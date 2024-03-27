@@ -4,12 +4,13 @@
  */
 package coursemanagementsystem;
 
+import java.util.List;
+
 /**
  *
  * @author grc29
  */
 public class ReportManager {
-
     private DBConnector dbConnector;
 
     public ReportManager() {
@@ -18,47 +19,63 @@ public class ReportManager {
 
     // Method to generate a Course Report
     public String generateCourseReport() {
-        StringBuilder report = new StringBuilder();
         List<Course> courses = dbConnector.getAllCourses();
-        report.append("Course Report:\n");
-        report.append(String.format("%-30s %-30s %-30s %-30s\n", "Course Name", "Programme", "Lecturer", "Room"));
-
+        // Construct the report string based on retrieved courses
+        StringBuilder report = new StringBuilder("Course Report:\n");
         for (Course course : courses) {
-            report.append(String.format("%-30s %-30s %-30s %-30s\n", course.getCourseName(), course.getProgrammeName(), course.getLecturerName(), course.getRoomName()));
+            report.append("Course Name: ").append(course.getCourseName()).append("\n");
+            report.append("Programme: ").append(course.getProgrammeName()).append("\n");
+            report.append("Number of Students Enrolled: ").append(course.getEnrolledStudents()).append("\n");
+            report.append("Lecturer: ").append(course.getLecturerName()).append("\n");
+            report.append("Room: ").append(course.getRoomName()).append("\n\n");
         }
-
         return report.toString();
     }
 
     // Method to generate a Student Report
     public String generateStudentReport() {
-        StringBuilder report = new StringBuilder();
         List<Student> students = dbConnector.getAllStudents();
-        report.append("Student Report:\n");
-        report.append(String.format("%-30s %-30s %-30s %-30s %-30s\n", "Student Name", "Programme", "Enrolled Modules", "Completed Modules", "Repeat Modules"));
-
+        // Construct the report string based on retrieved students
+        StringBuilder report = new StringBuilder("Student Report:\n");
         for (Student student : students) {
-            report.append(String.format("%-30s %-30s %-30s %-30s %-30s\n", student.getStudentName(), student.getProgrammeName(), student.getEnrolledModules(), student.getCompletedModules(), student.getRepeatModules()));
+            report.append("Student Name: ").append(student.getStudentName()).append("\n");
+            report.append("Programme: ").append(student.getProgrammeName()).append("\n");
+            report.append("Modules Enrolled: ").append(student.getEnrolledModules()).append("\n");
+            report.append("Modules Completed: ").append(student.getCompletedModules()).append("\n");
+            report.append("Modules to Repeat: ").append(student.getRepeatModules()).append("\n\n");
         }
-
         return report.toString();
     }
 
-    // Method to generate a Lecturer Report
+    // Method to generate a Lecturer Report for a specific lecturer
     public String generateLecturerReport(String lecturerName) {
-        StringBuilder report = new StringBuilder();
-        List<Lecturer> lecturers = dbConnector.getAllLecturers();
-        report.append("Lecturer Report:\n");
-        report.append(String.format("%-30s %-30s %-30s %-30s %-30s\n", "Lecturer Name", "Role", "Modules Taught", "Student Count", "Class Types"));
-
-        for (Lecturer lecturer : lecturers) {
-            if (lecturer.getLecturerName().equals(lecturerName)) {
-                report.append(String.format("%-30s %-30s %-30s %-30s %-30s\n", lecturer.getLecturerName(), lecturer.getRole(), lecturer.getModulesTaught(), lecturer.getStudentCount(), lecturer.getClassTypes()));
-                break;
-            }
+        Lecturer lecturer = dbConnector.getLecturerByName(lecturerName);
+        if (lecturer == null) {
+            return "Lecturer not found.";
         }
-
+        // Construct the report string based on retrieved lecturer
+        StringBuilder report = new StringBuilder("Lecturer Report:\n");
+        report.append("Name: ").append(lecturer.getLecturerName()).append("\n");
+        report.append("Role: ").append(lecturer.getRole()).append("\n");
+        report.append("Modules Taught: ").append(lecturer.getModulesTaught()).append("\n");
+        report.append("Student Count: ").append(lecturer.getStudentCount()).append("\n");
+        report.append("Classes Taught: ").append(lecturer.getClassesTaught()).append("\n");
         return report.toString();
+    }
+
+    // Method to output a report to a txt file
+    public void outputReportToFile(String report, String fileName) {
+        try (FileWriter writer = new FileWriter(fileName)) {
+            writer.write(report);
+            System.out.println("Report successfully written to " + fileName);
+        } catch (IOException e) {
+            System.err.println("Error writing report to file: " + e.getMessage());
+        }
+    }
+
+    // Method to output a report to the console
+    public void outputReportToConsole(String report) {
+        System.out.println(report);
     }
 
     // Method to close database connection

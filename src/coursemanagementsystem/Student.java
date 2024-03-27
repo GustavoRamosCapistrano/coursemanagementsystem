@@ -4,24 +4,22 @@
  */
 package coursemanagementsystem;
 
+import java.util.List;
+
 /**
  *
  * @author grc29
  */
 public class Student {
-
+    private int studentId;
     private String studentName;
     private String programmeName;
-    private int enrolledModules;
-    private int completedModules;
-    private int repeatModules;
+    private List<String> enrolledModules;
+    private List<String> completedModules;
+    private List<String> repeatModules;
 
-    public Student(String studentName, String programmeName, int enrolledModules, int completedModules, int repeatModules) {
-        this.studentName = studentName;
-        this.programmeName = programmeName;
-        this.enrolledModules = enrolledModules;
-        this.completedModules = completedModules;
-        this.repeatModules = repeatModules;
+    public int getStudentId() {
+        return studentId;
     }
 
     public String getStudentName() {
@@ -32,15 +30,39 @@ public class Student {
         return programmeName;
     }
 
-    public int getEnrolledModules() {
+    public List<String> getEnrolledModules() {
         return enrolledModules;
     }
 
-    public int getCompletedModules() {
+    public List<String> getCompletedModules() {
         return completedModules;
     }
 
-    public int getRepeatModules() {
+    public List<String> getRepeatModules() {
         return repeatModules;
+    }
+
+    public void setStudentId(int studentId) {
+        this.studentId = studentId;
+    }
+
+    public void setStudentName(String studentName) {
+        this.studentName = studentName;
+    }
+
+    public void setProgrammeName(String programmeName) {
+        this.programmeName = programmeName;
+    }
+
+    public void setEnrolledModules(List<String> enrolledModules) {
+        this.enrolledModules = enrolledModules;
+    }
+
+    public void setCompletedModules(List<String> completedModules) {
+        this.completedModules = completedModules;
+    }
+
+    public void setRepeatModules(List<String> repeatModules) {
+        this.repeatModules = repeatModules;
     }
 }

@@ -4,24 +4,24 @@
  */
 package coursemanagementsystem;
 
+import java.util.List;
+
 /**
  *
  * @author grc29
  */
 public class Lecturer {
-
+    private int lecturerId;
     private String lecturerName;
     private String role;
-    private int modulesTaught;
+    private List<String> modulesTaught;
     private int studentCount;
-    private String classTypes;
+    private List<String> classesTaught;
 
-    public Lecturer(String lecturerName, String role, int modulesTaught, int studentCount, String classTypes) {
-        this.lecturerName = lecturerName;
-        this.role = role;
-        this.modulesTaught = modulesTaught;
-        this.studentCount = studentCount;
-        this.classTypes = classTypes;
+    // Constructor, getters, and setters
+
+    public int getLecturerId() {
+        return lecturerId;
     }
 
     public String getLecturerName() {
@@ -32,7 +32,7 @@ public class Lecturer {
         return role;
     }
 
-    public int getModulesTaught() {
+    public List<String> getModulesTaught() {
         return modulesTaught;
     }
 
@@ -40,7 +40,31 @@ public class Lecturer {
         return studentCount;
     }
 
-    public String getClassTypes() {
-        return classTypes;
+    public List<String> getClassesTaught() {
+        return classesTaught;
+    }
+
+    public void setLecturerId(int lecturerId) {
+        this.lecturerId = lecturerId;
+    }
+
+    public void setLecturerName(String lecturerName) {
+        this.lecturerName = lecturerName;
+    }
+
+    public void setRole(String role) {
+        this.role = role;
+    }
+
+    public void setModulesTaught(List<String> modulesTaught) {
+        this.modulesTaught = modulesTaught;
+    }
+
+    public void setStudentCount(int studentCount) {
+        this.studentCount = studentCount;
+    }
+
+    public void setClassesTaught(List<String> classesTaught) {
+        this.classesTaught = classesTaught;
     }
 }
