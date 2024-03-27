@@ -11,51 +11,68 @@ import java.util.Scanner;
  * @author grc29
  */
 public class CourseManagementSystem {
+private static final String ADMIN_USERNAME = "admin";
+    private static final String ADMIN_PASSWORD = "java";
 
-    /**
-     * @param args the command line arguments
-     */
+    private static final String MENU_OPTIONS = "Menu Options:\n" +
+            "1. Generate Course Report\n" +
+            "2. Generate Student Report\n" +
+            "3. Generate Lecturer Report\n" +
+            "4. Exit";
+
     public static void main(String[] args) {
-        // Create UserManager instance
+        Scanner scanner = new Scanner(System.in);
         UserManager userManager = new UserManager();
+        ReportManager reportManager = new ReportManager();
+        String loggedInUser = null;
 
-        // Test adding a new user
-        boolean addUserResult = userManager.addUser("testUser", "password123", "Office");
-        System.out.println("Add User Result: " + addUserResult);
+        // Login loop
+        while (loggedInUser == null) {
+            System.out.print("Enter username: ");
+            String username = scanner.nextLine();
+            System.out.print("Enter password: ");
+            String password = scanner.nextLine();
 
-        // Test authenticating a user
-        boolean authenticateUserResult = userManager.authenticateUser("testUser", "password123");
-        System.out.println("Authenticate User Result: " + authenticateUserResult);
+            if (userManager.authenticateUser(username, password)) {
+                loggedInUser = username;
+                System.out.println("Login successful!\n");
+            } else {
+                System.out.println("Invalid username or password. Please try again.\n");
+            }
+        }
 
-        // Test modifying user password
-        boolean changePasswordResult = userManager.changePassword("testUser", "newPassword123");
-        System.out.println("Change Password Result: " + changePasswordResult);
+        // Main menu loop
+        boolean exit = false;
+        while (!exit) {
+            System.out.println("Welcome, " + loggedInUser + "!\n");
+            System.out.println(MENU_OPTIONS);
+            System.out.print("\nEnter your choice: ");
+            int choice = Integer.parseInt(scanner.nextLine());
 
-        // Test retrieving user role
-        String userRole = userManager.getUserRole("testUser");
-        System.out.println("User Role: " + userRole);
-
-        // Test deleting a user
-        boolean deleteUserResult = userManager.deleteUser("testUser");
-        System.out.println("Delete User Result: " + deleteUserResult);
+            switch (choice) {
+                case 1:
+                    System.out.println(reportManager.generateCourseReport());
+                    break;
+                case 2:
+                    System.out.println(reportManager.generateStudentReport());
+                    break;
+                case 3:
+                    System.out.print("Enter lecturer name: ");
+                    String lecturerName = scanner.nextLine();
+                    System.out.println(reportManager.generateLecturerReport(lecturerName));
+                    break;
+                case 4:
+                    exit = true;
+                    break;
+                default:
+                    System.out.println("Invalid choice. Please enter a number between 1 and 4.\n");
+                    break;
+            }
+        }
 
         // Close database connection
         userManager.closeConnection();
-
-        // Create ReportManager instance
-        ReportManager reportManager = new ReportManager();
-
-        // Generate reports
-        String courseReport = reportManager.generateCourseReport();
-        System.out.println(courseReport);
-
-        String studentReport = reportManager.generateStudentReport();
-        System.out.println(studentReport);
-
-        String lecturerReport = reportManager.generateLecturerReport("John Doe"); // Example lecturer name
-        System.out.println(lecturerReport);
-
-        // Close database connection
         reportManager.closeConnection();
+        scanner.close();
     }
 }
