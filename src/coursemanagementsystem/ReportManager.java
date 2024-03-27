@@ -6,6 +6,7 @@ package coursemanagementsystem;
 
 import java.io.FileWriter;
 import java.io.IOException;
+import java.sql.SQLException;
 import java.util.List;
 
 /**
@@ -13,14 +14,14 @@ import java.util.List;
  * @author grc29
  */
 public class ReportManager {
-    private DBConnector dbConnector;
+    private final DBConnector dbConnector;
 
-    public ReportManager() {
-        dbConnector = new DBConnector();
-    }
+public ReportManager() {
+    dbConnector = new DBConnector();
+}
 
     // Method to generate a Course Report
-    public String generateCourseReport() {
+    public String generateCourseReport() throws SQLException {
         List<Course> courses = dbConnector.getAllCourses();
         // Construct the report string based on retrieved courses
         StringBuilder report = new StringBuilder("Course Report:\n");
@@ -35,7 +36,7 @@ public class ReportManager {
     }
 
     // Method to generate a Student Report
-    public String generateStudentReport() {
+    public String generateStudentReport() throws SQLException {
         List<Student> students = dbConnector.getAllStudents();
         // Construct the report string based on retrieved students
         StringBuilder report = new StringBuilder("Student Report:\n");
@@ -51,18 +52,23 @@ public class ReportManager {
 
     // Method to generate a Lecturer Report
     public String generateLecturerReport() {
-        List<Lecturer> lecturers = dbConnector.getAllLecturers();
-        // Construct the report string based on retrieved lecturers
-        StringBuilder report = new StringBuilder("Lecturer Report:\n");
-        for (Lecturer lecturer : lecturers) {
-            report.append("Lecturer Name: ").append(lecturer.getLecturerName()).append("\n");
-            report.append("Role: ").append(lecturer.getRole()).append("\n");
-            // Append other relevant lecturer information here
-            report.append("\n");
+        try {
+            List<Lecturer> lecturers = dbConnector.getAllLecturers();
+            // Construct the report string based on retrieved lecturers
+            StringBuilder report = new StringBuilder("Lecturer Report:\n");
+            for (Lecturer lecturer : lecturers) {
+                report.append("Lecturer Name: ").append(lecturer.getLecturerName()).append("\n");
+                report.append("Role: ").append(lecturer.getRole()).append("\n");
+                // Append other relevant lecturer information here
+                report.append("\n");
+            }
+            return report.toString();
+        } catch (SQLException e) {
+            // Handle the exception, e.g., log the error or print a message
+            e.printStackTrace();
+            return "Failed to generate Lecturer Report.";
         }
-        return report.toString();
     }
-
     // Method to export report to a TXT file
     public void exportReportToTxt(String report, String filename) {
         try (FileWriter writer = new FileWriter(filename + ".txt")) {

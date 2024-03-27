@@ -11,8 +11,10 @@ import java.util.List;
  * @author grc29
  */
 public class Student {
+
     private int studentId;
     private String studentName;
+    private int programmeId; 
     private String programmeName;
     private List<String> enrolledModules;
     private List<String> completedModules;
@@ -24,6 +26,10 @@ public class Student {
 
     public String getStudentName() {
         return studentName;
+    }
+
+    public int getProgrammeId() { 
+        return programmeId;
     }
 
     public String getProgrammeName() {
@@ -48,6 +54,10 @@ public class Student {
 
     public void setStudentName(String studentName) {
         this.studentName = studentName;
+    }
+
+    public void setProgrammeId(int programmeId) {
+        this.programmeId = programmeId;
     }
 
     public void setProgrammeName(String programmeName) {

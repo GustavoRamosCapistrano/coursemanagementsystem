@@ -11,6 +11,7 @@ import java.util.List;
  * @author grc29
  */
 public class Lecturer {
+
     private int lecturerId;
     private String lecturerName;
     private String role;

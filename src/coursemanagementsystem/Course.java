@@ -9,6 +9,7 @@ package coursemanagementsystem;
  * @author grc29
  */
 public class Course {
+
     private int courseId;
     private String courseName;
     private String programmeName;
@@ -17,7 +18,6 @@ public class Course {
     private int enrolledStudents;
 
     // Constructor, getters, and setters
-
     public int getCourseId() {
         return courseId;
     }
