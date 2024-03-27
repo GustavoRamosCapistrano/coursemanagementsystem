@@ -34,7 +34,7 @@ public class CourseManagementSystem {
             System.out.print("Enter password: ");
             String password = scanner.nextLine();
 
-            if (userManager.authenticateUser(username, password)) {
+            if (authenticateUser(username, password)) {
                 loggedInUser = username;
                 System.out.println("Login successful!\n");
             } else {
@@ -47,8 +47,7 @@ public class CourseManagementSystem {
         while (!exit) {
             System.out.println("Welcome, " + loggedInUser + "!\n");
             System.out.println(MENU_OPTIONS);
-            System.out.print("\nEnter your choice: ");
-            int choice = Integer.parseInt(scanner.nextLine());
+            int choice = getUserChoice(scanner);
 
             switch (choice) {
                 case 1:
@@ -80,6 +79,24 @@ public class CourseManagementSystem {
         scanner.close();
     }
 
+    // Method to authenticate user
+    private static boolean authenticateUser(String username, String password) {
+        return username.equals(ADMIN_USERNAME) && password.equals(ADMIN_PASSWORD);
+    }
+
+    // Method to get user choice from input
+    private static int getUserChoice(Scanner scanner) {
+        while (true) {
+            System.out.print("\nEnter your choice: ");
+            String input = scanner.nextLine();
+            try {
+                return Integer.parseInt(input);
+            } catch (NumberFormatException e) {
+                System.out.println("Invalid input. Please enter a number.\n");
+            }
+        }
+    }
+
     // Method to manage users (add, modify, delete)
     private static void manageUsers(UserManager userManager, Scanner scanner) {
         boolean userManagement = true;
@@ -90,7 +107,7 @@ public class CourseManagementSystem {
             System.out.println("3. Delete User");
             System.out.println("4. Back to Main Menu");
             System.out.print("\nEnter your choice: ");
-            int choice = Integer.parseInt(scanner.nextLine());
+            int choice = getUserChoice(scanner);
 
             switch (choice) {
                 case 1:

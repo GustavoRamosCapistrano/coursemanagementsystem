@@ -18,8 +18,6 @@ public class Lecturer {
     private int studentCount;
     private List<String> classesTaught;
 
-    // Constructor, getters, and setters
-
     public int getLecturerId() {
         return lecturerId;
     }

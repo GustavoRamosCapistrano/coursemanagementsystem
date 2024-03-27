@@ -63,21 +63,6 @@ public class ReportManager {
         return report.toString();
     }
 
-    // Method to output a report to a txt file
-    public void outputReportToFile(String report, String fileName) {
-        try (FileWriter writer = new FileWriter(fileName)) {
-            writer.write(report);
-            System.out.println("Report successfully written to " + fileName);
-        } catch (IOException e) {
-            System.err.println("Error writing report to file: " + e.getMessage());
-        }
-    }
-
-    // Method to output a report to the console
-    public void outputReportToConsole(String report) {
-        System.out.println(report);
-    }
-
     // Method to close database connection
     public void closeConnection() {
         dbConnector.closeConnection();

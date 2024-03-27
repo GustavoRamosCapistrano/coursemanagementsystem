@@ -65,5 +65,4 @@ public class Course {
     public void setEnrolledStudents(int enrolledStudents) {
         this.enrolledStudents = enrolledStudents;
     }
-    
 }
