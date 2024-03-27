@@ -21,15 +21,12 @@ public class DBConnector {
     private final String USER = "pooa2024";
     private final String PASSWORD = "pooa2024";
 
-    public DBConnector() {
-        try {
-            Class.forName("com.mysql.cj.jdbc.Driver");
-        } catch (ClassNotFoundException e) {
-            throw new RuntimeException("MySQL JDBC Driver not found", e);
-        }
+    public DBConnector() throws ClassNotFoundException {
+        Class.forName("com.mysql.cj.jdbc.Driver");
     }
 
-    public boolean authenticateUser(String username, String password) {
+    // Method to authenticate a user
+    public boolean authenticateUser(String username, String password) throws SQLException {
         String sql = "SELECT * FROM Users WHERE username = ? AND password = ?";
         try (Connection conn = DriverManager.getConnection(DB_URL, USER, PASSWORD);
              PreparedStatement statement = conn.prepareStatement(sql)) {
@@ -38,12 +35,11 @@ public class DBConnector {
             try (ResultSet resultSet = statement.executeQuery()) {
                 return resultSet.next();
             }
-        } catch (SQLException e) {
-            throw new RuntimeException("Error authenticating user", e);
         }
     }
 
-    public boolean addUser(String username, String password, String role) {
+    // Method to add a new user
+    public boolean addUser(String username, String password, String role) throws SQLException {
         String sql = "INSERT INTO Users (username, password, role) VALUES (?, ?, ?)";
         try (Connection conn = DriverManager.getConnection(DB_URL, USER, PASSWORD);
              PreparedStatement statement = conn.prepareStatement(sql)) {
@@ -52,11 +48,10 @@ public class DBConnector {
             statement.setString(3, role);
             int rowsAffected = statement.executeUpdate();
             return rowsAffected > 0;
-        } catch (SQLException e) {
-            throw new RuntimeException("Error adding user", e);
         }
     }
 
+    // Method to modify user password
     public boolean changePassword(String username, String newPassword) {
         String sql = "UPDATE Users SET password = ? WHERE username = ?";
         try (Connection conn = DriverManager.getConnection(DB_URL, USER, PASSWORD);
@@ -70,6 +65,21 @@ public class DBConnector {
         }
     }
 
+    // Method to modify user role
+    public boolean changeUserRole(String username, String newRole) {
+        String sql = "UPDATE Users SET role = ? WHERE username = ?";
+        try (Connection conn = DriverManager.getConnection(DB_URL, USER, PASSWORD);
+             PreparedStatement statement = conn.prepareStatement(sql)) {
+            statement.setString(1, newRole);
+            statement.setString(2, username);
+            int rowsAffected = statement.executeUpdate();
+            return rowsAffected > 0;
+        } catch (SQLException e) {
+            throw new RuntimeException("Error changing user role", e);
+        }
+    }
+
+    // Method to delete user
     public boolean deleteUser(String username) {
         String sql = "DELETE FROM Users WHERE username = ?";
         try (Connection conn = DriverManager.getConnection(DB_URL, USER, PASSWORD);
@@ -82,6 +92,7 @@ public class DBConnector {
         }
     }
 
+    // Method to get the role of a user based on username
     public String getUserRole(String username) {
         String sql = "SELECT role FROM Users WHERE username = ?";
         try (Connection conn = DriverManager.getConnection(DB_URL, USER, PASSWORD);
@@ -134,12 +145,11 @@ public class DBConnector {
                 student.setProgrammeName(resultSet.getString("programmeName"));
                 students.add(student);
             }
-        } catch (SQLException e) {
+        }  catch (SQLException e) {
             throw new RuntimeException("Error getting all students", e);
         }
         return students;
     }
-
     public List<Lecturer> getAllLecturers() {
         List<Lecturer> lecturers = new ArrayList<>();
         String sql = "SELECT * FROM Lecturers";

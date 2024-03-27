@@ -43,9 +43,8 @@ public class ReportManager {
             report.append("Student Name: ").append(student.getStudentName()).append("\n");
             report.append("Student Number: ").append(student.getStudentId()).append("\n");
             report.append("Programme: ").append(student.getProgrammeName()).append("\n");
-            report.append("Modules Enrolled: ").append(student.getEnrolledModules()).append("\n");
-            report.append("Modules Completed: ").append(student.getCompletedModules()).append("\n");
-            report.append("Modules to Repeat: ").append(student.getRepeatModules()).append("\n\n");
+            // Append other relevant student information here
+            report.append("\n");
         }
         return report.toString();
     }

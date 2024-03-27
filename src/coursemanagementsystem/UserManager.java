@@ -4,11 +4,6 @@
  */
 package coursemanagementsystem;
 
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-
 /**
  *
  * @author grc29
@@ -30,9 +25,14 @@ public class UserManager {
         return dbConnector.addUser(username, password, role);
     }
 
-    // Method to change password for an existing user
-    public boolean changePassword(String username, String newPassword) {
+    // Method to modify an existing user's password
+    public boolean modifyPassword(String username, String newPassword) {
         return dbConnector.changePassword(username, newPassword);
+    }
+
+    // Method to modify an existing user's role
+    public boolean modifyUserRole(String username, String newRole) {
+        return dbConnector.changeUserRole(username, newRole);
     }
 
     // Method to delete an existing user
