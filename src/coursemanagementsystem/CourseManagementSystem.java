@@ -1,9 +1,8 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Main.java to edit this template
- */
 package coursemanagementsystem;
 
+import java.io.FileWriter;
+import java.io.IOException;
+import java.util.List;
 import java.util.Scanner;
 
 /**
@@ -18,8 +17,9 @@ public class CourseManagementSystem {
             "1. Generate Course Report\n" +
             "2. Generate Student Report\n" +
             "3. Generate Lecturer Report\n" +
-            "4. Manage Users\n" +
-            "5. Exit";
+            "4. Export Report\n" +
+            "5. Manage Users\n" +
+            "6. Exit";
 
     public static void main(String[] args) {
         Scanner scanner = new Scanner(System.in);
@@ -51,24 +51,32 @@ public class CourseManagementSystem {
 
             switch (choice) {
                 case 1:
-                    System.out.println(reportManager.generateCourseReport());
+                    String courseReport = reportManager.generateCourseReport();
+                    System.out.println(courseReport);
+                    exportReport(scanner, courseReport);
                     break;
                 case 2:
-                    System.out.println(reportManager.generateStudentReport());
+                    String studentReport = reportManager.generateStudentReport();
+                    System.out.println(studentReport);
+                    exportReport(scanner, studentReport);
                     break;
                 case 3:
-                    System.out.print("Enter lecturer name: ");
-                    String lecturerName = scanner.nextLine();
-                    System.out.println(reportManager.generateLecturerReport(lecturerName));
+                    String lecturerReport = reportManager.generateLecturerReport();
+                    System.out.println(lecturerReport);
+                    exportReport(scanner, lecturerReport);
                     break;
                 case 4:
-                    manageUsers(userManager, scanner);
+                    // Export report submenu
+                    exportReportMenu(scanner, reportManager);
                     break;
                 case 5:
+                    manageUsers(userManager, scanner);
+                    break;
+                case 6:
                     exit = true;
                     break;
                 default:
-                    System.out.println("Invalid choice. Please enter a number between 1 and 5.\n");
+                    System.out.println("Invalid choice. Please enter a number between 1 and 6.\n");
                     break;
             }
         }
@@ -171,6 +179,75 @@ public class CourseManagementSystem {
             System.out.println("User deleted successfully.\n");
         } else {
             System.out.println("Failed to delete user. Please try again.\n");
+        }
+    }
+
+    // Method to export report
+    private static void exportReportMenu(Scanner scanner, ReportManager reportManager) {
+        System.out.println("\nExport Report Menu:");
+        System.out.println("1. Export Course Report");
+        System.out.println("2. Export Student Report");
+        System.out.println("3. Export Lecturer Report");
+        System.out.println("4. Back to Main Menu");
+        System.out.print("\nEnter your choice: ");
+        int choice = getUserChoice(scanner);
+
+        switch (choice) {
+            case 1:
+                String courseReport = reportManager.generateCourseReport();
+                exportReport(scanner, courseReport);
+                break;
+            case 2:
+                String studentReport = reportManager.generateStudentReport();
+                exportReport(scanner, studentReport);
+                break;
+            case 3:
+                String lecturerReport = reportManager.generateLecturerReport();
+                exportReport(scanner, lecturerReport);
+                break;
+            case 4:
+                // Back to main menu
+                break;
+            default:
+                System.out.println("Invalid choice. Please enter a number between 1 and 4.\n");
+                break;
+        }
+    }
+
+    // Method to export report to chosen format
+    private static void exportReport(Scanner scanner, String report) {
+        System.out.println("\nChoose export format:");
+        System.out.println("1. TXT");
+        System.out.println("2. CSV");
+        System.out.println("3. Cancel");
+        System.out.print("\nEnter your choice: ");
+        int choice = getUserChoice(scanner);
+
+        switch (choice) {
+            case 1:
+                System.out.print("Enter file name: ");
+                String txtFileName = scanner.nextLine();
+                if (reportManager.exportReportToTxt(report, txtFileName)) {
+                    System.out.println("Report exported to TXT successfully.\n");
+                } else {
+                    System.out.println("Failed to export report to TXT. Please try again.\n");
+                }
+                break;
+            case 2:
+                System.out.print("Enter file name: ");
+                String csvFileName = scanner.nextLine();
+                if (reportManager.exportReportToCsv(report, csvFileName)) {
+                    System.out.println("Report exported to CSV successfully.\n");
+                } else {
+                    System.out.println("Failed to export report to CSV. Please try again.\n");
+                }
+                break;
+            case 3:
+                System.out.println("Export canceled.\n");
+                break;
+            default:
+                System.out.println("Invalid choice. Please enter a number between 1 and 3.\n");
+                break;
         }
     }
 }

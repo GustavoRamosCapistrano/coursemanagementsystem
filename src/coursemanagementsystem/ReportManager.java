@@ -4,6 +4,8 @@
  */
 package coursemanagementsystem;
 
+import java.io.FileWriter;
+import java.io.IOException;
 import java.util.List;
 
 /**
@@ -39,6 +41,7 @@ public class ReportManager {
         StringBuilder report = new StringBuilder("Student Report:\n");
         for (Student student : students) {
             report.append("Student Name: ").append(student.getStudentName()).append("\n");
+            report.append("Student Number: ").append(student.getStudentId()).append("\n");
             report.append("Programme: ").append(student.getProgrammeName()).append("\n");
             report.append("Modules Enrolled: ").append(student.getEnrolledModules()).append("\n");
             report.append("Modules Completed: ").append(student.getCompletedModules()).append("\n");
@@ -47,20 +50,41 @@ public class ReportManager {
         return report.toString();
     }
 
-    // Method to generate a Lecturer Report for a specific lecturer
-    public String generateLecturerReport(String lecturerName) {
-        Lecturer lecturer = dbConnector.getLecturerByName(lecturerName);
-        if (lecturer == null) {
-            return "Lecturer not found.";
-        }
-        // Construct the report string based on retrieved lecturer
+    // Method to generate a Lecturer Report
+    public String generateLecturerReport() {
+        List<Lecturer> lecturers = dbConnector.getAllLecturers();
+        // Construct the report string based on retrieved lecturers
         StringBuilder report = new StringBuilder("Lecturer Report:\n");
-        report.append("Name: ").append(lecturer.getLecturerName()).append("\n");
-        report.append("Role: ").append(lecturer.getRole()).append("\n");
-        report.append("Modules Taught: ").append(lecturer.getModulesTaught()).append("\n");
-        report.append("Student Count: ").append(lecturer.getStudentCount()).append("\n");
-        report.append("Classes Taught: ").append(lecturer.getClassesTaught()).append("\n");
+        for (Lecturer lecturer : lecturers) {
+            report.append("Lecturer Name: ").append(lecturer.getLecturerName()).append("\n");
+            report.append("Role: ").append(lecturer.getRole()).append("\n");
+            report.append("Modules Taught: ").append(lecturer.getModulesTaught()).append("\n");
+            report.append("Student Count: ").append(lecturer.getStudentCount()).append("\n");
+            report.append("Classes Taught: ").append(lecturer.getClassesTaught()).append("\n\n");
+        }
         return report.toString();
+    }
+
+    // Method to output report to a TXT file
+    public void exportReportToTxt(String report, String filename) {
+        try (FileWriter writer = new FileWriter(filename + ".txt")) {
+            writer.write(report);
+            System.out.println("Report exported to " + filename + ".txt");
+        } catch (IOException e) {
+            e.printStackTrace();
+            System.out.println("Failed to export report to TXT file.");
+        }
+    }
+
+    // Method to output report to a CSV file
+    public void exportReportToCsv(String report, String filename) {
+        try (FileWriter writer = new FileWriter(filename + ".csv")) {
+            writer.write(report);
+            System.out.println("Report exported to " + filename + ".csv");
+        } catch (IOException e) {
+            e.printStackTrace();
+            System.out.println("Failed to export report to CSV file.");
+        }
     }
 
     // Method to close database connection
