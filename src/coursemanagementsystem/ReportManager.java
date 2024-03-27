@@ -58,14 +58,13 @@ public class ReportManager {
         for (Lecturer lecturer : lecturers) {
             report.append("Lecturer Name: ").append(lecturer.getLecturerName()).append("\n");
             report.append("Role: ").append(lecturer.getRole()).append("\n");
-            report.append("Modules Taught: ").append(lecturer.getModulesTaught()).append("\n");
-            report.append("Student Count: ").append(lecturer.getStudentCount()).append("\n");
-            report.append("Classes Taught: ").append(lecturer.getClassesTaught()).append("\n\n");
+            // Append other relevant lecturer information here
+            report.append("\n");
         }
         return report.toString();
     }
 
-    // Method to output report to a TXT file
+    // Method to export report to a TXT file
     public void exportReportToTxt(String report, String filename) {
         try (FileWriter writer = new FileWriter(filename + ".txt")) {
             writer.write(report);
@@ -76,7 +75,7 @@ public class ReportManager {
         }
     }
 
-    // Method to output report to a CSV file
+    // Method to export report to a CSV file
     public void exportReportToCsv(String report, String filename) {
         try (FileWriter writer = new FileWriter(filename + ".csv")) {
             writer.write(report);
@@ -85,10 +84,5 @@ public class ReportManager {
             e.printStackTrace();
             System.out.println("Failed to export report to CSV file.");
         }
-    }
-
-    // Method to close database connection
-    public void closeConnection() {
-        dbConnector.closeConnection();
     }
 }

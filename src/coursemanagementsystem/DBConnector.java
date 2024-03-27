@@ -22,15 +22,13 @@ public class DBConnector {
     private final String PASSWORD = "pooa2024";
 
     public DBConnector() {
-        // Initialize the database connection when the DBConnector object is created
         try {
             Class.forName("com.mysql.cj.jdbc.Driver");
         } catch (ClassNotFoundException e) {
-            e.printStackTrace();
+            throw new RuntimeException("MySQL JDBC Driver not found", e);
         }
     }
 
-    // Method to authenticate a user based on username and password
     public boolean authenticateUser(String username, String password) {
         String sql = "SELECT * FROM Users WHERE username = ? AND password = ?";
         try (Connection conn = DriverManager.getConnection(DB_URL, USER, PASSWORD);
@@ -38,16 +36,13 @@ public class DBConnector {
             statement.setString(1, username);
             statement.setString(2, password);
             try (ResultSet resultSet = statement.executeQuery()) {
-                return resultSet.next(); // Returns true if user exists
+                return resultSet.next();
             }
         } catch (SQLException e) {
-            e.printStackTrace();
-            // Handle SQL error
-            return false;
+            throw new RuntimeException("Error authenticating user", e);
         }
     }
 
-    // Method to add a new user to the database
     public boolean addUser(String username, String password, String role) {
         String sql = "INSERT INTO Users (username, password, role) VALUES (?, ?, ?)";
         try (Connection conn = DriverManager.getConnection(DB_URL, USER, PASSWORD);
@@ -56,15 +51,12 @@ public class DBConnector {
             statement.setString(2, password);
             statement.setString(3, role);
             int rowsAffected = statement.executeUpdate();
-            return rowsAffected > 0; // Returns true if user was successfully added
+            return rowsAffected > 0;
         } catch (SQLException e) {
-            e.printStackTrace();
-            // Handle SQL error
-            return false;
+            throw new RuntimeException("Error adding user", e);
         }
     }
 
-    // Method to modify an existing user's password
     public boolean changePassword(String username, String newPassword) {
         String sql = "UPDATE Users SET password = ? WHERE username = ?";
         try (Connection conn = DriverManager.getConnection(DB_URL, USER, PASSWORD);
@@ -72,30 +64,24 @@ public class DBConnector {
             statement.setString(1, newPassword);
             statement.setString(2, username);
             int rowsAffected = statement.executeUpdate();
-            return rowsAffected > 0; // Returns true if password was successfully updated
+            return rowsAffected > 0;
         } catch (SQLException e) {
-            e.printStackTrace();
-            // Handle SQL error
-            return false;
+            throw new RuntimeException("Error changing password", e);
         }
     }
 
-    // Method to delete a user from the database
     public boolean deleteUser(String username) {
         String sql = "DELETE FROM Users WHERE username = ?";
         try (Connection conn = DriverManager.getConnection(DB_URL, USER, PASSWORD);
              PreparedStatement statement = conn.prepareStatement(sql)) {
             statement.setString(1, username);
             int rowsAffected = statement.executeUpdate();
-            return rowsAffected > 0; // Returns true if user was successfully deleted
+            return rowsAffected > 0;
         } catch (SQLException e) {
-            e.printStackTrace();
-            // Handle SQL error
-            return false;
+            throw new RuntimeException("Error deleting user", e);
         }
     }
 
-    // Method to get the role of a user based on username
     public String getUserRole(String username) {
         String sql = "SELECT role FROM Users WHERE username = ?";
         try (Connection conn = DriverManager.getConnection(DB_URL, USER, PASSWORD);
@@ -105,37 +91,36 @@ public class DBConnector {
                 if (resultSet.next()) {
                     return resultSet.getString("role");
                 } else {
-                    return null; // User not found
+                    return null;
                 }
             }
         } catch (SQLException e) {
-            e.printStackTrace();
-            // Handle SQL error
-            return null;
+            throw new RuntimeException("Error getting user role", e);
         }
     }
-    
+
     public List<Course> getAllCourses() {
-    List<Course> courses = new ArrayList<>();
-    String sql = "SELECT * FROM Courses";
-    try (Connection conn = DriverManager.getConnection(DB_URL, USER, PASSWORD);
-         PreparedStatement statement = conn.prepareStatement(sql);
-         ResultSet resultSet = statement.executeQuery()) {
-        while (resultSet.next()) {
-            Course course = new Course();
-            course.setCourseId(resultSet.getInt("courseId"));
-            course.setCourseName(resultSet.getString("courseName"));
-            course.setProgrammeName(resultSet.getString("programmeName"));
-            course.setLecturerName(resultSet.getString("lecturerName"));
-            course.setRoomName(resultSet.getString("roomName"));
-            course.setEnrolledStudents(resultSet.getInt("enrolledStudents"));
-            courses.add(course);
+        List<Course> courses = new ArrayList<>();
+        String sql = "SELECT * FROM Courses";
+        try (Connection conn = DriverManager.getConnection(DB_URL, USER, PASSWORD);
+             PreparedStatement statement = conn.prepareStatement(sql);
+             ResultSet resultSet = statement.executeQuery()) {
+            while (resultSet.next()) {
+                Course course = new Course();
+                course.setCourseId(resultSet.getInt("courseId"));
+                course.setCourseName(resultSet.getString("courseName"));
+                course.setProgrammeName(resultSet.getString("programmeName"));
+                course.setLecturerName(resultSet.getString("lecturerName"));
+                course.setRoomName(resultSet.getString("roomName"));
+                course.setEnrolledStudents(resultSet.getInt("enrolledStudents"));
+                courses.add(course);
+            }
+        } catch (SQLException e) {
+            throw new RuntimeException("Error getting all courses", e);
         }
-    } catch (SQLException e) {
-        e.printStackTrace();
+        return courses;
     }
-    return courses;
-}
+
     public List<Student> getAllStudents() {
         List<Student> students = new ArrayList<>();
         String sql = "SELECT * FROM Students";
@@ -147,14 +132,33 @@ public class DBConnector {
                 student.setStudentId(resultSet.getInt("studentId"));
                 student.setStudentName(resultSet.getString("studentName"));
                 student.setProgrammeName(resultSet.getString("programmeName"));
-                // Add more attributes as needed
                 students.add(student);
             }
         } catch (SQLException e) {
-            e.printStackTrace();
+            throw new RuntimeException("Error getting all students", e);
         }
         return students;
     }
+
+    public List<Lecturer> getAllLecturers() {
+        List<Lecturer> lecturers = new ArrayList<>();
+        String sql = "SELECT * FROM Lecturers";
+        try (Connection conn = DriverManager.getConnection(DB_URL, USER, PASSWORD);
+             PreparedStatement statement = conn.prepareStatement(sql);
+             ResultSet resultSet = statement.executeQuery()) {
+            while (resultSet.next()) {
+                Lecturer lecturer = new Lecturer();
+                lecturer.setLecturerId(resultSet.getInt("lecturerId"));
+                lecturer.setLecturerName(resultSet.getString("lecturerName"));
+                lecturer.setRole(resultSet.getString("role"));
+                lecturers.add(lecturer);
+            }
+        } catch (SQLException e) {
+            throw new RuntimeException("Error getting all lecturers", e);
+        }
+        return lecturers;
+    }
+
     public Lecturer getLecturerByName(String lecturerName) {
         Lecturer lecturer = null;
         String sql = "SELECT * FROM Lecturers WHERE lecturerName = ?";
@@ -167,16 +171,14 @@ public class DBConnector {
                     lecturer.setLecturerId(resultSet.getInt("lecturerId"));
                     lecturer.setLecturerName(resultSet.getString("lecturerName"));
                     lecturer.setRole(resultSet.getString("role"));
-                    // Add more attributes as needed
                 }
             }
         } catch (SQLException e) {
-            e.printStackTrace();
+            throw new RuntimeException("Error getting lecturer by name", e);
         }
         return lecturer;
     }
 
-    // Method to close database connection
     public void closeConnection() {
         // Close any open resources if needed
     }
