@@ -96,7 +96,7 @@ public List<Student> getAllStudents() throws SQLException {
         return false;
     }
 }
-    public String getUserRole(String username) {
+public String getUserRole(String username) {
     String query = "SELECT role FROM Users WHERE username = ?";
     try (Connection connection = getConnection();
          PreparedStatement statement = connection.prepareStatement(query)) {
@@ -109,7 +109,7 @@ public List<Student> getAllStudents() throws SQLException {
     } catch (SQLException e) {
         e.printStackTrace();
     }
-    return null;
+    return null; // Return null if the user role could not be retrieved
 }
     // Method to delete a user from the database
     public boolean deleteUser(String username) {
@@ -141,12 +141,11 @@ public List<Student> getAllStudents() throws SQLException {
     }
 
     // Method to change the password of a user in the database
-    public boolean modifyPassword(String username, String newPassword) {
+    public boolean modifyPassword(String newPassword) {
         String query = "UPDATE Users SET password = ? WHERE username = ?";
         try (Connection connection = getConnection();
              PreparedStatement statement = connection.prepareStatement(query)) {
             statement.setString(1, newPassword);
-            statement.setString(2, username);
             int rowsAffected = statement.executeUpdate();
             return rowsAffected > 0;
         } catch (SQLException e) {
@@ -154,6 +153,33 @@ public List<Student> getAllStudents() throws SQLException {
             return false;
         }
     }
+public boolean modifyOwnPassword(String loggedInUser, String newPassword) {
+    String query = "UPDATE Users SET password = ? WHERE username = ?";
+    try (Connection connection = getConnection();
+         PreparedStatement statement = connection.prepareStatement(query)) {
+        statement.setString(1, newPassword);
+        statement.setString(2, loggedInUser);
+        int rowsAffected = statement.executeUpdate();
+        return rowsAffected > 0;
+    } catch (SQLException e) {
+        e.printStackTrace();
+        return false;
+    }
+}
+
+public boolean modifyOwnUser(String loggedInUser, String newUsername) {
+    String query = "UPDATE Users SET username = ? WHERE username = ?";
+    try (Connection connection = getConnection();
+         PreparedStatement statement = connection.prepareStatement(query)) {
+        statement.setString(1, newUsername);
+        statement.setString(2, loggedInUser);
+        int rowsAffected = statement.executeUpdate();
+        return rowsAffected > 0;
+    } catch (SQLException e) {
+        e.printStackTrace();
+        return false;
+    }
+}
 
     // Method to add a new user to the database
     public boolean addUser(String username, String password, String role) {
@@ -202,5 +228,22 @@ public List<Student> getAllStudents() throws SQLException {
         int rowsAffected = statement.executeUpdate();
         return rowsAffected > 0;
     }
+    }
+    public boolean usernameExists(String username) {
+    String query = "SELECT COUNT(*) FROM Users WHERE username = ?";
+    try (Connection connection = getConnection();
+         PreparedStatement statement = connection.prepareStatement(query)) {
+        statement.setString(1, username);
+        try (ResultSet resultSet = statement.executeQuery()) {
+            if (resultSet.next()) {
+                int count = resultSet.getInt(1);
+                return count > 0; // Return true if username exists, false otherwise
+            }
+        }
+    } catch (SQLException e) {
+        e.printStackTrace();
+    }
+    return false; // Return false by default (error or no result)
 }
 }
+

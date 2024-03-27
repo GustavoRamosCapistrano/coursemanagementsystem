@@ -5,7 +5,6 @@
 package coursemanagementsystem;
 
 import java.sql.SQLException;
-import java.util.Scanner;
 
 /**
  *
@@ -24,11 +23,17 @@ public class UserManager {
     }
 
     public boolean addUser(String username, String password, String role) throws SQLException {
+        // Check if the username already exists
+        if (dbConnector.usernameExists(username)) {
+            System.out.println("Username already exists. Please choose a different username.");
+            return false;
+        }
+        // Proceed with adding the user to the database
         return dbConnector.addUser(username, password, role);
     }
 
-    public boolean modifyPassword(String username, String newPassword) {
-        return dbConnector.modifyPassword(username, newPassword);
+    public boolean modifyPassword(String newPassword) {
+        return dbConnector.modifyPassword(newPassword);
     }
 
     public boolean modifyUserRole(String username, String newRole) {
@@ -46,35 +51,9 @@ public class UserManager {
     public boolean modifyUser(String modifyUsername, String newUsername, String newPassword, String newRole) throws SQLException {
         return dbConnector.modifyUser(modifyUsername, newUsername, newPassword, newRole);
     }
-
-    public boolean changePasswordOrUsername(String loggedInUser, Scanner scanner) {
-        System.out.println("Enter new password:");
-        String newPassword = scanner.nextLine();
-        System.out.println("Enter new username:");
-        String newUsername = scanner.nextLine();
-
-        if (dbConnector.modifyPassword(loggedInUser, newPassword) && dbConnector.modifyUsername(loggedInUser, newUsername)) {
-            System.out.println("Password and username updated successfully.");
-            return true;
-        } else {
-            System.out.println("Failed to update password or username.");
-            return false;
-        }
-    }
-
-    // Method to modify user
-    public void modifyUser(Scanner scanner) {
-        System.out.println("Enter username of the user to modify:");
-        String username = scanner.nextLine();
-        System.out.println("Enter new password for the user:");
-        String newPassword = scanner.nextLine();
-        System.out.println("Enter new role for the user:");
-        String newRole = scanner.nextLine();
-
-        if (dbConnector.modifyPassword(username, newPassword) && dbConnector.modifyUserRole(username, newRole)) {
-            System.out.println("User modified successfully.");
-        } else {
-            System.out.println("Failed to modify user.");
-        }
-    }
+    public boolean usernameExists(String username) {
+        // Call a method from the DBConnector to check if the username exists
+        return dbConnector.usernameExists(username);
+}
+    
 }
