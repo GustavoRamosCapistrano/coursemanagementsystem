@@ -8,8 +8,8 @@ package coursemanagementsystem;
  *
  * @author grc29
  */
-
 public class UserManager {
+
     private DBConnector dbConnector;
 
     public UserManager() {

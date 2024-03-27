@@ -9,6 +9,7 @@ package coursemanagementsystem;
  * @author grc29
  */
 public class ReportManager {
+
     private DBConnector dbConnector;
 
     public ReportManager() {
