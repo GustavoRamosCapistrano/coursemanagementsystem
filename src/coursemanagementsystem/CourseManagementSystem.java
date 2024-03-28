@@ -9,11 +9,11 @@ import java.util.Scanner;
  */
 public class CourseManagementSystem {
 
-    public static void main(String[] args) throws SQLException {
+    public static void main(String[] args) {
+        DBConnector dbConnector = new DBConnector(); // Declare and initialize dbConnector
         try (Scanner scanner = new Scanner(System.in)) {
-            DBConnector dbConnector = new DBConnector();
             UserManager userManager = new UserManager(dbConnector);
-            ReportManager reportManager = new ReportManager();
+            ReportManager reportManager = new ReportManager(dbConnector);
             String loggedInUser = null;
 
             // Login loop
@@ -34,22 +34,30 @@ public class CourseManagementSystem {
 
                 int choice = Menu.getUserChoice(scanner, userRole);
 
-                // Create an instance of Menu
-                Menu menu = new Menu(dbConnector, reportManager);
-                
-                if (userRole.equals("Admin")) {
-                    // Call the method on the Menu instance
-                    menu.processAdminChoice(choice, userManager, loggedInUser, scanner);
-                } else if (userRole.equals("Lecturer")) {
-                    // Call the method on the Menu instance
-                    menu.processLecturerChoice(choice, userManager, loggedInUser, scanner);
-                } else if (userRole.equals("Office")) {
-                    // Call the method on the Menu instance for Office
-                    menu.processOfficeChoice(choice, userManager, loggedInUser, scanner);
-                } else {
-                    System.out.println("Invalid user role. Please contact the administrator.");
-                }
+                // Process user choice based on role
+                processUserChoice(choice, userRole, userManager, loggedInUser, scanner, reportManager, dbConnector);
             }
+        } catch (SQLException e) {
+            System.err.println("An error occurred: " + e.getMessage());
+            e.printStackTrace(); // Print stack trace for debugging
+        }
+    }
+    private static void processUserChoice(int choice, String userRole, UserManager userManager,
+                                          String loggedInUser, Scanner scanner, ReportManager reportManager,
+                                          DBConnector dbConnector) throws SQLException {
+        Menu menu = new Menu(dbConnector, reportManager);
+        switch (userRole) {
+            case "admin":
+                menu.processAdminChoice(choice, userManager, loggedInUser, scanner);
+                break;
+            case "lecturer":
+                menu.processLecturerChoice(choice, userManager, loggedInUser, scanner);
+                break;
+            case "office":
+                menu.processOfficeChoice(choice, userManager, loggedInUser, scanner);
+                break;
+            default:
+                System.out.println("Invalid user role. Please contact the administrator.");
         }
     }
 }

@@ -17,6 +17,11 @@ public class Course {
     private String roomName;
     private int enrolledStudents;
 
+    public Course(int courseId, String courseName, int programmeId, int lecturerId, int roomId, int enrolledStudents) {
+    this.courseId = courseId;
+    this.courseName = courseName;
+    // Set other fields similarly
+}
     // Constructor, getters, and setters
     public int getCourseId() {
         return courseId;

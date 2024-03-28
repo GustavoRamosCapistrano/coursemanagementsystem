@@ -43,14 +43,14 @@ public class Menu {
             + "4. Exit";
 
     public static void displayMenu(String userRole) {
-        switch (userRole) {
-            case "Admin":
+        switch (userRole.toLowerCase()) {
+            case "admin":
                 System.out.println(MENU_OPTIONS_ADMIN);
                 break;
-            case "Office":
+            case "office":
                 System.out.println(MENU_OPTIONS_OFFICE);
                 break;
-            case "Lecturer":
+            case "lecturer":
                 System.out.println(MENU_OPTIONS_LECTURER);
                 break;
             default:
@@ -62,7 +62,7 @@ public class Menu {
     public static String login(Scanner scanner, UserManager userManager) throws SQLException {
         while (true) {
             System.out.print("Enter username: ");
-            String username = scanner.nextLine();
+            String username = scanner.nextLine().toLowerCase(); // Convert username to lowercase
             System.out.print("Enter password: ");
             String password = scanner.nextLine();
 
@@ -81,7 +81,7 @@ public class Menu {
             String input = scanner.nextLine();
             try {
                 int choice = Integer.parseInt(input);
-                if (isValidChoice(choice, userRole)) {
+                if (isValidChoice(choice, userRole.toLowerCase())) { // Convert userRole to lowercase
                     return choice;
                 } else {
                     System.out.println("Invalid choice. Please enter a valid option.\n");
@@ -94,14 +94,14 @@ public class Menu {
 
     private static boolean isValidChoice(int choice, String userRole) {
         switch (userRole) {
-            case "Admin":
-                return choice >= 1 && choice <= 6; // Changed to include option 6
-            case "Office":
+            case "admin":
+                return choice >= 1 && choice <= 6; 
+            case "office":
                 return choice >= 1 && choice <= 5;
-            case "Lecturer":
-                return choice >= 1 && choice <= 3;
-            case "Export": // Include a case for "Export" role
-                return choice >= 1 && choice <= 3; // Assuming there are 3 export options
+            case "lecturer":
+                return choice >= 1 && choice <= 4;
+            case "export": 
+                return choice >= 1 && choice <= 3; 
             default:
                 return false;
         }
@@ -123,13 +123,13 @@ public class Menu {
             int choice = getUserChoice(scanner, userRole);
 
             try {
-                if (userRole.equals("Admin")) {
+                if (userRole.equals("admin")) {
                     // Call the method to process admin choice
                     processAdminChoice(choice, userManager, loggedInUser, scanner);
-                } else if (userRole.equals("Lecturer")) {
+                } else if (userRole.equals("lecturer")) {
                     // Call the method to process lecturer choice
                     processLecturerChoice(choice, userManager, loggedInUser, scanner);
-                } else if (userRole.equals("Office")) {
+                } else if (userRole.equals("office")) {
                     // Call the method to process office choice
                     processOfficeChoice(choice, userManager, loggedInUser, scanner);
                 } else {
@@ -148,11 +148,11 @@ public class Menu {
             case 1:
                 // Add new user
                 System.out.println("Enter username:");
-                String username = scanner.nextLine();
+                String username = scanner.nextLine().toLowerCase(); // Convert username to lowercase
                 System.out.println("Enter password:");
                 String password = scanner.nextLine();
                 System.out.println("Enter role:");
-                String role = scanner.nextLine();
+                String role = scanner.nextLine().toLowerCase(); // Convert role to lowercase
                 try {
                     success = userManager.addUser(username, password, role);
                     if (success) {
@@ -167,13 +167,13 @@ public class Menu {
             case 2:
                 // Modify user
                 System.out.println("Enter the username of the user you want to modify:");
-                String modifyUsername = scanner.nextLine();
+                String modifyUsername = scanner.nextLine().toLowerCase(); // Convert username to lowercase
                 System.out.println("Enter the new username:");
-                String newUsername = scanner.nextLine();
+                String newUsername = scanner.nextLine().toLowerCase(); // Convert username to lowercase
                 System.out.println("Enter the new password:");
                 String newPassword = scanner.nextLine();
                 System.out.println("Enter the new role:");
-                String newRole = scanner.nextLine();
+                String newRole = scanner.nextLine().toLowerCase(); // Convert role to lowercase
                 success = userManager.modifyUser(modifyUsername, newUsername, newPassword, newRole);
                 if (success) {
                     System.out.println("User modified successfully.");
@@ -184,7 +184,7 @@ public class Menu {
             case 3:
                 // Delete user
                 System.out.println("Enter the username of the user you want to delete:");
-                String deleteUsername = scanner.nextLine();
+                String deleteUsername = scanner.nextLine().toLowerCase(); // Convert username to lowercase
                 success = userManager.deleteUser(deleteUsername);
                 if (success) {
                     System.out.println("User deleted successfully.");
@@ -195,7 +195,7 @@ public class Menu {
             case 4:
                 // Change own username
                 System.out.println("Enter your new username:");
-                 newUsername = scanner.nextLine();
+                newUsername = scanner.nextLine().toLowerCase(); // Convert username to lowercase
                 success = dbConnector.modifyOwnUser(loggedInUser, newUsername);
                 if (success) {
                     System.out.println("Username changed successfully. Please restart the program.");
@@ -205,9 +205,9 @@ public class Menu {
                 }
                 break;
             case 5:
-                // Change own password
+// Change own password
                 System.out.println("Enter your new password:");
-                 newPassword = scanner.nextLine();
+                newPassword = scanner.nextLine();
                 success = dbConnector.modifyOwnPassword(loggedInUser, newPassword);
                 if (success) {
                     System.out.println("Password changed successfully. Please restart the program.");
@@ -217,96 +217,171 @@ public class Menu {
                 }
                 break;
             case 6:
-                // Exit
+// Exit
                 System.out.println("Exiting program...");
                 System.exit(0); // Terminate the program
                 break;
             default:
                 System.out.println("Invalid choice. Please try again.");
         }
-    }
+    }// Method to process lecturer choices
 
-    // Method to process lecturer choices
-    public void processLecturerChoice(int choice, UserManager userManager, String loggedInUser, Scanner scanner) {
-        boolean success;
-        String newUsername; // Declare newUsername here
-        switch (choice) {
-            case 1:
-                // Generate report
-                String lecturerReport = reportManager.generateLecturerReport();
-                reportManager.exportReportToTxt(lecturerReport, "Lecturer_Report");
-                break;
-            case 2:
-                // Change own username
-                System.out.println("Enter your new username:");
-                newUsername = scanner.nextLine();
-                success = dbConnector.modifyOwnUser(loggedInUser, newUsername);
-                if (success) {
-                    System.out.println("Username changed successfully. Please restart the program.");
-                    System.exit(0); // Terminate the program
-                } else {
-                    System.out.println("Failed to change username.");
-                }
-                break;
-            case 3:
-                // Change own password
-                System.out.println("Enter your new password:");
-                String newPassword = scanner.nextLine();
-                success = dbConnector.modifyOwnPassword(loggedInUser, newPassword);
-                if (success) {
-                    System.out.println("Password changed successfully. Please restart the program.");
-                    System.exit(0); // Terminate the program
-                } else {
-                    System.out.println("Failed to change password.");
-                }
-                break;
-            case 4:
-                // Exit
-                System.out.println("Exiting program...");
+   public void processLecturerChoice(int choice, UserManager userManager, String loggedInUser, Scanner scanner) {
+    boolean success;
+    String newUsername; // Declare newUsername here
+    switch (choice) {
+        case 1:
+            try {
+                // Generate lecturer report data
+                String reportData = reportManager.generateLecturerReport(loggedInUser);
+                // Display report format menu
+                displayReportFormatMenuLecturerChoice(scanner, reportData);
+            } catch (SQLException e) {
+                System.out.println("An error occurred while generating the lecturer report: " + e.getMessage());
+            }
+            break;
+        case 2:
+            // Change own username
+            System.out.println("Enter your new username:");
+            newUsername = scanner.nextLine().toLowerCase(); // Convert username to lowercase
+            success = dbConnector.modifyOwnUser(loggedInUser, newUsername);
+            if (success) {
+                System.out.println("Username changed successfully. Please restart the program.");
                 System.exit(0); // Terminate the program
-                break;
-            default:
-                System.out.println("Invalid choice. Please try again.");
-        }
-    }
-    
-    // Method to process office choices
-    public void processOfficeChoice(int choice, UserManager userManager, String loggedInUser, Scanner scanner) throws SQLException {
-        switch (choice) {
-            case 1:
-                // Generate course report
-                String courseReport = reportManager.generateCourseReport();
-                reportManager.exportReportToTxt(courseReport, "Course_Report");
-                break;
-            case 2:
-                // Generate student report
-                String studentReport = reportManager.generateStudentReport();
-                reportManager.exportReportToTxt(studentReport, "Student_Report");
-                break;
-            case 3:
-                // Generate lecturer report
-                String lecturerReport = reportManager.generateLecturerReport();
-                reportManager.exportReportToTxt(lecturerReport, "Lecturer_Report");
-                break;
-            case 4:
-                // Change own username/password
-                System.out.println("Enter your new username:");
-                String newUsername = scanner.nextLine();
-                boolean success = dbConnector.modifyOwnUser(loggedInUser, newUsername);
-                if (success) {
-                    System.out.println("Username changed successfully. Please restart the program.");
-                    System.exit(0); // Terminate the program
-                } else {
-                    System.out.println("Failed to change username.");
-                }
-                break;
-            case 5:
-                // Exit
-                System.out.println("Exiting program...");
+            } else {
+                System.out.println("Failed to change username.");
+            }
+            break;
+        case 3:
+            // Change own password
+            System.out.println("Enter your new password:");
+            String newPassword = scanner.nextLine();
+            success = dbConnector.modifyOwnPassword(loggedInUser, newPassword);
+            if (success) {
+                System.out.println("Password changed successfully. Please restart the program.");
                 System.exit(0); // Terminate the program
-                break;
-            default:
-                System.out.println("Invalid choice. Please try again.");
-        }
+            } else {
+                System.out.println("Failed to change password.");
+            }
+            break;
+        case 4:
+            // Exit
+            System.out.println("Exiting program...");
+            System.exit(0); // Terminate the program
+            break;
+        default:
+            System.out.println("Invalid choice. Please try again.");
     }
+}
+
+// Method to process office choices
+public void processOfficeChoice(int choice, UserManager userManager, String loggedInUser, Scanner scanner) throws SQLException {
+    switch (choice) {
+        case 1:
+            // Generate course report
+            String courseReport = reportManager.generateCourseReport();
+            System.out.println(courseReport);
+            break;
+        case 2:
+            // Generate student report
+            System.out.println("Enter student ID:");
+            int studentId = scanner.nextInt();
+            scanner.nextLine(); // Consume newline character
+            String studentReport = reportManager.generateStudentReport(studentId);
+            System.out.println(studentReport);
+            break;
+        case 3:
+    // Generate lecturer report
+    try {
+        String lecturerReport = reportManager.generateAllLecturersReport(); // Changed method call
+        displayReportFormatMenuOfficeChoice(scanner, lecturerReport);
+    } catch (SQLException e) {
+        System.out.println("An error occurred while generating the lecturer report: " + e.getMessage());
+    }
+    break;
+        case 4:
+            // Change own username/password
+            System.out.println("Enter your new username:");
+            String newUsername = scanner.nextLine().toLowerCase(); // Convert username to lowercase
+            boolean success = dbConnector.modifyOwnUser(loggedInUser, newUsername);
+            if (success) {
+                System.out.println("Username changed successfully. Please restart the program.");
+                System.exit(0); // Terminate the program
+            } else {
+                System.out.println("Failed to change username.");
+            }
+            break;
+        case 5:
+            // Exit
+            System.out.println("Exiting program...");
+            System.exit(0); // Terminate the program
+            break;
+        default:
+            System.out.println("Invalid choice. Please try again.");
+    }
+}
+private void displayReportFormatMenuLecturerChoice(Scanner scanner, String reportData) {
+    System.out.println("Choose report format:");
+    System.out.println("1. TXT file");
+    System.out.println("2. CSV file");
+    System.out.println("3. NetBeans Console");
+
+    int choice = getUserChoice(scanner, "lecturer");
+
+    switch (choice) {
+        case 1:
+            reportManager.generateLecturerReportInTxt(reportData);
+            break;
+        case 2:
+            reportManager.generateLecturerReportInCsv(reportData);
+            break;
+        case 3:
+            reportManager.generateLecturerReportInConsole(reportData);
+            break;
+        default:
+            System.out.println("Invalid choice. Please try again.");
+            break;
+    }
+}
+private void displayReportFormatMenuOfficeChoice(Scanner scanner, String reportData, String reportType) {
+    System.out.println("Choose report format:");
+    System.out.println("1. TXT file");
+    System.out.println("2. CSV file");
+    System.out.println("3. NetBeans Console");
+
+    int choice = getUserChoice(scanner, reportType);
+
+    switch (choice) {
+        case 1:
+            if (reportType.equals("lecturer")) {
+                reportManager.generateLecturerReportInTxt(reportData);
+            } else if (reportType.equals("course")) {
+                reportManager.generateCourseReportInTxt(reportData);
+            } else if (reportType.equals("student")) {
+                reportManager.generateStudentReportInTxt(reportData);
+            }
+            break;
+        case 2:
+            if (reportType.equals("lecturer")) {
+                reportManager.generateLecturerReportInCsv(reportData);
+            } else if (reportType.equals("course")) {
+                reportManager.generateCourseReportInCsv(reportData);
+            } else if (reportType.equals("student")) {
+                reportManager.generateStudentReportInCsv(reportData);
+            }
+            break;
+        case 3:
+            if (reportType.equals("lecturer")) {
+                reportManager.generateLecturerReportInConsole(reportData);
+            } else if (reportType.equals("course")) {
+                reportManager.generateCourseReportInConsole(reportData);
+            } else if (reportType.equals("student")) {
+                reportManager.generateStudentReportInConsole(reportData);
+            }
+            break;
+        default:
+            System.out.println("Invalid choice. Please try again.");
+            break;
+    }
+}
 }

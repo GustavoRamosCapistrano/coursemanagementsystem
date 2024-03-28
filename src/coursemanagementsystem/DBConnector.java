@@ -9,6 +9,7 @@ import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -23,29 +24,29 @@ public class DBConnector {
     private final String PASSWORD = "pooa2024";
 
     // Method to establish connection with the database
-    private Connection getConnection() throws SQLException {
+    public Connection getConnection() throws SQLException {
         return DriverManager.getConnection(DB_URL, USER, PASSWORD);
     }
 
     // Method to retrieve all courses from the database
     public List<Course> getAllCourses() throws SQLException {
-        List<Course> courses = new ArrayList<>();
-        String query = "SELECT * FROM Courses";
-        try (Connection connection = getConnection();
-             PreparedStatement statement = connection.prepareStatement(query);
-             ResultSet resultSet = statement.executeQuery()) {
-            while (resultSet.next()) {
-                Course course = new Course();
-                course.setCourseName(resultSet.getString("course_name"));
-                course.setProgrammeName(resultSet.getString("programme_id")); // Assuming this is an ID
-                course.setEnrolledStudents(resultSet.getInt("enrolled_students"));
-                course.setLecturerName(resultSet.getString("lecturer_id")); // Assuming this is an ID
-                course.setRoomName(resultSet.getString("room_id")); // Assuming this is an ID
-                courses.add(course);
-            }
+    List<Course> courses = new ArrayList<>();
+    try (Connection conn = DriverManager.getConnection(DB_URL, USER, PASSWORD);
+         Statement stmt = conn.createStatement();
+         ResultSet rs = stmt.executeQuery("SELECT course_id, course_name, programme_id, lecturer_id, room_id, enrolled_students FROM Courses")) {
+        while (rs.next()) {
+            int courseId = rs.getInt("course_id");
+            String courseName = rs.getString("course_name");
+            int programmeId = rs.getInt("programme_id");
+            int lecturerId = rs.getInt("lecturer_id");
+            int roomId = rs.getInt("room_id");
+            int enrolledStudents = rs.getInt("enrolled_students");
+            Course course = new Course(courseId, courseName, programmeId, lecturerId, roomId, enrolledStudents);
+            courses.add(course);
         }
-        return courses;
     }
+    return courses;
+}
 
     // Method to retrieve all students from the database
 public List<Student> getAllStudents() throws SQLException {
