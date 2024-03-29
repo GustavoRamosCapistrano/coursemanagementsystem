@@ -17,54 +17,59 @@ public class Course {
     private String roomName;
     private int enrolledStudents;
 
-    public Course(int courseId, String courseName, int programmeId, int lecturerId, int roomId, int enrolledStudents) {
-    this.courseId = courseId;
-    this.courseName = courseName;
-    // Set other fields similarly
-}
-    // Constructor, getters, and setters
+    public Course(int courseId, String courseName, String programmeName, String lecturerName, String roomName, int enrolledStudents) {
+        this.courseId = courseId;
+        this.courseName = courseName;
+        this.programmeName = programmeName;
+        this.lecturerName = lecturerName;
+        this.roomName = roomName;
+        this.enrolledStudents = enrolledStudents;
+    }
+
+    // Getters and setters
+
     public int getCourseId() {
         return courseId;
-    }
-
-    public String getCourseName() {
-        return courseName;
-    }
-
-    public String getProgrammeName() {
-        return programmeName;
-    }
-
-    public String getLecturerName() {
-        return lecturerName;
-    }
-
-    public String getRoomName() {
-        return roomName;
-    }
-
-    public int getEnrolledStudents() {
-        return enrolledStudents;
     }
 
     public void setCourseId(int courseId) {
         this.courseId = courseId;
     }
 
+    public String getCourseName() {
+        return courseName;
+    }
+
     public void setCourseName(String courseName) {
         this.courseName = courseName;
+    }
+
+    public String getProgrammeName() {
+        return programmeName;
     }
 
     public void setProgrammeName(String programmeName) {
         this.programmeName = programmeName;
     }
 
+    public String getLecturerName() {
+        return lecturerName;
+    }
+
     public void setLecturerName(String lecturerName) {
         this.lecturerName = lecturerName;
     }
 
+    public String getRoomName() {
+        return roomName;
+    }
+
     public void setRoomName(String roomName) {
         this.roomName = roomName;
+    }
+
+    public int getEnrolledStudents() {
+        return enrolledStudents;
     }
 
     public void setEnrolledStudents(int enrolledStudents) {

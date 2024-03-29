@@ -14,11 +14,19 @@ public class Student {
 
     private int studentId;
     private String studentName;
-    private int programmeId; 
     private String programmeName;
-    private List<String> enrolledModules;
-    private List<String> completedModules;
-    private List<String> repeatModules;
+    private int enrolledModules;
+    private int completedModules;
+    private int repeatModules;
+
+    public Student(int studentId, String studentName, String programmeName, int enrolledModules, int completedModules, int repeatModules) {
+        this.studentId = studentId;
+        this.studentName = studentName;
+        this.programmeName = programmeName;
+        this.enrolledModules = enrolledModules;
+        this.completedModules = completedModules;
+        this.repeatModules = repeatModules;
+    }
 
     public int getStudentId() {
         return studentId;
@@ -28,23 +36,19 @@ public class Student {
         return studentName;
     }
 
-    public int getProgrammeId() { 
-        return programmeId;
-    }
-
     public String getProgrammeName() {
         return programmeName;
     }
 
-    public List<String> getEnrolledModules() {
+    public int getEnrolledModules() {
         return enrolledModules;
     }
 
-    public List<String> getCompletedModules() {
+    public int getCompletedModules() {
         return completedModules;
     }
 
-    public List<String> getRepeatModules() {
+    public int getRepeatModules() {
         return repeatModules;
     }
 
@@ -56,23 +60,19 @@ public class Student {
         this.studentName = studentName;
     }
 
-    public void setProgrammeId(int programmeId) {
-        this.programmeId = programmeId;
-    }
-
     public void setProgrammeName(String programmeName) {
         this.programmeName = programmeName;
     }
 
-    public void setEnrolledModules(List<String> enrolledModules) {
+    public void setEnrolledModules(int enrolledModules) {
         this.enrolledModules = enrolledModules;
     }
 
-    public void setCompletedModules(List<String> completedModules) {
+    public void setCompletedModules(int completedModules) {
         this.completedModules = completedModules;
     }
 
-    public void setRepeatModules(List<String> repeatModules) {
+    public void setRepeatModules(int repeatModules) {
         this.repeatModules = repeatModules;
     }
 }

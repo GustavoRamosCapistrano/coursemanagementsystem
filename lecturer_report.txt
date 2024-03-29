@@ -1,2 +1,102 @@
 Lecturer Report:
 Lecturer Name                  Role                 Module Name                              Enrolled Students    Classes Taught                
+john doe                       Associate Lecturer   Introduction to Computer Science         5                    Computer Science              
+Jane Smith                     Senior Lecturer      Data Structures and Algorithms           5                    Software Engineering          
+Michael Johnson                Professor            Database Management Systems              5                    Artificial Intelligence       
+Emily Brown                    Programme Manager    Software Engineering                     5                    Business Administration       
+David Wilson                   Associate Lecturer   Web Development                          5                    Mathematics                   
+Jennifer Lee                   Senior Lecturer      Computer Networks                        5                    Chemistry                     
+Christopher Taylor             Professor            Artificial Intelligence                  5                    Physics                       
+Sarah Martinez                 Associate Lecturer   Machine Learning                         5                    English Literature            
+Daniel Anderson                Senior Lecturer      Cybersecurity                            5                    History                       
+Amanda White                   Professor            Computer Graphics                        5                    Psychology                    
+john doe                       Associate Lecturer   Electrical Circuits                      5                    Computer Science              
+Jane Smith                     Senior Lecturer      Digital Signal Processing                5                    Software Engineering          
+Michael Johnson                Professor            Control Systems                          5                    Artificial Intelligence       
+Emily Brown                    Programme Manager    Power Systems                            5                    Business Administration       
+David Wilson                   Associate Lecturer   Electromagnetic Fields                   5                    Mathematics                   
+Jennifer Lee                   Senior Lecturer      Microelectronics                         5                    Chemistry                     
+Christopher Taylor             Professor            Renewable Energy Systems                 5                    Physics                       
+Sarah Martinez                 Associate Lecturer   Robotics                                 5                    English Literature            
+Daniel Anderson                Senior Lecturer      Embedded Systems                         5                    History                       
+Amanda White                   Professor            VLSI Design                              5                    Psychology                    
+john doe                       Associate Lecturer   Principles of Management                 0                    Computer Science              
+Jane Smith                     Senior Lecturer      Marketing Management                     0                    Software Engineering          
+Michael Johnson                Professor            Financial Management                     0                    Artificial Intelligence       
+Emily Brown                    Programme Manager    Human Resource Management                0                    Business Administration       
+David Wilson                   Associate Lecturer   Operations Management                    0                    Mathematics                   
+Jennifer Lee                   Senior Lecturer      Strategic Management                     0                    Chemistry                     
+Christopher Taylor             Professor            Organizational Behavior                  0                    Physics                       
+Sarah Martinez                 Associate Lecturer   Business Ethics                          0                    English Literature            
+Daniel Anderson                Senior Lecturer      International Business                   0                    History                       
+Amanda White                   Professor            Entrepreneurship                         0                    Psychology                    
+john doe                       Associate Lecturer   Engineering Mechanics                    0                    Computer Science              
+Jane Smith                     Senior Lecturer      Mechanical Vibrations                    0                    Software Engineering          
+Michael Johnson                Professor            Thermodynamics                           0                    Artificial Intelligence       
+Emily Brown                    Programme Manager    Fluid Mechanics                          0                    Business Administration       
+David Wilson                   Associate Lecturer   Heat Transfer                            0                    Mathematics                   
+Jennifer Lee                   Senior Lecturer      Materials Science                        0                    Chemistry                     
+Christopher Taylor             Professor            Manufacturing Processes                  0                    Physics                       
+Sarah Martinez                 Associate Lecturer   Mechatronics                             0                    English Literature            
+Daniel Anderson                Senior Lecturer      Automotive Engineering                   0                    History                       
+Amanda White                   Professor            Aerospace Structures                     0                    Psychology                    
+john doe                       Associate Lecturer   General Physics                          0                    Computer Science              
+Jane Smith                     Senior Lecturer      Classical Mechanics                      0                    Software Engineering          
+Michael Johnson                Professor            Electromagnetism                         0                    Artificial Intelligence       
+Emily Brown                    Programme Manager    Quantum Mechanics                        0                    Business Administration       
+David Wilson                   Associate Lecturer   Statistical Mechanics                    0                    Mathematics                   
+Jennifer Lee                   Senior Lecturer      Solid State Physics                      0                    Chemistry                     
+Christopher Taylor             Professor            Nuclear Physics                          0                    Physics                       
+Sarah Martinez                 Associate Lecturer   Particle Physics                         0                    English Literature            
+Daniel Anderson                Senior Lecturer      Astrophysics                             0                    History                       
+Amanda White                   Professor            Cosmology                                0                    Psychology                    
+john doe                       Associate Lecturer   Organic Chemistry                        0                    Computer Science              
+Jane Smith                     Senior Lecturer      Inorganic Chemistry                      0                    Software Engineering          
+Michael Johnson                Professor            Physical Chemistry                       0                    Artificial Intelligence       
+Emily Brown                    Programme Manager    Analytical Chemistry                     0                    Business Administration       
+David Wilson                   Associate Lecturer   Biochemistry                             0                    Mathematics                   
+Jennifer Lee                   Senior Lecturer      Polymer Chemistry                        0                    Chemistry                     
+Christopher Taylor             Professor            Environmental Chemistry                  0                    Physics                       
+Sarah Martinez                 Associate Lecturer   Medicinal Chemistry                      0                    English Literature            
+Daniel Anderson                Senior Lecturer      Forensic Chemistry                       0                    History                       
+Amanda White                   Professor            Nanochemistry                            0                    Psychology                    
+john doe                       Associate Lecturer   Calculus                                 0                    Computer Science              
+Jane Smith                     Senior Lecturer      Linear Algebra                           0                    Software Engineering          
+Michael Johnson                Professor            Differential Equations                   0                    Artificial Intelligence       
+Emily Brown                    Programme Manager    Probability Theory                       0                    Business Administration       
+David Wilson                   Associate Lecturer   Statistics                               0                    Mathematics                   
+Jennifer Lee                   Senior Lecturer      Numerical Analysis                       0                    Chemistry                     
+Christopher Taylor             Professor            Mathematical Modeling                    0                    Physics                       
+Sarah Martinez                 Associate Lecturer   Operations Research                      0                    English Literature            
+Daniel Anderson                Senior Lecturer      Discrete Mathematics                     0                    History                       
+Amanda White                   Professor            Topology                                 0                    Psychology                    
+john doe                       Associate Lecturer   English Literature: From Chaucer to Milton 0                    Computer Science              
+Jane Smith                     Senior Lecturer      Romanticism and Victorian Literature     0                    Software Engineering          
+Michael Johnson                Professor            Modernism and Postmodernism              0                    Artificial Intelligence       
+Emily Brown                    Programme Manager    American Literature                      0                    Business Administration       
+David Wilson                   Associate Lecturer   World Literature                         0                    Mathematics                   
+Jennifer Lee                   Senior Lecturer      Shakespearean Studies                    0                    Chemistry                     
+Christopher Taylor             Professor            Poetry and Poetics                       0                    Physics                       
+Sarah Martinez                 Associate Lecturer   Drama and Performance                    0                    English Literature            
+Daniel Anderson                Senior Lecturer      Fiction and Narrative                    0                    History                       
+Amanda White                   Professor            Literary Theory                          0                    Psychology                    
+john doe                       Associate Lecturer   World History                            0                    Computer Science              
+Jane Smith                     Senior Lecturer      European History                         0                    Software Engineering          
+Michael Johnson                Professor            Asian History                            0                    Artificial Intelligence       
+Emily Brown                    Programme Manager    African History                          0                    Business Administration       
+David Wilson                   Associate Lecturer   Middle Eastern History                   0                    Mathematics                   
+Jennifer Lee                   Senior Lecturer      Latin American History                   0                    Chemistry                     
+Christopher Taylor             Professor            North American History                   0                    Physics                       
+Sarah Martinez                 Associate Lecturer   South American History                   0                    English Literature            
+Daniel Anderson                Senior Lecturer      Medieval History                         0                    History                       
+Amanda White                   Professor            Renaissance History                      0                    Psychology                    
+john doe                       Associate Lecturer   Cognitive Psychology                     0                    Computer Science              
+Jane Smith                     Senior Lecturer      Social Psychology                        0                    Software Engineering          
+Michael Johnson                Professor            Developmental Psychology                 0                    Artificial Intelligence       
+Emily Brown                    Programme Manager    Abnormal Psychology                      0                    Business Administration       
+David Wilson                   Associate Lecturer   Health Psychology                        0                    Mathematics                   
+Jennifer Lee                   Senior Lecturer      Industrial-Organizational Psychology     0                    Chemistry                     
+Christopher Taylor             Professor            Educational Psychology                   0                    Physics                       
+Sarah Martinez                 Associate Lecturer   Experimental Psychology                  0                    English Literature            
+Daniel Anderson                Senior Lecturer      Clinical Psychology                      0                    History                       
+Amanda White                   Professor            Biopsychology                            0                    Psychology                    

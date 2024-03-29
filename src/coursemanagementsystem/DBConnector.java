@@ -29,24 +29,24 @@ public class DBConnector {
     }
 
     // Method to retrieve all courses from the database
-    public List<Course> getAllCourses() throws SQLException {
-    List<Course> courses = new ArrayList<>();
-    try (Connection conn = DriverManager.getConnection(DB_URL, USER, PASSWORD);
-         Statement stmt = conn.createStatement();
-         ResultSet rs = stmt.executeQuery("SELECT course_id, course_name, programme_id, lecturer_id, room_id, enrolled_students FROM Courses")) {
-        while (rs.next()) {
-            int courseId = rs.getInt("course_id");
-            String courseName = rs.getString("course_name");
-            int programmeId = rs.getInt("programme_id");
-            int lecturerId = rs.getInt("lecturer_id");
-            int roomId = rs.getInt("room_id");
-            int enrolledStudents = rs.getInt("enrolled_students");
-            Course course = new Course(courseId, courseName, programmeId, lecturerId, roomId, enrolledStudents);
-            courses.add(course);
+   public List<Course> getAllCourses() throws SQLException {
+        List<Course> courses = new ArrayList<>();
+        try (Connection conn = DriverManager.getConnection(DB_URL, USER, PASSWORD);
+             Statement stmt = conn.createStatement();
+             ResultSet rs = stmt.executeQuery("SELECT course_id, course_name, programme_id, lecturer_id, room_id, enrolled_students FROM Courses")) {
+            while (rs.next()) {
+                int courseId = rs.getInt("course_id");
+                String courseName = rs.getString("course_name");
+                String programmeName = rs.getString("programme_name"); // assuming this is the correct column name
+                String lecturerName = rs.getString("lecturer_name"); // assuming this is the correct column name
+                String roomName = rs.getString("room_name"); // assuming this is the correct column name
+                int enrolledStudents = rs.getInt("enrolled_students");
+                Course course = new Course(courseId, courseName, programmeName, lecturerName, roomName, enrolledStudents);
+                courses.add(course);
+            }
         }
+        return courses;
     }
-    return courses;
-}
 
     // Method to retrieve all students from the database
 public List<Student> getAllStudents() throws SQLException {
@@ -56,33 +56,42 @@ public List<Student> getAllStudents() throws SQLException {
          PreparedStatement statement = connection.prepareStatement(query);
          ResultSet resultSet = statement.executeQuery()) {
         while (resultSet.next()) {
-            Student student = new Student();
-            student.setStudentName(resultSet.getString("student_name"));
-            student.setStudentId(resultSet.getInt("student_id")); // Change to getInt for programme_id
-            student.setProgrammeId(resultSet.getInt("programme_id"));
+            Student student = new Student(
+                resultSet.getInt("student_id"),
+                resultSet.getString("student_name"),
+                resultSet.getString("programme_name"),
+                resultSet.getInt("enrolled_modules"),
+                resultSet.getInt("completed_modules"),
+                resultSet.getInt("repeat_modules")
+            );
+            // Assuming you have other attributes for student
             students.add(student);
         }
     }
     return students;
 }
-
     // Method to retrieve all lecturers from the database
     public List<Lecturer> getAllLecturers() throws SQLException {
-        List<Lecturer> lecturers = new ArrayList<>();
-        String query = "SELECT * FROM Lecturers";
-        try (Connection connection = getConnection();
-             PreparedStatement statement = connection.prepareStatement(query);
-             ResultSet resultSet = statement.executeQuery()) {
-            while (resultSet.next()) {
-                Lecturer lecturer = new Lecturer();
-                lecturer.setLecturerName(resultSet.getString("lecturer_name"));
-                lecturer.setRole(resultSet.getString("role"));
-                // Assuming you have other attributes for lecturer
-                lecturers.add(lecturer);
-            }
+    List<Lecturer> lecturers = new ArrayList<>();
+    String query = "SELECT * FROM Lecturers";
+    try (Connection connection = getConnection();
+         PreparedStatement statement = connection.prepareStatement(query);
+         ResultSet resultSet = statement.executeQuery()) {
+        while (resultSet.next()) {
+            Lecturer lecturer = new Lecturer(
+                resultSet.getString("lecturer_name"),
+                resultSet.getString("role"),
+                resultSet.getString("modules_taught"),
+                resultSet.getInt("student_count"),
+                resultSet.getString("classes_taught")
+            );
+            // Assuming you have other attributes for lecturer
+            lecturers.add(lecturer);
         }
-        return lecturers;
     }
+    return lecturers;
+}
+
     public boolean modifyUsername(String loggedInUser, String newUsername) {
     String query = "UPDATE Users SET username = ? WHERE username = ?";
     try (Connection connection = getConnection();
@@ -245,6 +254,63 @@ public boolean modifyOwnUser(String loggedInUser, String newUsername) {
         e.printStackTrace();
     }
     return false; // Return false by default (error or no result)
+}
+     public List<Course> executeQueryForCourses(String query) throws SQLException {
+        List<Course> courses = new ArrayList<>();
+        try (Connection conn = getConnection();
+             PreparedStatement stmt = conn.prepareStatement(query);
+             ResultSet rs = stmt.executeQuery()) {
+            while (rs.next()) {
+                Course course = new Course(
+                        rs.getInt("course_id"),
+                        rs.getString("course_name"),
+                        rs.getString("programme_name"),
+                        rs.getString("lecturer_name"),
+                        rs.getString("room_name"),
+                        rs.getInt("enrolled_students")
+                );
+                courses.add(course);
+            }
+        }
+        return courses;
+    }
+     public List<Student> executeQueryForStudents(String query) throws SQLException {
+    List<Student> students = new ArrayList<>();
+    try (Connection conn = getConnection();
+         PreparedStatement stmt = conn.prepareStatement(query);
+         ResultSet rs = stmt.executeQuery()) {
+        while (rs.next()) {
+            Student student = new Student(
+                    rs.getInt("student_id"),
+                    rs.getString("student_name"),
+                    rs.getString("programme_name"),
+                    rs.getInt("enrolled_modules"),
+                    rs.getInt("completed_modules"),
+                    rs.getInt("repeat_modules")
+            );
+            students.add(student);
+        }
+    }
+    return students;
+}
+
+public List<Lecturer> executeQueryForLecturers(String query) throws SQLException {
+    List<Lecturer> lecturers = new ArrayList<>();
+    try (Connection conn = getConnection();
+         PreparedStatement stmt = conn.prepareStatement(query);
+         ResultSet rs = stmt.executeQuery()) {
+        while (rs.next()) {
+            Lecturer lecturer = new Lecturer(
+                    rs.getString("lecturer_name"),
+                    rs.getString("role"),
+                    rs.getString("modules_taught"),
+                    rs.getInt("student_count"),
+                    rs.getString("classes_taught")
+            );
+            lecturers.add(lecturer);
+        }
+    }
+    return lecturers;
 }
 }
 

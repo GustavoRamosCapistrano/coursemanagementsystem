@@ -4,14 +4,17 @@
  */
 package coursemanagementsystem;
 
+import java.io.BufferedWriter;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.sql.ResultSetMetaData;
 import java.sql.SQLException;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -26,232 +29,382 @@ public class ReportManager {
         this.dbConnector = dbConnector;
     }
 
-    public String generateCourseReport() throws SQLException {
-        StringBuilder report = new StringBuilder();
-        try ( Connection connection = dbConnector.getConnection();  PreparedStatement statement = connection.prepareStatement(
-                "SELECT "
-                + "c.course_name AS Module_Name, "
-                + "p.programme_name AS Programme, "
-                + "COUNT(e.enrollment_id) AS Enrolled_Students, "
-                + "l.lecturer_name AS Lecturer, "
-                + "COALESCE(r.room_name, 'online') AS Room_Assigned "
-                + "FROM "
-                + "Courses c "
-                + "INNER JOIN "
-                + "Programmes p ON c.programme_id = p.programme_id "
-                + "LEFT JOIN "
-                + "Enrollments e ON c.course_id = e.course_id "
-                + "LEFT JOIN "
-                + "Lecturers l ON c.lecturer_id = l.lecturer_id "
-                + "LEFT JOIN "
-                + "Rooms r ON c.room_id = r.room_id "
-                + "GROUP BY "
-                + "c.course_id, c.course_name, p.programme_name, l.lecturer_name, r.room_name")) {
-            ResultSet resultSet = statement.executeQuery();
-            report.append("Course Report:\n");
-            report.append(String.format("%-30s %-30s %-20s %-30s %-10s\n", "Module Name", "Programme", "Enrolled Students", "Lecturer", "Room Assigned"));
-            while (resultSet.next()) {
-                report.append(String.format("%-30s %-30s %-20d %-30s %-10s\n",
-                        resultSet.getString("Module_Name"),
-                        resultSet.getString("Programme"),
-                        resultSet.getInt("Enrolled_Students"),
-                        resultSet.getString("Lecturer"),
-                        resultSet.getString("Room_Assigned")));
-            }
-        } catch (SQLException e) {
-            // Handle SQL exception
-            System.err.println("An error occurred while generating the course report: " + e.getMessage());
-            throw e; // Re-throw the exception to be handled by the calling method
-        }
-        return report.toString();
-    }
-
-    public String generateStudentReport(int studentId) throws SQLException {
-        StringBuilder report = new StringBuilder();
-        try ( Connection connection = dbConnector.getConnection()) {
-            // Retrieve student information
-            Map<Integer, String> modulesEnrolled = new HashMap<>();
-            Map<Integer, String> modulesCompleted = new HashMap<>();
-            Map<Integer, String> modulesToRepeat = new HashMap<>();
-            String studentName = "";
-            String programmeName = "";
-            try ( PreparedStatement studentStatement = connection.prepareStatement(
-                    "SELECT student_name, programme_name FROM Students JOIN Programmes USING (programme_id) WHERE student_id = ?")) {
-                studentStatement.setInt(1, studentId);
-                ResultSet studentResultSet = studentStatement.executeQuery();
-                if (studentResultSet.next()) {
-                    studentName = studentResultSet.getString("student_name");
-                    programmeName = studentResultSet.getString("programme_name");
-                }
-            }
-            // Retrieve modules enrolled by the student
-            try ( PreparedStatement enrolledStatement = connection.prepareStatement(
-                    "SELECT c.course_id, c.course_name FROM Enrollments e JOIN Courses c ON e.course_id = c.course_id WHERE student_id = ?")) {
-                enrolledStatement.setInt(1, studentId);
-                ResultSet enrolledResultSet = enrolledStatement.executeQuery();
-                while (enrolledResultSet.next()) {
-                    modulesEnrolled.put(enrolledResultSet.getInt("course_id"), enrolledResultSet.getString("course_name"));
-                }
-            }
-            // Retrieve completed modules and grades
-            try ( PreparedStatement completedStatement = connection.prepareStatement(
-                    "SELECT c.course_id, c.course_name, g.grade FROM Enrollments e "
-                    + "JOIN Courses c ON e.course_id = c.course_id "
-                    + "JOIN Grades g ON e.enrollment_id = g.enrollment_id "
-                    + "WHERE e.student_id = ?")) {
-                completedStatement.setInt(1, studentId);
-                ResultSet completedResultSet = completedStatement.executeQuery();
-                while (completedResultSet.next()) {
-                    modulesCompleted.put(completedResultSet.getInt("course_id"),
-                            completedResultSet.getString("course_name")
-                            + " (Grade: " + completedResultSet.getFloat("grade") + ")");
-                }
-            }
-            // Retrieve modules to repeat
-            try ( PreparedStatement repeatStatement = connection.prepareStatement(
-                    "SELECT c.course_id, c.course_name FROM Courses c "
-                    + "LEFT JOIN Enrollments e ON c.course_id = e.course_id "
-                    + "WHERE e.enrollment_id IS NULL AND c.programme_id = "
-                    + "(SELECT programme_id FROM Students WHERE student_id = ?)")) {
-                repeatStatement.setInt(1, studentId);
-                ResultSet repeatResultSet = repeatStatement.executeQuery();
-                while (repeatResultSet.next()) {
-                    modulesToRepeat.put(repeatResultSet.getInt("course_id"), repeatResultSet.getString("course_name"));
-                }
-            }
-            // Format and append the report
-            report.append("Student Report for ").append(studentName).append(" (Student ID: ").append(studentId).append("):\n");
-            report.append("Programme: ").append(programmeName).append("\n\n");
-            report.append("Modules Enrolled:\n");
-            for (Map.Entry<Integer, String> entry : modulesEnrolled.entrySet()) {
-                report.append("- ").append(entry.getValue()).append("\n");
-            }
-            report.append("\nModules Completed:\n");
-            for (Map.Entry<Integer, String> entry : modulesCompleted.entrySet()) {
-                report.append("- ").append(entry.getValue()).append("\n");
-            }
-            report.append("\nModules to Repeat:\n");
-            for (Map.Entry<Integer, String> entry : modulesToRepeat.entrySet()) {
-                report.append("- ").append(entry.getValue()).append("\n");
-            }
-        }
-        return report.toString();
-    }
-
-    public String generateAllLecturersReport() throws SQLException {
-    StringBuilder report = new StringBuilder();
-    try (Connection connection = dbConnector.getConnection();
-         PreparedStatement statement = connection.prepareStatement(
-                 "SELECT "
-                         + "l.lecturer_name AS Lecturer_Name, "
-                         + "l.role AS Role, "
-                         + "c.course_name AS Module_Name, "
-                         + "COUNT(e.enrollment_id) AS Enrolled_Students, "
-                         + "l.class_types AS Classes_Taught "
-                         + "FROM "
-                         + "Lecturers l "
-                         + "INNER JOIN "
-                         + "Courses c ON l.lecturer_id = c.lecturer_id "
-                         + "LEFT JOIN "
-                         + "Enrollments e ON c.course_id = e.course_id "
-                         + "GROUP BY "
-                         + "l.lecturer_id, l.lecturer_name, l.role, c.course_name")) {
-        ResultSet resultSet = statement.executeQuery();
-        report.append("Lecturer Report:\n");
-        report.append(String.format("%-30s %-20s %-30s %-20s %-30s\n", "Lecturer Name", "Role", "Module Name", "Enrolled Students", "Classes Taught"));
-        while (resultSet.next()) {
-            report.append(String.format("%-30s %-20s %-30s %-20d %-30s\n",
-                    resultSet.getString("Lecturer_Name"),
-                    resultSet.getString("Role"),
-                    resultSet.getString("Module_Name"),
-                    resultSet.getInt("Enrolled_Students"),
-                    resultSet.getString("Classes_Taught")));
-        }
-    } catch (SQLException e) {
-        // Handle SQL exception
-        System.err.println("An error occurred while generating the lecturer report: " + e.getMessage());
-        throw e; // Re-throw the exception to be handled by the calling method
-    }
-    return report.toString();
-}
-   public String generateLecturerReport(String lecturerUsername) throws SQLException {
+     public String generateCourseReport(String format) {
     StringBuilder reportBuilder = new StringBuilder();
-    
+    String query = "SELECT course_name, programme_name, lecturer_name, room_name, COUNT(student_id) AS enrolled_students "
+            + "FROM Courses "
+            + "JOIN Programmes ON Courses.programme_id = Programmes.programme_id "
+            + "JOIN Lecturers ON Courses.lecturer_id = Lecturers.lecturer_id "
+            + "LEFT JOIN Rooms ON Courses.room_id = Rooms.room_id "
+            + "LEFT JOIN Enrollments ON Courses.course_id = Enrollments.course_id "
+            + "GROUP BY course_name, programme_name, lecturer_name, room_name";
+
     try (Connection connection = dbConnector.getConnection();
-         PreparedStatement statement = connection.prepareStatement(
-                 "SELECT l.lecturer_name AS Lecturer_Name, " +
-                         "l.role AS Role, " +
-                         "c.course_name AS Module_Name, " +
-                         "COUNT(e.enrollment_id) AS Enrolled_Students, " +
-                         "l.class_types AS Classes_Taught " +
-                         "FROM Lecturers l " +
-                         "INNER JOIN Courses c ON l.lecturer_id = c.lecturer_id " +
-                         "LEFT JOIN Enrollments e ON c.course_id = e.course_id " +
-                         "GROUP BY l.lecturer_id, l.lecturer_name, l.role, c.course_name")) {
+         PreparedStatement statement = connection.prepareStatement(query)) {
         ResultSet resultSet = statement.executeQuery();
-        reportBuilder.append("Lecturer Name,Role,Module Name,Enrolled Students,Classes Taught\n");
+        reportBuilder.append("Course Name,Programme Name,Lecturer Name,Room Name,Enrolled Students\n");
         while (resultSet.next()) {
-            reportBuilder.append(String.format("%s,%s,%s,%d,%s\n",
-                    resultSet.getString("Lecturer_Name"),
-                    resultSet.getString("Role"),
-                    resultSet.getString("Module_Name"),
-                    resultSet.getInt("Enrolled_Students"),
-                    resultSet.getString("Classes_Taught")));
+            reportBuilder.append(String.format("%s,%s,%s,%s,%d\n",
+                    resultSet.getString("course_name"),
+                    resultSet.getString("programme_name"),
+                    resultSet.getString("lecturer_name"),
+                    resultSet.getString("room_name"),
+                    resultSet.getInt("enrolled_students")));
         }
     } catch (SQLException e) {
         System.out.println("An error occurred while generating the report: " + e.getMessage());
     }
 
-    return reportBuilder.toString();
+    // Code to generate report based on the format
+    if ("TXT".equalsIgnoreCase(format)) {
+        return reportBuilder.toString();
+    } else if ("CSV".equalsIgnoreCase(format)) {
+        return reportBuilder.toString();
+    } else if ("CONSOLE".equalsIgnoreCase(format)) {
+        // Display the report in the console
+        System.out.println("Course Report:");
+        System.out.println(reportBuilder.toString());
+        return reportBuilder.toString();
+    } else {
+        System.out.println("Invalid report format choice! Please choose either TXT, CSV, or CONSOLE.");
+        return null;
+    }
+}
+    public void generateCourseReportTXT(String query) {
+    try {
+        List<Course> courses = dbConnector.executeQueryForCourses(query);
+
+        // Specify the file path for the TXT report
+        String filePath = "course_report.txt";
+
+        // Open FileWriter and BufferedWriter
+        FileWriter fileWriter = new FileWriter(filePath);
+        BufferedWriter bufferedWriter = new BufferedWriter(fileWriter);
+
+        // Write column headers
+        bufferedWriter.write("Course Name\tProgramme Name\tLecturer Name\tRoom Name\tEnrolled Students");
+        bufferedWriter.newLine();
+
+        // Write each course's information
+        for (Course course : courses) {
+            bufferedWriter.write(course.getCourseName() + "\t"
+                                + course.getProgrammeName() + "\t"
+                                + course.getLecturerName() + "\t"
+                                + course.getRoomName() + "\t"
+                                + course.getEnrolledStudents());
+            bufferedWriter.newLine();
+        }
+
+        // Close BufferedWriter
+        bufferedWriter.close();
+
+        System.out.println("Course report generated successfully as TXT file.");
+
+    } catch (IOException | SQLException e) {
+        System.out.println("An error occurred while generating the course report.");
+        e.printStackTrace();
+    }
 }
 
-public void generateLecturerReportInTxt(String reportData) {
-    try (PrintWriter writer = new PrintWriter(new FileWriter("lecturer_report.txt"))) {
-        writer.println("Lecturer Report:");
-        writer.println(String.format("%-30s %-20s %-40s %-20s %-30s",
-                "Lecturer Name", "Role", "Module Name", "Enrolled Students", "Classes Taught"));
+    public void generateCourseReportCSV(String query) {
+    try {
+        List<Course> courses = dbConnector.executeQueryForCourses(query);
+
+        // Specify the file path for the CSV report
+        String filePath = "course_report.csv";
+
+        // Open FileWriter and BufferedWriter
+        FileWriter fileWriter = new FileWriter(filePath);
+        BufferedWriter bufferedWriter = new BufferedWriter(fileWriter);
+
+        // Write column headers
+        bufferedWriter.write("Course Name,Programme Name,Lecturer Name,Room Name,Enrolled Students");
+        bufferedWriter.newLine();
+
+        // Write each course's information
+        for (Course course : courses) {
+            bufferedWriter.write(course.getCourseName() + ","
+                                + course.getProgrammeName() + ","
+                                + course.getLecturerName() + ","
+                                + course.getRoomName() + ","
+                                + course.getEnrolledStudents());
+            bufferedWriter.newLine();
+        }
+
+        // Close BufferedWriter
+        bufferedWriter.close();
+
+        System.out.println("Course report generated successfully as CSV file.");
+
+    } catch (IOException | SQLException e) {
+        System.out.println("An error occurred while generating the course report.");
+        e.printStackTrace();
+    }
+}
+
+    public void displayCourseReport() throws SQLException {
+        try {
+            String query = "SELECT course_name, programme_name, lecturer_name, room_name, COUNT(student_id) AS enrolled_students "
+                    + "FROM Courses "
+                    + "JOIN Programmes ON Courses.programme_id = Programmes.programme_id "
+                    + "JOIN Lecturers ON Courses.lecturer_id = Lecturers.lecturer_id "
+                    + "LEFT JOIN Rooms ON Courses.room_id = Rooms.room_id "
+                    + "LEFT JOIN Enrollments ON Courses.course_id = Enrollments.course_id "
+                    + "GROUP BY course_name, programme_name, lecturer_name, room_name";
+
+            List<Course> courses = dbConnector.executeQueryForCourses(query);
+
+            // Code to display the course report
+        } catch (SQLException e) {
+            System.out.println("An error occurred while generating the course report.");
+            e.printStackTrace();
+        }
+    }
+    public void generateStudentReport(String format) throws SQLException {
+        String query = "SELECT student_name, student_id, programme_name, enrolled_modules, completed_modules, repeat_modules "
+                + "FROM Students";
+        List<Student> students = dbConnector.executeQueryForStudents(query);
+        // Code to generate report based on the format
+        if ("TXT".equalsIgnoreCase(format)) {
+            generateStudentReportTXT(students); // Call the method with the students list
+        } else if ("CSV".equalsIgnoreCase(format)) {
+            generateStudentReportCSV(students);
+        } else {
+            System.out.println("Invalid report format choice! Please choose either TXT or CSV.");
+        }
+}
+
+public void generateStudentReportTXT(List<Student> students) {
+    try {
+        FileWriter writer = new FileWriter("student_report.txt");
+        for (Student student : students) {
+            writer.write("Student Name: " + student.getStudentName() + "\n");
+            writer.write("Student Number: " + student.getStudentId() + "\n");
+            writer.write("Programme: " + student.getProgrammeName() + "\n");
+            writer.write("Enrolled Modules: " + student.getEnrolledModules() + "\n");
+            writer.write("Completed Modules: " + student.getCompletedModules() + "\n");
+            writer.write("Modules to Repeat: " + student.getRepeatModules() + "\n\n");
+        }
+        writer.close();
+        System.out.println("Student report generated successfully in TXT format.");
+    } catch (IOException e) {
+        System.out.println("An error occurred while generating the student report.");
+        e.printStackTrace();
+    }
+}
+
+public void generateStudentReportCSV(List<Student> students) {
+    try {
+        FileWriter writer = new FileWriter("student_report.csv");
+        writer.write("Student Name, Student Number, Programme, Enrolled Modules, Completed Modules, Modules to Repeat\n");
+        for (Student student : students) {
+            writer.write(student.getStudentName() + "," + student.getStudentId() + ","
+                    + student.getProgrammeName() + "," + student.getEnrolledModules() + ","
+                    + student.getCompletedModules() + "," + student.getRepeatModules() + "\n");
+        }
+        writer.close();
+        System.out.println("Student report generated successfully in CSV format.");
+    } catch (IOException e) {
+        System.out.println("An error occurred while generating the student report.");
+        e.printStackTrace();
+    }
+}
+
+public void displayStudentReport(List<Student> students) {
+    System.out.println("Student Report:");
+    System.out.println("-------------------------------------------------------");
+    for (Student student : students) {
+        System.out.println("Student Name: " + student.getStudentName());
+        System.out.println("Student Number: " + student.getStudentId());
+        System.out.println("Programme: " + student.getProgrammeName());
+        System.out.println("Enrolled Modules: " + student.getEnrolledModules());
+        System.out.println("Completed Modules: " + student.getCompletedModules());
+        System.out.println("Modules to Repeat: " + student.getRepeatModules());
+        System.out.println("-------------------------------------------------------");
+    }
+}
+public void generateLecturerReport(String format) throws SQLException {
+    String query = "SELECT lecturer_name, role, modules_taught, student_count, classes_taught "
+            + "FROM Lecturers";
+    List<Lecturer> lecturers = dbConnector.executeQueryForLecturers(query);
+    // Code to generate report based on the format
+    if ("TXT".equalsIgnoreCase(format)) {
+        generateLecturerReportTXT(lecturers); // Call the method with the lecturers list
+    } else if ("CSV".equalsIgnoreCase(format)) {
+        generateLecturerReportCSV(lecturers);
+    } else {
+        System.out.println("Invalid report format choice! Please choose either TXT or CSV.");
+    }
+}
+
+public void generateLecturerReportTXT(List<Lecturer> lecturers) {
+    try {
+        FileWriter writer = new FileWriter("lecturer_report.txt");
+        for (Lecturer lecturer : lecturers) {
+            writer.write("Lecturer Name: " + lecturer.getLecturerName() + "\n");
+            writer.write("Role: " + lecturer.getRole() + "\n");
+            writer.write("Modules Teaching: " + lecturer.getModulesTaught() + "\n");
+            writer.write("Number of Students: " + lecturer.getStudentCount() + "\n");
+            writer.write("Types of Classes: " + lecturer.getClassesTaught() + "\n\n");
+        }
+        writer.close();
+        System.out.println("Lecturer report generated successfully in TXT format.");
+    } catch (IOException e) {
+        System.out.println("An error occurred while generating the lecturer report.");
+        e.printStackTrace();
+    }
+}
+
+public void generateLecturerReportCSV(List<Lecturer> lecturers) {
+    try {
+        FileWriter writer = new FileWriter("lecturer_report.csv");
+        writer.write("Lecturer Name, Role, Modules Teaching, Number of Students, Types of Classes\n");
+        for (Lecturer lecturer : lecturers) {
+            writer.write(lecturer.getLecturerName() + "," + lecturer.getRole() + ","
+                    + lecturer.getModulesTaught() + "," + lecturer.getStudentCount() + ","
+                    + lecturer.getClassesTaught() + "\n");
+        }
+        writer.close();
+        System.out.println("Lecturer report generated successfully in CSV format.");
+    } catch (IOException e) {
+        System.out.println("An error occurred while generating the lecturer report.");
+        e.printStackTrace();
+    }
+}
+
+public void displayLecturerReport(List<Lecturer> lecturers) {
+    System.out.println("Lecturer Report:");
+    System.out.println("-------------------------------------------------------");
+    for (Lecturer lecturer : lecturers) {
+        System.out.println("Lecturer Name: " + lecturer.getLecturerName());
+        System.out.println("Role: " + lecturer.getRole());
+        System.out.println("Modules Teaching: " + lecturer.getModulesTaught());
+        System.out.println("Number of Students: " + lecturer.getStudentCount());
+        System.out.println("Types of Classes: " + lecturer.getClassesTaught());
+        System.out.println("-------------------------------------------------------");
+    }
+}
+    public String generateOwnLecturerReport(String lecturerUsername) throws SQLException {
+        StringBuilder reportBuilder = new StringBuilder();
+
+        try ( Connection connection = dbConnector.getConnection();  PreparedStatement statement = connection.prepareStatement(
+                "SELECT l.lecturer_name AS Lecturer_Name, "
+                + "l.role AS Role, "
+                + "c.course_name AS Module_Name, "
+                + "COUNT(e.enrollment_id) AS Enrolled_Students, "
+                + "l.class_types AS Classes_Taught "
+                + "FROM Lecturers l "
+                + "INNER JOIN Courses c ON l.lecturer_id = c.lecturer_id "
+                + "LEFT JOIN Enrollments e ON c.course_id = e.course_id "
+                + "GROUP BY l.lecturer_id, l.lecturer_name, l.role, c.course_name")) {
+            ResultSet resultSet = statement.executeQuery();
+            reportBuilder.append("Lecturer Name,Role,Module Name,Enrolled Students,Classes Taught\n");
+            while (resultSet.next()) {
+                reportBuilder.append(String.format("%s,%s,%s,%d,%s\n",
+                        resultSet.getString("Lecturer_Name"),
+                        resultSet.getString("Role"),
+                        resultSet.getString("Module_Name"),
+                        resultSet.getInt("Enrolled_Students"),
+                        resultSet.getString("Classes_Taught")));
+            }
+        } catch (SQLException e) {
+            System.out.println("An error occurred while generating the report: " + e.getMessage());
+        }
+
+        return reportBuilder.toString();
+    }
+
+    public void generateOwnLecturerReportInTxt(String reportData) {
+        try ( PrintWriter writer = new PrintWriter(new FileWriter("lecturer_report.txt"))) {
+            writer.println("Lecturer Report:");
+            writer.println(String.format("%-30s %-20s %-40s %-20s %-30s",
+                    "Lecturer Name", "Role", "Module Name", "Enrolled Students", "Classes Taught"));
+
+            // Splitting the report data into lines
+            String[] lines = reportData.split("\n");
+
+            // Skipping the first line as it's already included in the header
+            for (int i = 1; i < lines.length; i++) {
+                String line = lines[i];
+                String[] fields = line.split(",");
+                String formattedLine = String.format("%-30s %-20s %-40s %-20s %-30s",
+                        fields[0], fields[1], fields[2], fields[3], fields[4]);
+                writer.println(formattedLine);
+            }
+
+            System.out.println("Lecturer report saved to lecturer_report.txt");
+        } catch (IOException e) {
+            System.out.println("An error occurred while saving the report: " + e.getMessage());
+        }
+    }
+
+    public void generateOwnLecturerReportInCsv(String reportData) {
+        try ( PrintWriter writer = new PrintWriter(new FileWriter("lecturer_report.csv"))) {
+            writer.println(reportData);
+            System.out.println("Lecturer report saved to lecturer_report.csv");
+        } catch (IOException e) {
+            System.out.println("An error occurred while saving the report: " + e.getMessage());
+        }
+    }
+
+    public void generateOwnLecturerReportInConsole(String reportData) {
+        // Print the header only once
+        System.out.println("Lecturer Report:");
+        System.out.printf("%-30s %-20s %-40s %-20s %-30s%n",
+                "Lecturer Name", "Role", "Module Name", "Enrolled Students", "Classes Taught");
 
         // Splitting the report data into lines
         String[] lines = reportData.split("\n");
 
-        // Skipping the first line as it's already included in the header
+        // Start from index 1 to skip the header line
         for (int i = 1; i < lines.length; i++) {
-            String line = lines[i];
-            String[] fields = line.split(",");
-            String formattedLine = String.format("%-30s %-20s %-40s %-20s %-30s",
+            String[] fields = lines[i].split(",");
+            System.out.printf("%-30s %-20s %-40s %-20s %-30s%n",
                     fields[0], fields[1], fields[2], fields[3], fields[4]);
-            writer.println(formattedLine);
         }
-
-        System.out.println("Lecturer report saved to lecturer_report.txt");
-    } catch (IOException e) {
-        System.out.println("An error occurred while saving the report: " + e.getMessage());
     }
-}
 
-public void generateLecturerReportInCsv(String reportData) {
-    try (PrintWriter writer = new PrintWriter(new FileWriter("lecturer_report.csv"))) {
-        writer.println(reportData);
-        System.out.println("Lecturer report saved to lecturer_report.csv");
-    } catch (IOException e) {
-        System.out.println("An error occurred while saving the report: " + e.getMessage());
+    public void generateOwnReportInConsoleForString(String reportData, String reportType) {
+        // Print the header
+        System.out.println(reportType + " Report:");
+
+        // Splitting the report data into lines
+        String[] lines = reportData.split("\n");
+
+        // Start from index 1 to skip the header line
+        for (int i = 1; i < lines.length; i++) {
+            String[] fields = lines[i].split(",");
+            for (String field : fields) {
+                System.out.print(field.trim() + "   "); // Adjust spacing as needed
+            }
+            System.out.println(); // Move to the next line after printing all fields
+        }
     }
-}
 
-public void generateLecturerReportInConsole(String reportData) {
-    // Print the header only once
-    System.out.println("Lecturer Report:");
-    System.out.printf("%-30s %-20s %-40s %-20s %-30s%n",
-            "Lecturer Name", "Role", "Module Name", "Enrolled Students", "Classes Taught");
-    
-    // Splitting the report data into lines
-    String[] lines = reportData.split("\n");
-
-    // Start from index 1 to skip the header line
-    for (int i = 1; i < lines.length; i++) {
-        String[] fields = lines[i].split(",");
-        System.out.printf("%-30s %-20s %-40s %-20s %-30s%n",
-                fields[0], fields[1], fields[2], fields[3], fields[4]);
+    public void generateReportInCsvForString(String reportData, String reportType) {
+        try ( PrintWriter writer = new PrintWriter(new FileWriter(reportType + "_report.csv"))) {
+            writer.println(reportData);
+            System.out.println(reportType + " report saved to " + reportType + "_report.csv");
+        } catch (IOException e) {
+            System.out.println("An error occurred while saving the " + reportType + " report: " + e.getMessage());
+        }
     }
-}
+
+    public void generateReportInTxtForString(String reportData, String reportType) {
+        try ( PrintWriter writer = new PrintWriter(new FileWriter(reportType + "_report.txt"))) {
+            writer.println(reportType + " Report:");
+
+            // Splitting the report data into lines
+            String[] lines = reportData.split("\n");
+
+            // Start from index 1 to skip the header line
+            for (int i = 1; i < lines.length; i++) {
+                writer.println(lines[i]);
+            }
+
+            System.out.println(reportType + " report saved to " + reportType + "_report.txt");
+        } catch (IOException e) {
+            System.out.println("An error occurred while saving the " + reportType + " report: " + e.getMessage());
+        }
+    }
 }
