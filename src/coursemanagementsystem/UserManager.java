@@ -51,9 +51,10 @@ public class UserManager {
     public boolean modifyUser(String modifyUsername, String newUsername, String newPassword, String newRole) throws SQLException {
         return dbConnector.modifyUser(modifyUsername, newUsername, newPassword, newRole);
     }
+
     public boolean usernameExists(String username) {
         // Call a method from the DBConnector to check if the username exists
         return dbConnector.usernameExists(username);
-}
-    
+    }
+
 }

@@ -11,7 +11,7 @@ public class CourseManagementSystem {
 
     public static void main(String[] args) {
         DBConnector dbConnector = new DBConnector(); // Declare and initialize dbConnector
-        try (Scanner scanner = new Scanner(System.in)) {
+        try ( Scanner scanner = new Scanner(System.in)) {
             UserManager userManager = new UserManager(dbConnector);
             ReportManager reportManager = new ReportManager(dbConnector);
             String loggedInUser = null;
@@ -42,9 +42,10 @@ public class CourseManagementSystem {
             e.printStackTrace(); // Print stack trace for debugging
         }
     }
+
     private static void processUserChoice(int choice, String userRole, UserManager userManager,
-                                          String loggedInUser, Scanner scanner, ReportManager reportManager,
-                                          DBConnector dbConnector) throws SQLException {
+            String loggedInUser, Scanner scanner, ReportManager reportManager,
+            DBConnector dbConnector) throws SQLException {
         Menu menu = new Menu(dbConnector, reportManager);
         switch (userRole) {
             case "admin":

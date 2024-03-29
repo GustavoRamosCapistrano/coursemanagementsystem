@@ -27,7 +27,6 @@ public class Lecturer {
         this.classesTaught = Arrays.asList(classesTaught.split(", "));
     }
 
-
     public String getLecturerName() {
         return lecturerName;
     }

@@ -17,8 +17,8 @@ public class Course {
     private String roomName;
     private int enrolledStudents;
 
-    public Course(int courseId, String courseName, String programmeName, String lecturerName, String roomName, int enrolledStudents) {
-        this.courseId = courseId;
+    public Course(String courseName, String programmeName, String lecturerName, String roomName, int enrolledStudents) {
+        
         this.courseName = courseName;
         this.programmeName = programmeName;
         this.lecturerName = lecturerName;
@@ -27,7 +27,6 @@ public class Course {
     }
 
     // Getters and setters
-
     public int getCourseId() {
         return courseId;
     }

@@ -4,6 +4,9 @@
  */
 package coursemanagementsystem;
 
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.InputMismatchException;
 import java.util.List;
@@ -301,18 +304,24 @@ public class Menu {
 
     // Method to process office choices
     public void processOfficeChoice(int choice, UserManager userManager, String loggedInUser, Scanner scanner) throws SQLException {
+    boolean reportGenerated = false;
+    
+    while (!reportGenerated) {
         switch (choice) {
             case 1:
                 // Generate course report in txt csv and console
                 handleCourseReportOptions(scanner);
+                reportGenerated = true;
                 break;
             case 2:
                 // Generate student report in txt csv and console
                 handleStudentReportOptions(scanner);
+                reportGenerated = true;
                 break;
             case 3:
                 // Generate lecturer report in txt csv and console
                 handleLecturerReportOptions(scanner);
+                reportGenerated = true;
                 break;
             case 4:
                 // Change own username/password
@@ -335,50 +344,48 @@ public class Menu {
                 System.out.println("Invalid choice. Please try again.");
         }
     }
+}
+public void handleCourseReportOptions(Scanner scanner) throws SQLException {
+    // Fetch course information from the database
+    List<Course> courses = dbConnector.getAllCourses();
 
-    public void handleCourseReportOptions(Scanner scanner) throws SQLException {
-        System.out.println("Choose an option for student report:");
-        System.out.println("1. Generate report in TXT");
-        System.out.println("2. Generate report in CSV");
-        System.out.println("3. Print report to console");
+    System.out.println("Choose an option for course report:");
+    System.out.println("1. Generate report in TXT");
+    System.out.println("2. Generate report in CSV");
+    System.out.println("3. Print report to console");
 
-        int reportChoice;
-        while (true) {
-            try {
-                System.out.print("\nEnter your choice: ");
-                reportChoice = scanner.nextInt();
-                scanner.nextLine(); // Consume newline character
-                break; // Break the loop if input is valid
-            } catch (InputMismatchException e) {
-                System.out.println("Invalid input. Please enter a number.");
-                scanner.nextLine(); // Clear the invalid input
-            }
-        }
-
-        switch (reportChoice) {
-            case 1:
-                generateCourseReport("TXT");
-                break;
-            case 2:
-                generateCourseReport("CSV");
-                break;
-            case 3:
-                generateCourseReport("CONSOLE");
-                break;
-            default:
-                System.out.println("Invalid report format choice! Please choose a valid option.");
-                break;
+    int reportChoice;
+    while (true) {
+        try {
+            System.out.print("\nEnter your choice: ");
+            reportChoice = scanner.nextInt();
+            scanner.nextLine(); // Consume newline character
+            break; // Break the loop if input is valid
+        } catch (InputMismatchException e) {
+            System.out.println("Invalid input. Please enter a number.");
+            scanner.nextLine(); // Clear the invalid input
         }
     }
 
-    public void generateCourseReport(String format) {
-        reportManager.generateCourseReport(format); // Ensure "String" is capitalized
+    String reportFormat;
+    switch (reportChoice) {
+        case 1:
+            reportFormat = "TXT";
+            break;
+        case 2:
+            reportFormat = "CSV";
+            break;
+        case 3:
+            reportFormat = "CONSOLE";
+            break;
+        default:
+            System.out.println("Invalid report format choice! Please choose a valid option.");
+            return; // Return from the method if the choice is invalid
     }
 
-    public void printCourseReport() throws SQLException {
-        // Call the existing displayCourseReport method from ReportManager
-        reportManager.displayCourseReport();
-    }
+    // Pass the reportFormat and courses list to generateCourseReport method
+    reportManager.generateCourseReport(reportFormat, courses);
+}
 
     // Similarly, you can define methods for student and lecturer reports
     public void handleStudentReportOptions(Scanner scanner) throws SQLException {

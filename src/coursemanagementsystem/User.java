@@ -9,6 +9,7 @@ package coursemanagementsystem;
  * @author grc29
  */
 public class User {
+
     private String username;
     private String password;
     private String role;
@@ -47,10 +48,10 @@ public class User {
 
     @Override
     public String toString() {
-        return "User{" +
-                "username='" + username + '\'' +
-                ", password='" + password + '\'' +
-                ", role='" + role + '\'' +
-                '}';
+        return "User{"
+                + "username='" + username + '\''
+                + ", password='" + password + '\''
+                + ", role='" + role + '\''
+                + '}';
     }
 }
