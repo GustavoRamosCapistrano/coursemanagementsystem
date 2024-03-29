@@ -1,0 +1,6 @@
+Lecturer Report:
+Lecturer Name: john doe
+Role: Associate Lecturer
+Module Name: Calculus, Cognitive Psychology, Electrical Circuits, Engineering Mechanics, English Literature: From Chaucer to Milton, General Physics, Introduction to Computer Science, Organic Chemistry, Principles of Management, World History
+Enrolled Students: 10
+Classes Taught: Computer Science, Information Technology

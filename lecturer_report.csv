@@ -1,102 +1,101 @@
-Lecturer Name,Role,Module Name,Enrolled Students,Classes Taught
-john doe,Associate Lecturer,Introduction to Computer Science,5,Computer Science, Information Technology
-Jane Smith,Senior Lecturer,Data Structures and Algorithms,5,Software Engineering, Data Science
-Michael Johnson,Professor,Database Management Systems,5,Artificial Intelligence, Robotics
-Emily Brown,Programme Manager,Software Engineering,5,Business Administration, Marketing
-David Wilson,Associate Lecturer,Web Development,5,Mathematics, Statistics
-Jennifer Lee,Senior Lecturer,Computer Networks,5,Chemistry, Biochemistry
-Christopher Taylor,Professor,Artificial Intelligence,5,Physics, Astrophysics
-Sarah Martinez,Associate Lecturer,Machine Learning,5,English Literature, Comparative Literature
-Daniel Anderson,Senior Lecturer,Cybersecurity,5,History, Political Science
-Amanda White,Professor,Computer Graphics,5,Psychology, Sociology
-john doe,Associate Lecturer,Electrical Circuits,5,Computer Science, Information Technology
-Jane Smith,Senior Lecturer,Digital Signal Processing,5,Software Engineering, Data Science
-Michael Johnson,Professor,Control Systems,5,Artificial Intelligence, Robotics
-Emily Brown,Programme Manager,Power Systems,5,Business Administration, Marketing
-David Wilson,Associate Lecturer,Electromagnetic Fields,5,Mathematics, Statistics
-Jennifer Lee,Senior Lecturer,Microelectronics,5,Chemistry, Biochemistry
-Christopher Taylor,Professor,Renewable Energy Systems,5,Physics, Astrophysics
-Sarah Martinez,Associate Lecturer,Robotics,5,English Literature, Comparative Literature
-Daniel Anderson,Senior Lecturer,Embedded Systems,5,History, Political Science
-Amanda White,Professor,VLSI Design,5,Psychology, Sociology
-john doe,Associate Lecturer,Principles of Management,0,Computer Science, Information Technology
-Jane Smith,Senior Lecturer,Marketing Management,0,Software Engineering, Data Science
-Michael Johnson,Professor,Financial Management,0,Artificial Intelligence, Robotics
-Emily Brown,Programme Manager,Human Resource Management,0,Business Administration, Marketing
-David Wilson,Associate Lecturer,Operations Management,0,Mathematics, Statistics
-Jennifer Lee,Senior Lecturer,Strategic Management,0,Chemistry, Biochemistry
-Christopher Taylor,Professor,Organizational Behavior,0,Physics, Astrophysics
-Sarah Martinez,Associate Lecturer,Business Ethics,0,English Literature, Comparative Literature
-Daniel Anderson,Senior Lecturer,International Business,0,History, Political Science
-Amanda White,Professor,Entrepreneurship,0,Psychology, Sociology
-john doe,Associate Lecturer,Engineering Mechanics,0,Computer Science, Information Technology
-Jane Smith,Senior Lecturer,Mechanical Vibrations,0,Software Engineering, Data Science
-Michael Johnson,Professor,Thermodynamics,0,Artificial Intelligence, Robotics
-Emily Brown,Programme Manager,Fluid Mechanics,0,Business Administration, Marketing
-David Wilson,Associate Lecturer,Heat Transfer,0,Mathematics, Statistics
-Jennifer Lee,Senior Lecturer,Materials Science,0,Chemistry, Biochemistry
-Christopher Taylor,Professor,Manufacturing Processes,0,Physics, Astrophysics
-Sarah Martinez,Associate Lecturer,Mechatronics,0,English Literature, Comparative Literature
-Daniel Anderson,Senior Lecturer,Automotive Engineering,0,History, Political Science
-Amanda White,Professor,Aerospace Structures,0,Psychology, Sociology
-john doe,Associate Lecturer,General Physics,0,Computer Science, Information Technology
-Jane Smith,Senior Lecturer,Classical Mechanics,0,Software Engineering, Data Science
-Michael Johnson,Professor,Electromagnetism,0,Artificial Intelligence, Robotics
-Emily Brown,Programme Manager,Quantum Mechanics,0,Business Administration, Marketing
-David Wilson,Associate Lecturer,Statistical Mechanics,0,Mathematics, Statistics
-Jennifer Lee,Senior Lecturer,Solid State Physics,0,Chemistry, Biochemistry
-Christopher Taylor,Professor,Nuclear Physics,0,Physics, Astrophysics
-Sarah Martinez,Associate Lecturer,Particle Physics,0,English Literature, Comparative Literature
-Daniel Anderson,Senior Lecturer,Astrophysics,0,History, Political Science
-Amanda White,Professor,Cosmology,0,Psychology, Sociology
-john doe,Associate Lecturer,Organic Chemistry,0,Computer Science, Information Technology
-Jane Smith,Senior Lecturer,Inorganic Chemistry,0,Software Engineering, Data Science
-Michael Johnson,Professor,Physical Chemistry,0,Artificial Intelligence, Robotics
-Emily Brown,Programme Manager,Analytical Chemistry,0,Business Administration, Marketing
-David Wilson,Associate Lecturer,Biochemistry,0,Mathematics, Statistics
-Jennifer Lee,Senior Lecturer,Polymer Chemistry,0,Chemistry, Biochemistry
-Christopher Taylor,Professor,Environmental Chemistry,0,Physics, Astrophysics
-Sarah Martinez,Associate Lecturer,Medicinal Chemistry,0,English Literature, Comparative Literature
-Daniel Anderson,Senior Lecturer,Forensic Chemistry,0,History, Political Science
-Amanda White,Professor,Nanochemistry,0,Psychology, Sociology
-john doe,Associate Lecturer,Calculus,0,Computer Science, Information Technology
-Jane Smith,Senior Lecturer,Linear Algebra,0,Software Engineering, Data Science
-Michael Johnson,Professor,Differential Equations,0,Artificial Intelligence, Robotics
-Emily Brown,Programme Manager,Probability Theory,0,Business Administration, Marketing
-David Wilson,Associate Lecturer,Statistics,0,Mathematics, Statistics
-Jennifer Lee,Senior Lecturer,Numerical Analysis,0,Chemistry, Biochemistry
-Christopher Taylor,Professor,Mathematical Modeling,0,Physics, Astrophysics
-Sarah Martinez,Associate Lecturer,Operations Research,0,English Literature, Comparative Literature
-Daniel Anderson,Senior Lecturer,Discrete Mathematics,0,History, Political Science
-Amanda White,Professor,Topology,0,Psychology, Sociology
-john doe,Associate Lecturer,English Literature: From Chaucer to Milton,0,Computer Science, Information Technology
-Jane Smith,Senior Lecturer,Romanticism and Victorian Literature,0,Software Engineering, Data Science
-Michael Johnson,Professor,Modernism and Postmodernism,0,Artificial Intelligence, Robotics
-Emily Brown,Programme Manager,American Literature,0,Business Administration, Marketing
-David Wilson,Associate Lecturer,World Literature,0,Mathematics, Statistics
-Jennifer Lee,Senior Lecturer,Shakespearean Studies,0,Chemistry, Biochemistry
-Christopher Taylor,Professor,Poetry and Poetics,0,Physics, Astrophysics
-Sarah Martinez,Associate Lecturer,Drama and Performance,0,English Literature, Comparative Literature
-Daniel Anderson,Senior Lecturer,Fiction and Narrative,0,History, Political Science
-Amanda White,Professor,Literary Theory,0,Psychology, Sociology
-john doe,Associate Lecturer,World History,0,Computer Science, Information Technology
-Jane Smith,Senior Lecturer,European History,0,Software Engineering, Data Science
-Michael Johnson,Professor,Asian History,0,Artificial Intelligence, Robotics
-Emily Brown,Programme Manager,African History,0,Business Administration, Marketing
-David Wilson,Associate Lecturer,Middle Eastern History,0,Mathematics, Statistics
-Jennifer Lee,Senior Lecturer,Latin American History,0,Chemistry, Biochemistry
-Christopher Taylor,Professor,North American History,0,Physics, Astrophysics
-Sarah Martinez,Associate Lecturer,South American History,0,English Literature, Comparative Literature
-Daniel Anderson,Senior Lecturer,Medieval History,0,History, Political Science
-Amanda White,Professor,Renaissance History,0,Psychology, Sociology
-john doe,Associate Lecturer,Cognitive Psychology,0,Computer Science, Information Technology
-Jane Smith,Senior Lecturer,Social Psychology,0,Software Engineering, Data Science
-Michael Johnson,Professor,Developmental Psychology,0,Artificial Intelligence, Robotics
-Emily Brown,Programme Manager,Abnormal Psychology,0,Business Administration, Marketing
-David Wilson,Associate Lecturer,Health Psychology,0,Mathematics, Statistics
-Jennifer Lee,Senior Lecturer,Industrial-Organizational Psychology,0,Chemistry, Biochemistry
-Christopher Taylor,Professor,Educational Psychology,0,Physics, Astrophysics
-Sarah Martinez,Associate Lecturer,Experimental Psychology,0,English Literature, Comparative Literature
-Daniel Anderson,Senior Lecturer,Clinical Psychology,0,History, Political Science
-Amanda White,Professor,Biopsychology,0,Psychology, Sociology
-
+Lecturer Name,Role,Modules Teaching,Number of Students,Types of Classes
+john doe,Associate Lecturer,[Calculus, Cognitive Psychology, Electrical Circuits, Engineering Mechanics, English Literature: From Chaucer to Milton, General Physics, Introduction to Computer Science, Organic Chemistry, Principles of Management, World History],10,[Computer Science, Information Technology]
+Jane Smith,Senior Lecturer,[Classical Mechanics, Data Structures and Algorithms, Digital Signal Processing, European History, Inorganic Chemistry, Linear Algebra, Marketing Management, Mechanical Vibrations, Romanticism and Victorian Literature, Social Psychology],10,[Software Engineering, Data Science]
+Michael Johnson,Professor,[Asian History, Control Systems, Database Management Systems, Developmental Psychology, Differential Equations, Electromagnetism, Financial Management, Modernism and Postmodernism, Physical Chemistry, Thermodynamics],10,[Artificial Intelligence, Robotics]
+Emily Brown,Programme Manager,[Abnormal Psychology, African History, American Literature, Analytical Chemistry, Fluid Mechanics, Human Resource Management, Power Systems, Probability Theory, Quantum Mechanics, Software Engineering],10,[Business Administration, Marketing]
+David Wilson,Associate Lecturer,[Biochemistry, Electromagnetic Fields, Health Psychology, Heat Transfer, Middle Eastern History, Operations Management, Statistical Mechanics, Statistics, Web Development, World Literature],10,[Mathematics, Statistics]
+Jennifer Lee,Senior Lecturer,[Computer Networks, Industrial-Organizational Psychology, Latin American History, Materials Science, Microelectronics, Numerical Analysis, Polymer Chemistry, Shakespearean Studies, Solid State Physics, Strategic Management],10,[Chemistry, Biochemistry]
+Christopher Taylor,Professor,[Artificial Intelligence, Educational Psychology, Environmental Chemistry, Manufacturing Processes, Mathematical Modeling, North American History, Nuclear Physics, Organizational Behavior, Poetry and Poetics, Renewable Energy Systems],10,[Physics, Astrophysics]
+Sarah Martinez,Associate Lecturer,[Business Ethics, Drama and Performance, Experimental Psychology, Machine Learning, Mechatronics, Medicinal Chemistry, Operations Research, Particle Physics, Robotics, South American History],10,[English Literature, Comparative Literature]
+Daniel Anderson,Senior Lecturer,[Astrophysics, Automotive Engineering, Clinical Psychology, Cybersecurity, Discrete Mathematics, Embedded Systems, Fiction and Narrative, Forensic Chemistry, International Business, Medieval History],10,[History, Political Science]
+Amanda White,Professor,[Aerospace Structures, Biopsychology, Computer Graphics, Cosmology, Entrepreneurship, Literary Theory, Nanochemistry, Renaissance History, Topology, VLSI Design],10,[Psychology, Sociology]
+Matthew Thompson,Associate Lecturer,[],0,[Economics, Finance]
+Laura Garcia,Senior Lecturer,[],0,[Journalism, Communication Studies]
+Kevin Davis,Professor,[],0,[Environmental Science, Geography]
+Rachel Wilson,Associate Lecturer,[],0,[Civil Engineering, Urban Planning]
+Andrew Clark,Senior Lecturer,[],0,[Mechanical Engineering, Aerospace Engineering]
+Stephanie Hall,Professor,[],0,[Biomedical Engineering, Healthcare Administration]
+Thomas Baker,Associate Lecturer,[],0,[Nursing, Public Health]
+Olivia Green,Senior Lecturer,[],0,[Dental Hygiene, Nutrition Science]
+Robert Martinez,Professor,[],0,[Law, Criminal Justice]
+Jessica Brown,Associate Lecturer,[],0,[International Relations, Gender Studies]
+Eric Taylor,Associate Lecturer,[],0,[Religious Studies, Philosophy]
+Michelle Garcia,Senior Lecturer,[],0,[Art History, Music]
+Brian Johnson,Professor,[],0,[Chemical Engineering, Materials Science]
+Jessica Miller,Programme Manager,[],0,[Business Administration, Marketing]
+Stephanie Martinez,Associate Lecturer,[],0,[Political Science, International Relations]
+David Thompson,Senior Lecturer,[],0,[Economics, Finance]
+Jennifer Davis,Professor,[],0,[Communication Studies, Journalism]
+Michael Wilson,Associate Lecturer,[],0,[Geography, Environmental Science]
+Lauren Anderson,Senior Lecturer,[],0,[Urban Planning, Architecture]
+Andrew Brown,Professor,[],0,[Civil Engineering, Construction Management]
+Emily Lee,Associate Lecturer,[],0,[Mechanical Engineering, Robotics]
+Daniel Taylor,Senior Lecturer,[],0,[Aerospace Engineering, Electrical Engineering]
+Rachel Garcia,Professor,[],0,[Computer Science, Software Engineering]
+Jason Martinez,Associate Lecturer,[],0,[Mathematics, Statistics]
+Melissa Johnson,Senior Lecturer,[],0,[Physics, Astrophysics]
+Christopher Wilson,Professor,[],0,[Biomedical Engineering, Bioinformatics]
+Rebecca Thompson,Associate Lecturer,[],0,[Nursing, Public Health]
+Matthew Brown,Senior Lecturer,[],0,[Dental Hygiene, Nutrition Science]
+Sarah Davis,Professor,[],0,[Law, Criminal Justice]
+Amanda White,Associate Lecturer,[],0,[Psychology, Sociology]
+Robert Smith,Senior Lecturer,[],0,[International Relations, Gender Studies]
+Jessica Clark,Professor,[],0,[Philosophy, Ethics]
+David Taylor,Associate Lecturer,[],0,[History, Archaeology]
+Emily Johnson,Senior Lecturer,[],0,[English Literature, Comparative Literature]
+Thomas Miller,Professor,[],0,[Theater, Film Studies]
+Stephanie Thompson,Associate Lecturer,[],0,[Music, Dance]
+Brian Garcia,Senior Lecturer,[],0,[Fine Arts, Visual Arts]
+Michelle Brown,Professor,[],0,[Biology, Environmental Science]
+Michael Wilson,Associate Lecturer,[],0,[Chemistry, Biochemistry]
+Lauren Johnson,Senior Lecturer,[],0,[Geology, Oceanography]
+Daniel Martinez,Professor,[],0,[Psychology, Neuroscience]
+Rachel Clark,Associate Lecturer,[],0,[Anthropology, Sociology]
+Christopher Thompson,Senior Lecturer,[],0,[Economics, Finance]
+Jessica Davis,Professor,[],0,[Political Science, International Relations]
+David Taylor,Associate Lecturer,[],0,[Communication Studies, Journalism]
+Sarah Smith,Senior Lecturer,[],0,[Geography, Environmental Science]
+Matthew Johnson,Professor,[],0,[Urban Planning, Architecture]
+Jennifer Brown,Associate Lecturer,[],0,[Civil Engineering, Construction Management]
+Andrew Wilson,Senior Lecturer,[],0,[Mechanical Engineering, Robotics]
+Emily Garcia,Professor,[],0,[Aerospace Engineering, Electrical Engineering]
+Thomas Davis,Associate Lecturer,[],0,[Computer Science, Software Engineering]
+Rebecca Thompson,Senior Lecturer,[],0,[Mathematics, Statistics]
+Jason Clark,Professor,[],0,[Physics, Astrophysics]
+Melissa Taylor,Associate Lecturer,[],0,[Biomedical Engineering, Bioinformatics]
+Robert Martinez,Senior Lecturer,[],0,[Nursing, Public Health]
+Amanda Johnson,Professor,[],0,[Dental Hygiene, Nutrition Science]
+Sarah Brown,Associate Lecturer,[],0,[Law, Criminal Justice]
+Matthew Wilson,Senior Lecturer,[],0,[Psychology, Sociology]
+Jessica Thompson,Professor,[],0,[International Relations, Gender Studies]
+David Clark,Associate Lecturer,[],0,[Philosophy, Ethics]
+Stephanie Miller,Senior Lecturer,[],0,[History, Archaeology]
+Michael Johnson,Professor,[],0,[English Literature, Comparative Literature]
+Lauren Davis,Associate Lecturer,[],0,[Theater, Film Studies]
+Daniel Smith,Senior Lecturer,[],0,[Music, Dance]
+Rachel Wilson,Professor,[],0,[Fine Arts, Visual Arts]
+Christopher Garcia,Associate Lecturer,[],0,[Biology, Environmental Science]
+Rebecca Brown,Senior Lecturer,[],0,[Chemistry, Biochemistry]
+Matthew Thompson,Professor,[],0,[Geology, Oceanography]
+Jennifer Martinez,Associate Lecturer,[],0,[Psychology, Neuroscience]
+Brian Clark,Senior Lecturer,[],0,[Anthropology, Sociology]
+Michelle Johnson,Professor,[],0,[Economics, Finance]
+David Davis,Associate Lecturer,[],0,[Political Science, International Relations]
+Emily Smith,Senior Lecturer,[],0,[Communication Studies, Journalism]
+Thomas Garcia,Professor,[],0,[Geography, Environmental Science]
+Stephanie Brown,Associate Lecturer,[],0,[Urban Planning, Architecture]
+Michael Wilson,Senior Lecturer,[],0,[Civil Engineering, Construction Management]
+Lauren Thompson,Professor,[],0,[Mechanical Engineering, Robotics]
+Daniel Johnson,Associate Lecturer,[],0,[Aerospace Engineering, Electrical Engineering]
+Rachel Clark,Senior Lecturer,[],0,[Computer Science, Software Engineering]
+Jason Martinez,Professor,[],0,[Mathematics, Statistics]
+Melissa Johnson,Associate Lecturer,[],0,[Physics, Astrophysics]
+Robert Davis,Senior Lecturer,[],0,[Biomedical Engineering, Bioinformatics]
+Amanda Clark,Professor,[],0,[Nursing, Public Health]
+Sarah Thompson,Associate Lecturer,[],0,[Dental Hygiene, Nutrition Science]
+Matthew Garcia,Senior Lecturer,[],0,[Law, Criminal Justice]
+Jessica Brown,Professor,[],0,[Psychology, Sociology]
+David Thompson,Associate Lecturer,[],0,[International Relations, Gender Studies]
+Jennifer Taylor,Senior Lecturer,[],0,[Philosophy, Ethics]
+Brian Miller,Professor,[],0,[History, Archaeology]
+Michelle Lee,Associate Lecturer,[],0,[English Literature, Comparative Literature]

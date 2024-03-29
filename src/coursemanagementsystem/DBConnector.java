@@ -29,7 +29,7 @@ public class DBConnector {
     }
 
     // Method to retrieve all courses from the database
-public List<Course> getAllCourses() throws SQLException {
+public List<Course> getCoursesReport() throws SQLException {
         List<Course> courses = new ArrayList<>();
         try ( Connection conn = DriverManager.getConnection(DB_URL, USER, PASSWORD);  Statement stmt = conn.createStatement();  ResultSet rs = stmt.executeQuery("SELECT course_name, programme_name, lecturer_name, room_name, COUNT(student_id) AS enrolled_students\n"
                 + "FROM Courses\n"
@@ -52,7 +52,7 @@ public List<Course> getAllCourses() throws SQLException {
     }
 
     // Method to retrieve all students from the database
-public List<String> getAllStudents() throws SQLException {
+public List<String> getStudentsReport() throws SQLException {
     List<String> studentDetails = new ArrayList<>();
     String query = "SELECT " +
                    "    s.student_name, " +
@@ -103,25 +103,122 @@ public List<String> getAllStudents() throws SQLException {
 }
 
     // Method to retrieve all lecturers from the database
-    public List<Lecturer> getAllLecturers() throws SQLException {
-        List<Lecturer> lecturers = new ArrayList<>();
-        String query = "SELECT * FROM Lecturers";
-        try ( Connection connection = getConnection();  PreparedStatement statement = connection.prepareStatement(query);  ResultSet resultSet = statement.executeQuery()) {
+    public List<Lecturer> getLecturersReport() throws SQLException {
+    List<Lecturer> lecturers = new ArrayList<>();
+    String query = "SELECT " +
+                   "    l.lecturer_id, " +
+                   "    l.lecturer_name, " +
+                   "    l.role, " +
+                   "    GROUP_CONCAT(DISTINCT c.course_name ORDER BY c.course_name SEPARATOR ', ') AS modules_taught, " +
+                   "    COUNT(DISTINCT e.student_id) AS student_count, " +
+                   "    l.class_types " +
+                   "FROM " +
+                   "    Lecturers l " +
+                   "        LEFT JOIN " +
+                   "    Courses c ON l.lecturer_id = c.lecturer_id " +
+                   "        LEFT JOIN " +
+                   "    Enrollments e ON c.course_id = e.course_id " +
+                   "GROUP BY " +
+                   "    l.lecturer_id, l.lecturer_name, l.role, l.class_types";
+    try (Connection connection = DriverManager.getConnection(DB_URL, USER, PASSWORD);
+         Statement statement = connection.createStatement();
+         ResultSet resultSet = statement.executeQuery(query)) {
+        while (resultSet.next()) {
+            int lecturerId = resultSet.getInt("lecturer_id");
+            String lecturerName = resultSet.getString("lecturer_name");
+            String role = resultSet.getString("role");
+            String modulesTaught = resultSet.getString("modules_taught");
+            int studentCount = resultSet.getInt("student_count");
+            String classTypes = resultSet.getString("class_types");
+
+            Lecturer lecturer = new Lecturer(lecturerName, role, modulesTaught, studentCount, classTypes);
+            lecturers.add(lecturer);
+        }
+    }
+    return lecturers;
+}
+public List<Lecturer> getOwnLecturersReport(String loggedInUser) throws SQLException {
+    List<Lecturer> lecturers = new ArrayList<>();
+    String query = "SELECT " +
+                   "    l.lecturer_name, " +
+                   "    l.role, " +
+                   "    GROUP_CONCAT(DISTINCT c.course_name ORDER BY c.course_name SEPARATOR ', ') AS modules_taught, " +
+                   "    COUNT(DISTINCT e.student_id) AS student_count, " +
+                   "    l.class_types " +
+                   "FROM " +
+                   "    Lecturers l " +
+                   "LEFT JOIN " +
+                   "    Courses c ON l.lecturer_id = c.lecturer_id " +
+                   "LEFT JOIN " +
+                   "    Enrollments e ON c.course_id = e.course_id " +
+                   "WHERE " +
+                   "    l.lecturer_name = ? " +  // Filter by lecturer name
+                   "GROUP BY " +
+                   "    l.lecturer_name, l.role, l.class_types";
+    try (Connection connection = getConnection();
+         PreparedStatement statement = connection.prepareStatement(query)) {
+        statement.setString(1, loggedInUser);
+        try (ResultSet resultSet = statement.executeQuery()) {
             while (resultSet.next()) {
-                Lecturer lecturer = new Lecturer(
-                        resultSet.getString("lecturer_name"),
-                        resultSet.getString("role"),
-                        resultSet.getString("modules_taught"),
-                        resultSet.getInt("student_count"),
-                        resultSet.getString("classes_taught")
-                );
-                // Assuming you have other attributes for lecturer
+                String lecturerName = resultSet.getString("lecturer_name");
+                String role = resultSet.getString("role");
+                String modulesTaught = resultSet.getString("modules_taught");
+                int studentCount = resultSet.getInt("student_count");
+                String classTypes = resultSet.getString("class_types");
+
+                Lecturer lecturer = new Lecturer(lecturerName, role, modulesTaught, studentCount, classTypes);
                 lecturers.add(lecturer);
             }
         }
-        return lecturers;
+    }
+    return lecturers;
+}
+public Lecturer getLecturerByUsername(String username) throws SQLException {
+    Connection conn = null;
+    PreparedStatement stmt = null;
+    ResultSet rs = null;
+    Lecturer lecturer = null;
+
+    try {
+        conn = getConnection();
+        String sql = "SELECT l.*, " +
+                     "COUNT(DISTINCT e.student_id) AS student_count, " +
+                     "GROUP_CONCAT(DISTINCT c.course_name ORDER BY c.course_name SEPARATOR ', ') AS modules_taught " +
+                     "FROM Lecturers l " +
+                     "LEFT JOIN Courses c ON l.lecturer_id = c.lecturer_id " +
+                     "LEFT JOIN Enrollments e ON c.course_id = e.course_id " +
+                     "WHERE l.lecturer_name = ? " +
+                     "GROUP BY l.lecturer_id, l.lecturer_name, l.role, l.class_types";  // Add GROUP BY clause
+        stmt = conn.prepareStatement(sql);
+        stmt.setString(1, username);
+        rs = stmt.executeQuery();
+
+        if (rs.next()) {
+            int lecturerId = rs.getInt("lecturer_id");
+            String lecturerName = rs.getString("lecturer_name");
+            String role = rs.getString("role");
+            String modulesTaught = rs.getString("modules_taught");
+            int studentCount = rs.getInt("student_count");
+            String classTypes = rs.getString("class_types");
+
+            lecturer = new Lecturer(lecturerName, role, modulesTaught, studentCount, classTypes);
+        }
+    } catch (SQLException e) {
+        e.printStackTrace();
+    } finally {
+        if (rs != null) {
+            rs.close();
+        }
+        if (stmt != null) {
+            stmt.close();
+        }
+        if (conn != null) {
+            conn.close();
+        }
     }
 
+    return lecturer;
+}
     public boolean modifyUsername(String loggedInUser, String newUsername) {
         String query = "UPDATE Users SET username = ? WHERE username = ?";
         try ( Connection connection = getConnection();  PreparedStatement statement = connection.prepareStatement(query)) {

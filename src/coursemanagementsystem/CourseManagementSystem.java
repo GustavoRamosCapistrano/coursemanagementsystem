@@ -23,20 +23,20 @@ public class CourseManagementSystem {
 
             // Main menu loop
             boolean exit = false;
-            while (!exit) {
-                System.out.println("Welcome, " + loggedInUser + "!\n");
+while (!exit) {
+    System.out.println("Welcome, " + loggedInUser + "!\n");
 
-                // Determine user role
-                String userRole = userManager.getUserRole(loggedInUser);
+    // Determine user role
+    String userRole = userManager.getUserRole(loggedInUser);
 
-                // Display menu based on user role
-                Menu.displayMenu(userRole);
+    // Display menu based on user role
+    Menu.displayMenu(userRole);
 
-                int choice = Menu.getUserChoice(scanner, userRole);
+    int choice = Menu.getUserChoice(scanner, userRole);
 
-                // Process user choice based on role
-                processUserChoice(choice, userRole, userManager, loggedInUser, scanner, reportManager, dbConnector);
-            }
+    // Process user choice based on role
+    processUserChoice(choice, userRole, userManager, loggedInUser, scanner, reportManager, dbConnector);
+}
         } catch (SQLException e) {
             System.err.println("An error occurred: " + e.getMessage());
             e.printStackTrace(); // Print stack trace for debugging

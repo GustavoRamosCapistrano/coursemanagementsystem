@@ -238,192 +238,151 @@ public void generateStudentReportConsole(List<String> studentDetails) {
 
     System.out.println("Student report printed to console.");
 }
-//
-//    public void generateLecturerReport(String format) throws SQLException {
-//        String query = "SELECT lecturer_name, role, modules_taught, student_count, classes_taught "
-//                + "FROM Lecturers";
-//        List<Lecturer> lecturers = dbConnector.executeQueryForLecturers(query);
-//        // Code to generate report based on the format
-//        if ("TXT".equalsIgnoreCase(format)) {
-//            generateLecturerReportTXT(lecturers); // Call the method with the lecturers list
-//        } else if ("CSV".equalsIgnoreCase(format)) {
-//            generateLecturerReportCSV(lecturers);
-//        } else {
-//            System.out.println("Invalid report format choice! Please choose either TXT or CSV.");
-//        }
-//    }
 
-    public void generateLecturerReportTXT(List<Lecturer> lecturers) {
-        try {
-            FileWriter writer = new FileWriter("lecturer_report.txt");
-            for (Lecturer lecturer : lecturers) {
-                writer.write("Lecturer Name: " + lecturer.getLecturerName() + "\n");
-                writer.write("Role: " + lecturer.getRole() + "\n");
-                writer.write("Modules Teaching: " + lecturer.getModulesTaught() + "\n");
-                writer.write("Number of Students: " + lecturer.getStudentCount() + "\n");
-                writer.write("Types of Classes: " + lecturer.getClassesTaught() + "\n\n");
-            }
-            writer.close();
-            System.out.println("Lecturer report generated successfully in TXT format.");
-        } catch (IOException e) {
-            System.out.println("An error occurred while generating the lecturer report.");
-            e.printStackTrace();
-        }
+public void generateLecturerReport(String format, List<Lecturer> lecturers) throws SQLException {
+    switch (format.toUpperCase()) {
+        case "TXT":
+            generateLecturerReportTXT(lecturers);
+            break;
+        case "CSV":
+            generateLecturerReportCSV(lecturers);
+            break;
+        case "CONSOLE":
+            generateLecturerReportConsole(lecturers);
+            break;
+        default:
+            System.out.println("Invalid report format choice! Please choose either TXT, CSV, or CONSOLE.");
     }
+}
 
-    public void generateLecturerReportCSV(List<Lecturer> lecturers) {
-        try {
-            FileWriter writer = new FileWriter("lecturer_report.csv");
-            writer.write("Lecturer Name, Role, Modules Teaching, Number of Students, Types of Classes\n");
-            for (Lecturer lecturer : lecturers) {
-                writer.write(lecturer.getLecturerName() + "," + lecturer.getRole() + ","
-                        + lecturer.getModulesTaught() + "," + lecturer.getStudentCount() + ","
-                        + lecturer.getClassesTaught() + "\n");
-            }
-            writer.close();
-            System.out.println("Lecturer report generated successfully in CSV format.");
-        } catch (IOException e) {
-            System.out.println("An error occurred while generating the lecturer report.");
-            e.printStackTrace();
-        }
-    }
-
-    public void displayLecturerReport(List<Lecturer> lecturers) {
-        System.out.println("Lecturer Report:");
-        System.out.println("-------------------------------------------------------");
+public void generateLecturerReportTXT(List<Lecturer> lecturers) {
+    try {
+        FileWriter writer = new FileWriter("lecturer_report.txt");
         for (Lecturer lecturer : lecturers) {
-            System.out.println("Lecturer Name: " + lecturer.getLecturerName());
-            System.out.println("Role: " + lecturer.getRole());
-            System.out.println("Modules Teaching: " + lecturer.getModulesTaught());
-            System.out.println("Number of Students: " + lecturer.getStudentCount());
-            System.out.println("Types of Classes: " + lecturer.getClassesTaught());
-            System.out.println("-------------------------------------------------------");
+            writer.write(String.format("Lecturer Name: %-40s\n", lecturer.getLecturerName()));
+            writer.write(String.format("Role: %-40s\n", lecturer.getRole()));
+            writer.write(String.format("Modules Teaching: %-40s\n", lecturer.getModulesTaught()));
+            writer.write(String.format("Number of Students: %-40d\n", lecturer.getStudentCount()));
+            writer.write(String.format("Types of Classes: %-40s\n\n", lecturer.getClassesTaught()));
         }
+        writer.close();
+        System.out.println("Lecturer report generated successfully in TXT format.");
+    } catch (IOException e) {
+        System.out.println("An error occurred while generating the lecturer report.");
+        e.printStackTrace();
     }
+}
 
-    public String generateOwnLecturerReport(String lecturerUsername) throws SQLException {
-        StringBuilder reportBuilder = new StringBuilder();
+public void generateLecturerReportCSV(List<Lecturer> lecturers) {
+    try {
+        FileWriter writer = new FileWriter("lecturer_report.csv");
+        writer.write("Lecturer Name,Role,Modules Teaching,Number of Students,Types of Classes\n");
+        for (Lecturer lecturer : lecturers) {
+            writer.write(String.format("%s,%s,%s,%d,%s\n",
+                    lecturer.getLecturerName(), lecturer.getRole(),
+                    lecturer.getModulesTaught(), lecturer.getStudentCount(), lecturer.getClassesTaught()));
+        }
+        writer.close();
+        System.out.println("Lecturer report generated successfully in CSV format.");
+    } catch (IOException e) {
+        System.out.println("An error occurred while generating the lecturer report.");
+        e.printStackTrace();
+    }
+}
+public void generateLecturerReportConsole(List<Lecturer> lecturers) {
+    System.out.println("Lecturer Report:");
 
-        try ( Connection connection = dbConnector.getConnection();  PreparedStatement statement = connection.prepareStatement(
-                "SELECT l.lecturer_name AS Lecturer_Name, "
-                + "l.role AS Role, "
-                + "c.course_name AS Module_Name, "
-                + "COUNT(e.enrollment_id) AS Enrolled_Students, "
-                + "l.class_types AS Classes_Taught "
-                + "FROM Lecturers l "
-                + "INNER JOIN Courses c ON l.lecturer_id = c.lecturer_id "
-                + "LEFT JOIN Enrollments e ON c.course_id = e.course_id "
-                + "GROUP BY l.lecturer_id, l.lecturer_name, l.role, c.course_name")) {
-            ResultSet resultSet = statement.executeQuery();
-            reportBuilder.append("Lecturer Name,Role,Module Name,Enrolled Students,Classes Taught\n");
-            while (resultSet.next()) {
-                reportBuilder.append(String.format("%s,%s,%s,%d,%s\n",
-                        resultSet.getString("Lecturer_Name"),
-                        resultSet.getString("Role"),
-                        resultSet.getString("Module_Name"),
-                        resultSet.getInt("Enrolled_Students"),
-                        resultSet.getString("Classes_Taught")));
+    for (Lecturer lecturer : lecturers) {
+        System.out.println("-------------------------------------------------------");
+        System.out.println("Lecturer Name:     " + lecturer.getLecturerName());
+        System.out.println("Role:              " + lecturer.getRole());
+
+        System.out.print("Modules Teaching:  ");
+        List<String> modulesTaught = lecturer.getModulesTaught();
+        System.out.print("[");
+        for (int i = 0; i < modulesTaught.size(); i++) {
+            if (i > 0) {
+                System.out.print(", ");
             }
-        } catch (SQLException e) {
-            System.out.println("An error occurred while generating the report: " + e.getMessage());
+            System.out.print(modulesTaught.get(i));
         }
+        System.out.println("]");
 
-        return reportBuilder.toString();
-    }
+        System.out.println("Number of Students: " + lecturer.getStudentCount());
 
-    public void generateOwnLecturerReportInTxt(String reportData) {
-        try ( PrintWriter writer = new PrintWriter(new FileWriter("lecturer_report.txt"))) {
-            writer.println("Lecturer Report:");
-            writer.println(String.format("%-30s %-20s %-40s %-20s %-30s",
-                    "Lecturer Name", "Role", "Module Name", "Enrolled Students", "Classes Taught"));
-
-            // Splitting the report data into lines
-            String[] lines = reportData.split("\n");
-
-            // Skipping the first line as it's already included in the header
-            for (int i = 1; i < lines.length; i++) {
-                String line = lines[i];
-                String[] fields = line.split(",");
-                String formattedLine = String.format("%-30s %-20s %-40s %-20s %-30s",
-                        fields[0], fields[1], fields[2], fields[3], fields[4]);
-                writer.println(formattedLine);
+        System.out.print("Types of Classes:  ");
+        List<String> classesTaught = lecturer.getClassesTaught();
+        System.out.print("[");
+        for (int i = 0; i < classesTaught.size(); i++) {
+            if (i > 0) {
+                System.out.print(", ");
             }
-
-            System.out.println("Lecturer report saved to lecturer_report.txt");
-        } catch (IOException e) {
-            System.out.println("An error occurred while saving the report: " + e.getMessage());
+            System.out.print(classesTaught.get(i));
         }
+        System.out.println("]");
+
+        System.out.println("-------------------------------------------------------");
     }
 
-    public void generateOwnLecturerReportInCsv(String reportData) {
-        try ( PrintWriter writer = new PrintWriter(new FileWriter("lecturer_report.csv"))) {
-            writer.println(reportData);
-            System.out.println("Lecturer report saved to lecturer_report.csv");
-        } catch (IOException e) {
-            System.out.println("An error occurred while saving the report: " + e.getMessage());
-        }
+    System.out.println("Lecturer report displayed.");
+}
+
+   public void generateOwnLecturerReport(String format, Lecturer lecturer) {
+    switch (format.toUpperCase()) {
+        case "TXT":
+            generateOwnLecturerReportTXT(lecturer);
+            break;
+        case "CSV":
+            generateOwnLecturerReportCSV(lecturer);
+            break;
+        case "CONSOLE":
+            generateOwnLecturerReportConsole(lecturer);
+            break;
+        default:
+            System.out.println("Invalid report format choice! Please choose either TXT, CSV, or CONSOLE.");
     }
+}
 
-    public void generateOwnLecturerReportInConsole(String reportData) {
-        // Print the header only once
-        System.out.println("Lecturer Report:");
-        System.out.printf("%-30s %-20s %-40s %-20s %-30s%n",
-                "Lecturer Name", "Role", "Module Name", "Enrolled Students", "Classes Taught");
+public void generateOwnLecturerReportTXT(Lecturer lecturer) {
+    try (PrintWriter writer = new PrintWriter(new FileWriter("Ownlecturer_report.txt"))) {
+        writer.println("Lecturer Report:");
+        writer.println("Lecturer Name: " + lecturer.getLecturerName());
+        writer.println("Role: " + lecturer.getRole());
+        writer.println("Module Name: " + String.join(", ", lecturer.getModulesTaught()));
+        writer.println("Enrolled Students: " + lecturer.getStudentCount());
+        writer.println("Classes Taught: " + String.join(", ", lecturer.getClassesTaught()));
 
-        // Splitting the report data into lines
-        String[] lines = reportData.split("\n");
-
-        // Start from index 1 to skip the header line
-        for (int i = 1; i < lines.length; i++) {
-            String[] fields = lines[i].split(",");
-            System.out.printf("%-30s %-20s %-40s %-20s %-30s%n",
-                    fields[0], fields[1], fields[2], fields[3], fields[4]);
-        }
+        System.out.println("Lecturer report saved to Ownlecturer_report.txt");
+    } catch (IOException e) {
+        System.out.println("An error occurred while saving the report: " + e.getMessage());
     }
+}
 
-    public void generateOwnReportInConsoleForString(String reportData, String reportType) {
-        // Print the header
-        System.out.println(reportType + " Report:");
-
-        // Splitting the report data into lines
-        String[] lines = reportData.split("\n");
-
-        // Start from index 1 to skip the header line
-        for (int i = 1; i < lines.length; i++) {
-            String[] fields = lines[i].split(",");
-            for (String field : fields) {
-                System.out.print(field.trim() + "   "); // Adjust spacing as needed
-            }
-            System.out.println(); // Move to the next line after printing all fields
-        }
+public void generateOwnLecturerReportCSV(Lecturer lecturer) {
+    try (PrintWriter writer = new PrintWriter(new FileWriter("Ownlecturer_report.csv"))) {
+        writer.write("Lecturer Name,Role,Module Name,Enrolled Students,Classes Taught\n");
+        String formattedLine = String.format("%s,%s,%s,%d,%s\n",
+                lecturer.getLecturerName(), lecturer.getRole(),
+                String.join(", ", lecturer.getModulesTaught()), lecturer.getStudentCount(), String.join(", ", lecturer.getClassesTaught()));
+        writer.write(formattedLine);
+        System.out.println("Lecturer report saved to Ownlecturer_report.csv");
+    } catch (IOException e) {
+        System.out.println("An error occurred while saving the report: " + e.getMessage());
     }
+}
 
-    public void generateReportInCsvForString(String reportData, String reportType) {
-        try ( PrintWriter writer = new PrintWriter(new FileWriter(reportType + "_report.csv"))) {
-            writer.println(reportData);
-            System.out.println(reportType + " report saved to " + reportType + "_report.csv");
-        } catch (IOException e) {
-            System.out.println("An error occurred while saving the " + reportType + " report: " + e.getMessage());
-        }
-    }
+public void generateOwnLecturerReportConsole(Lecturer lecturer) {
+    System.out.println("Lecturer Report:");
 
-    public void generateReportInTxtForString(String reportData, String reportType) {
-        try ( PrintWriter writer = new PrintWriter(new FileWriter(reportType + "_report.txt"))) {
-            writer.println(reportType + " Report:");
+    System.out.println("Lecturer Name: " + lecturer.getLecturerName());
+    System.out.println("Role: " + lecturer.getRole());
+    System.out.println("Module Name: " + String.join(", ", lecturer.getModulesTaught()));
+    System.out.println("Enrolled Students: " + lecturer.getStudentCount());
+    System.out.println("Classes Taught: " + String.join(", ", lecturer.getClassesTaught()));
 
-            // Splitting the report data into lines
-            String[] lines = reportData.split("\n");
-
-            // Start from index 1 to skip the header line
-            for (int i = 1; i < lines.length; i++) {
-                writer.println(lines[i]);
-            }
-
-            System.out.println(reportType + " report saved to " + reportType + "_report.txt");
-        } catch (IOException e) {
-            System.out.println("An error occurred while saving the " + reportType + " report: " + e.getMessage());
-        }
-    }
+    System.out.println("Lecturer report displayed.");
+}
+   
     public String generateSeparator(int length) {
     StringBuilder separator = new StringBuilder();
     for (int i = 0; i < length; i++) {

@@ -1,102 +1,600 @@
-Lecturer Report:
-Lecturer Name                  Role                 Module Name                              Enrolled Students    Classes Taught                
-john doe                       Associate Lecturer   Introduction to Computer Science         5                    Computer Science              
-Jane Smith                     Senior Lecturer      Data Structures and Algorithms           5                    Software Engineering          
-Michael Johnson                Professor            Database Management Systems              5                    Artificial Intelligence       
-Emily Brown                    Programme Manager    Software Engineering                     5                    Business Administration       
-David Wilson                   Associate Lecturer   Web Development                          5                    Mathematics                   
-Jennifer Lee                   Senior Lecturer      Computer Networks                        5                    Chemistry                     
-Christopher Taylor             Professor            Artificial Intelligence                  5                    Physics                       
-Sarah Martinez                 Associate Lecturer   Machine Learning                         5                    English Literature            
-Daniel Anderson                Senior Lecturer      Cybersecurity                            5                    History                       
-Amanda White                   Professor            Computer Graphics                        5                    Psychology                    
-john doe                       Associate Lecturer   Electrical Circuits                      5                    Computer Science              
-Jane Smith                     Senior Lecturer      Digital Signal Processing                5                    Software Engineering          
-Michael Johnson                Professor            Control Systems                          5                    Artificial Intelligence       
-Emily Brown                    Programme Manager    Power Systems                            5                    Business Administration       
-David Wilson                   Associate Lecturer   Electromagnetic Fields                   5                    Mathematics                   
-Jennifer Lee                   Senior Lecturer      Microelectronics                         5                    Chemistry                     
-Christopher Taylor             Professor            Renewable Energy Systems                 5                    Physics                       
-Sarah Martinez                 Associate Lecturer   Robotics                                 5                    English Literature            
-Daniel Anderson                Senior Lecturer      Embedded Systems                         5                    History                       
-Amanda White                   Professor            VLSI Design                              5                    Psychology                    
-john doe                       Associate Lecturer   Principles of Management                 0                    Computer Science              
-Jane Smith                     Senior Lecturer      Marketing Management                     0                    Software Engineering          
-Michael Johnson                Professor            Financial Management                     0                    Artificial Intelligence       
-Emily Brown                    Programme Manager    Human Resource Management                0                    Business Administration       
-David Wilson                   Associate Lecturer   Operations Management                    0                    Mathematics                   
-Jennifer Lee                   Senior Lecturer      Strategic Management                     0                    Chemistry                     
-Christopher Taylor             Professor            Organizational Behavior                  0                    Physics                       
-Sarah Martinez                 Associate Lecturer   Business Ethics                          0                    English Literature            
-Daniel Anderson                Senior Lecturer      International Business                   0                    History                       
-Amanda White                   Professor            Entrepreneurship                         0                    Psychology                    
-john doe                       Associate Lecturer   Engineering Mechanics                    0                    Computer Science              
-Jane Smith                     Senior Lecturer      Mechanical Vibrations                    0                    Software Engineering          
-Michael Johnson                Professor            Thermodynamics                           0                    Artificial Intelligence       
-Emily Brown                    Programme Manager    Fluid Mechanics                          0                    Business Administration       
-David Wilson                   Associate Lecturer   Heat Transfer                            0                    Mathematics                   
-Jennifer Lee                   Senior Lecturer      Materials Science                        0                    Chemistry                     
-Christopher Taylor             Professor            Manufacturing Processes                  0                    Physics                       
-Sarah Martinez                 Associate Lecturer   Mechatronics                             0                    English Literature            
-Daniel Anderson                Senior Lecturer      Automotive Engineering                   0                    History                       
-Amanda White                   Professor            Aerospace Structures                     0                    Psychology                    
-john doe                       Associate Lecturer   General Physics                          0                    Computer Science              
-Jane Smith                     Senior Lecturer      Classical Mechanics                      0                    Software Engineering          
-Michael Johnson                Professor            Electromagnetism                         0                    Artificial Intelligence       
-Emily Brown                    Programme Manager    Quantum Mechanics                        0                    Business Administration       
-David Wilson                   Associate Lecturer   Statistical Mechanics                    0                    Mathematics                   
-Jennifer Lee                   Senior Lecturer      Solid State Physics                      0                    Chemistry                     
-Christopher Taylor             Professor            Nuclear Physics                          0                    Physics                       
-Sarah Martinez                 Associate Lecturer   Particle Physics                         0                    English Literature            
-Daniel Anderson                Senior Lecturer      Astrophysics                             0                    History                       
-Amanda White                   Professor            Cosmology                                0                    Psychology                    
-john doe                       Associate Lecturer   Organic Chemistry                        0                    Computer Science              
-Jane Smith                     Senior Lecturer      Inorganic Chemistry                      0                    Software Engineering          
-Michael Johnson                Professor            Physical Chemistry                       0                    Artificial Intelligence       
-Emily Brown                    Programme Manager    Analytical Chemistry                     0                    Business Administration       
-David Wilson                   Associate Lecturer   Biochemistry                             0                    Mathematics                   
-Jennifer Lee                   Senior Lecturer      Polymer Chemistry                        0                    Chemistry                     
-Christopher Taylor             Professor            Environmental Chemistry                  0                    Physics                       
-Sarah Martinez                 Associate Lecturer   Medicinal Chemistry                      0                    English Literature            
-Daniel Anderson                Senior Lecturer      Forensic Chemistry                       0                    History                       
-Amanda White                   Professor            Nanochemistry                            0                    Psychology                    
-john doe                       Associate Lecturer   Calculus                                 0                    Computer Science              
-Jane Smith                     Senior Lecturer      Linear Algebra                           0                    Software Engineering          
-Michael Johnson                Professor            Differential Equations                   0                    Artificial Intelligence       
-Emily Brown                    Programme Manager    Probability Theory                       0                    Business Administration       
-David Wilson                   Associate Lecturer   Statistics                               0                    Mathematics                   
-Jennifer Lee                   Senior Lecturer      Numerical Analysis                       0                    Chemistry                     
-Christopher Taylor             Professor            Mathematical Modeling                    0                    Physics                       
-Sarah Martinez                 Associate Lecturer   Operations Research                      0                    English Literature            
-Daniel Anderson                Senior Lecturer      Discrete Mathematics                     0                    History                       
-Amanda White                   Professor            Topology                                 0                    Psychology                    
-john doe                       Associate Lecturer   English Literature: From Chaucer to Milton 0                    Computer Science              
-Jane Smith                     Senior Lecturer      Romanticism and Victorian Literature     0                    Software Engineering          
-Michael Johnson                Professor            Modernism and Postmodernism              0                    Artificial Intelligence       
-Emily Brown                    Programme Manager    American Literature                      0                    Business Administration       
-David Wilson                   Associate Lecturer   World Literature                         0                    Mathematics                   
-Jennifer Lee                   Senior Lecturer      Shakespearean Studies                    0                    Chemistry                     
-Christopher Taylor             Professor            Poetry and Poetics                       0                    Physics                       
-Sarah Martinez                 Associate Lecturer   Drama and Performance                    0                    English Literature            
-Daniel Anderson                Senior Lecturer      Fiction and Narrative                    0                    History                       
-Amanda White                   Professor            Literary Theory                          0                    Psychology                    
-john doe                       Associate Lecturer   World History                            0                    Computer Science              
-Jane Smith                     Senior Lecturer      European History                         0                    Software Engineering          
-Michael Johnson                Professor            Asian History                            0                    Artificial Intelligence       
-Emily Brown                    Programme Manager    African History                          0                    Business Administration       
-David Wilson                   Associate Lecturer   Middle Eastern History                   0                    Mathematics                   
-Jennifer Lee                   Senior Lecturer      Latin American History                   0                    Chemistry                     
-Christopher Taylor             Professor            North American History                   0                    Physics                       
-Sarah Martinez                 Associate Lecturer   South American History                   0                    English Literature            
-Daniel Anderson                Senior Lecturer      Medieval History                         0                    History                       
-Amanda White                   Professor            Renaissance History                      0                    Psychology                    
-john doe                       Associate Lecturer   Cognitive Psychology                     0                    Computer Science              
-Jane Smith                     Senior Lecturer      Social Psychology                        0                    Software Engineering          
-Michael Johnson                Professor            Developmental Psychology                 0                    Artificial Intelligence       
-Emily Brown                    Programme Manager    Abnormal Psychology                      0                    Business Administration       
-David Wilson                   Associate Lecturer   Health Psychology                        0                    Mathematics                   
-Jennifer Lee                   Senior Lecturer      Industrial-Organizational Psychology     0                    Chemistry                     
-Christopher Taylor             Professor            Educational Psychology                   0                    Physics                       
-Sarah Martinez                 Associate Lecturer   Experimental Psychology                  0                    English Literature            
-Daniel Anderson                Senior Lecturer      Clinical Psychology                      0                    History                       
-Amanda White                   Professor            Biopsychology                            0                    Psychology                    
+Lecturer Name: john doe                                
+Role: Associate Lecturer                      
+Modules Teaching: [Calculus, Cognitive Psychology, Electrical Circuits, Engineering Mechanics, English Literature: From Chaucer to Milton, General Physics, Introduction to Computer Science, Organic Chemistry, Principles of Management, World History]
+Number of Students: 10                                      
+Types of Classes: [Computer Science, Information Technology]
+
+Lecturer Name: Jane Smith                              
+Role: Senior Lecturer                         
+Modules Teaching: [Classical Mechanics, Data Structures and Algorithms, Digital Signal Processing, European History, Inorganic Chemistry, Linear Algebra, Marketing Management, Mechanical Vibrations, Romanticism and Victorian Literature, Social Psychology]
+Number of Students: 10                                      
+Types of Classes: [Software Engineering, Data Science]    
+
+Lecturer Name: Michael Johnson                         
+Role: Professor                               
+Modules Teaching: [Asian History, Control Systems, Database Management Systems, Developmental Psychology, Differential Equations, Electromagnetism, Financial Management, Modernism and Postmodernism, Physical Chemistry, Thermodynamics]
+Number of Students: 10                                      
+Types of Classes: [Artificial Intelligence, Robotics]     
+
+Lecturer Name: Emily Brown                             
+Role: Programme Manager                       
+Modules Teaching: [Abnormal Psychology, African History, American Literature, Analytical Chemistry, Fluid Mechanics, Human Resource Management, Power Systems, Probability Theory, Quantum Mechanics, Software Engineering]
+Number of Students: 10                                      
+Types of Classes: [Business Administration, Marketing]    
+
+Lecturer Name: David Wilson                            
+Role: Associate Lecturer                      
+Modules Teaching: [Biochemistry, Electromagnetic Fields, Health Psychology, Heat Transfer, Middle Eastern History, Operations Management, Statistical Mechanics, Statistics, Web Development, World Literature]
+Number of Students: 10                                      
+Types of Classes: [Mathematics, Statistics]               
+
+Lecturer Name: Jennifer Lee                            
+Role: Senior Lecturer                         
+Modules Teaching: [Computer Networks, Industrial-Organizational Psychology, Latin American History, Materials Science, Microelectronics, Numerical Analysis, Polymer Chemistry, Shakespearean Studies, Solid State Physics, Strategic Management]
+Number of Students: 10                                      
+Types of Classes: [Chemistry, Biochemistry]               
+
+Lecturer Name: Christopher Taylor                      
+Role: Professor                               
+Modules Teaching: [Artificial Intelligence, Educational Psychology, Environmental Chemistry, Manufacturing Processes, Mathematical Modeling, North American History, Nuclear Physics, Organizational Behavior, Poetry and Poetics, Renewable Energy Systems]
+Number of Students: 10                                      
+Types of Classes: [Physics, Astrophysics]                 
+
+Lecturer Name: Sarah Martinez                          
+Role: Associate Lecturer                      
+Modules Teaching: [Business Ethics, Drama and Performance, Experimental Psychology, Machine Learning, Mechatronics, Medicinal Chemistry, Operations Research, Particle Physics, Robotics, South American History]
+Number of Students: 10                                      
+Types of Classes: [English Literature, Comparative Literature]
+
+Lecturer Name: Daniel Anderson                         
+Role: Senior Lecturer                         
+Modules Teaching: [Astrophysics, Automotive Engineering, Clinical Psychology, Cybersecurity, Discrete Mathematics, Embedded Systems, Fiction and Narrative, Forensic Chemistry, International Business, Medieval History]
+Number of Students: 10                                      
+Types of Classes: [History, Political Science]            
+
+Lecturer Name: Amanda White                            
+Role: Professor                               
+Modules Teaching: [Aerospace Structures, Biopsychology, Computer Graphics, Cosmology, Entrepreneurship, Literary Theory, Nanochemistry, Renaissance History, Topology, VLSI Design]
+Number of Students: 10                                      
+Types of Classes: [Psychology, Sociology]                 
+
+Lecturer Name: Matthew Thompson                        
+Role: Associate Lecturer                      
+Modules Teaching: []                                      
+Number of Students: 0                                       
+Types of Classes: [Economics, Finance]                    
+
+Lecturer Name: Laura Garcia                            
+Role: Senior Lecturer                         
+Modules Teaching: []                                      
+Number of Students: 0                                       
+Types of Classes: [Journalism, Communication Studies]     
+
+Lecturer Name: Kevin Davis                             
+Role: Professor                               
+Modules Teaching: []                                      
+Number of Students: 0                                       
+Types of Classes: [Environmental Science, Geography]      
+
+Lecturer Name: Rachel Wilson                           
+Role: Associate Lecturer                      
+Modules Teaching: []                                      
+Number of Students: 0                                       
+Types of Classes: [Civil Engineering, Urban Planning]     
+
+Lecturer Name: Andrew Clark                            
+Role: Senior Lecturer                         
+Modules Teaching: []                                      
+Number of Students: 0                                       
+Types of Classes: [Mechanical Engineering, Aerospace Engineering]
+
+Lecturer Name: Stephanie Hall                          
+Role: Professor                               
+Modules Teaching: []                                      
+Number of Students: 0                                       
+Types of Classes: [Biomedical Engineering, Healthcare Administration]
+
+Lecturer Name: Thomas Baker                            
+Role: Associate Lecturer                      
+Modules Teaching: []                                      
+Number of Students: 0                                       
+Types of Classes: [Nursing, Public Health]                
+
+Lecturer Name: Olivia Green                            
+Role: Senior Lecturer                         
+Modules Teaching: []                                      
+Number of Students: 0                                       
+Types of Classes: [Dental Hygiene, Nutrition Science]     
+
+Lecturer Name: Robert Martinez                         
+Role: Professor                               
+Modules Teaching: []                                      
+Number of Students: 0                                       
+Types of Classes: [Law, Criminal Justice]                 
+
+Lecturer Name: Jessica Brown                           
+Role: Associate Lecturer                      
+Modules Teaching: []                                      
+Number of Students: 0                                       
+Types of Classes: [International Relations, Gender Studies]
+
+Lecturer Name: Eric Taylor                             
+Role: Associate Lecturer                      
+Modules Teaching: []                                      
+Number of Students: 0                                       
+Types of Classes: [Religious Studies, Philosophy]         
+
+Lecturer Name: Michelle Garcia                         
+Role: Senior Lecturer                         
+Modules Teaching: []                                      
+Number of Students: 0                                       
+Types of Classes: [Art History, Music]                    
+
+Lecturer Name: Brian Johnson                           
+Role: Professor                               
+Modules Teaching: []                                      
+Number of Students: 0                                       
+Types of Classes: [Chemical Engineering, Materials Science]
+
+Lecturer Name: Jessica Miller                          
+Role: Programme Manager                       
+Modules Teaching: []                                      
+Number of Students: 0                                       
+Types of Classes: [Business Administration, Marketing]    
+
+Lecturer Name: Stephanie Martinez                      
+Role: Associate Lecturer                      
+Modules Teaching: []                                      
+Number of Students: 0                                       
+Types of Classes: [Political Science, International Relations]
+
+Lecturer Name: David Thompson                          
+Role: Senior Lecturer                         
+Modules Teaching: []                                      
+Number of Students: 0                                       
+Types of Classes: [Economics, Finance]                    
+
+Lecturer Name: Jennifer Davis                          
+Role: Professor                               
+Modules Teaching: []                                      
+Number of Students: 0                                       
+Types of Classes: [Communication Studies, Journalism]     
+
+Lecturer Name: Michael Wilson                          
+Role: Associate Lecturer                      
+Modules Teaching: []                                      
+Number of Students: 0                                       
+Types of Classes: [Geography, Environmental Science]      
+
+Lecturer Name: Lauren Anderson                         
+Role: Senior Lecturer                         
+Modules Teaching: []                                      
+Number of Students: 0                                       
+Types of Classes: [Urban Planning, Architecture]          
+
+Lecturer Name: Andrew Brown                            
+Role: Professor                               
+Modules Teaching: []                                      
+Number of Students: 0                                       
+Types of Classes: [Civil Engineering, Construction Management]
+
+Lecturer Name: Emily Lee                               
+Role: Associate Lecturer                      
+Modules Teaching: []                                      
+Number of Students: 0                                       
+Types of Classes: [Mechanical Engineering, Robotics]      
+
+Lecturer Name: Daniel Taylor                           
+Role: Senior Lecturer                         
+Modules Teaching: []                                      
+Number of Students: 0                                       
+Types of Classes: [Aerospace Engineering, Electrical Engineering]
+
+Lecturer Name: Rachel Garcia                           
+Role: Professor                               
+Modules Teaching: []                                      
+Number of Students: 0                                       
+Types of Classes: [Computer Science, Software Engineering]
+
+Lecturer Name: Jason Martinez                          
+Role: Associate Lecturer                      
+Modules Teaching: []                                      
+Number of Students: 0                                       
+Types of Classes: [Mathematics, Statistics]               
+
+Lecturer Name: Melissa Johnson                         
+Role: Senior Lecturer                         
+Modules Teaching: []                                      
+Number of Students: 0                                       
+Types of Classes: [Physics, Astrophysics]                 
+
+Lecturer Name: Christopher Wilson                      
+Role: Professor                               
+Modules Teaching: []                                      
+Number of Students: 0                                       
+Types of Classes: [Biomedical Engineering, Bioinformatics]
+
+Lecturer Name: Rebecca Thompson                        
+Role: Associate Lecturer                      
+Modules Teaching: []                                      
+Number of Students: 0                                       
+Types of Classes: [Nursing, Public Health]                
+
+Lecturer Name: Matthew Brown                           
+Role: Senior Lecturer                         
+Modules Teaching: []                                      
+Number of Students: 0                                       
+Types of Classes: [Dental Hygiene, Nutrition Science]     
+
+Lecturer Name: Sarah Davis                             
+Role: Professor                               
+Modules Teaching: []                                      
+Number of Students: 0                                       
+Types of Classes: [Law, Criminal Justice]                 
+
+Lecturer Name: Amanda White                            
+Role: Associate Lecturer                      
+Modules Teaching: []                                      
+Number of Students: 0                                       
+Types of Classes: [Psychology, Sociology]                 
+
+Lecturer Name: Robert Smith                            
+Role: Senior Lecturer                         
+Modules Teaching: []                                      
+Number of Students: 0                                       
+Types of Classes: [International Relations, Gender Studies]
+
+Lecturer Name: Jessica Clark                           
+Role: Professor                               
+Modules Teaching: []                                      
+Number of Students: 0                                       
+Types of Classes: [Philosophy, Ethics]                    
+
+Lecturer Name: David Taylor                            
+Role: Associate Lecturer                      
+Modules Teaching: []                                      
+Number of Students: 0                                       
+Types of Classes: [History, Archaeology]                  
+
+Lecturer Name: Emily Johnson                           
+Role: Senior Lecturer                         
+Modules Teaching: []                                      
+Number of Students: 0                                       
+Types of Classes: [English Literature, Comparative Literature]
+
+Lecturer Name: Thomas Miller                           
+Role: Professor                               
+Modules Teaching: []                                      
+Number of Students: 0                                       
+Types of Classes: [Theater, Film Studies]                 
+
+Lecturer Name: Stephanie Thompson                      
+Role: Associate Lecturer                      
+Modules Teaching: []                                      
+Number of Students: 0                                       
+Types of Classes: [Music, Dance]                          
+
+Lecturer Name: Brian Garcia                            
+Role: Senior Lecturer                         
+Modules Teaching: []                                      
+Number of Students: 0                                       
+Types of Classes: [Fine Arts, Visual Arts]                
+
+Lecturer Name: Michelle Brown                          
+Role: Professor                               
+Modules Teaching: []                                      
+Number of Students: 0                                       
+Types of Classes: [Biology, Environmental Science]        
+
+Lecturer Name: Michael Wilson                          
+Role: Associate Lecturer                      
+Modules Teaching: []                                      
+Number of Students: 0                                       
+Types of Classes: [Chemistry, Biochemistry]               
+
+Lecturer Name: Lauren Johnson                          
+Role: Senior Lecturer                         
+Modules Teaching: []                                      
+Number of Students: 0                                       
+Types of Classes: [Geology, Oceanography]                 
+
+Lecturer Name: Daniel Martinez                         
+Role: Professor                               
+Modules Teaching: []                                      
+Number of Students: 0                                       
+Types of Classes: [Psychology, Neuroscience]              
+
+Lecturer Name: Rachel Clark                            
+Role: Associate Lecturer                      
+Modules Teaching: []                                      
+Number of Students: 0                                       
+Types of Classes: [Anthropology, Sociology]               
+
+Lecturer Name: Christopher Thompson                    
+Role: Senior Lecturer                         
+Modules Teaching: []                                      
+Number of Students: 0                                       
+Types of Classes: [Economics, Finance]                    
+
+Lecturer Name: Jessica Davis                           
+Role: Professor                               
+Modules Teaching: []                                      
+Number of Students: 0                                       
+Types of Classes: [Political Science, International Relations]
+
+Lecturer Name: David Taylor                            
+Role: Associate Lecturer                      
+Modules Teaching: []                                      
+Number of Students: 0                                       
+Types of Classes: [Communication Studies, Journalism]     
+
+Lecturer Name: Sarah Smith                             
+Role: Senior Lecturer                         
+Modules Teaching: []                                      
+Number of Students: 0                                       
+Types of Classes: [Geography, Environmental Science]      
+
+Lecturer Name: Matthew Johnson                         
+Role: Professor                               
+Modules Teaching: []                                      
+Number of Students: 0                                       
+Types of Classes: [Urban Planning, Architecture]          
+
+Lecturer Name: Jennifer Brown                          
+Role: Associate Lecturer                      
+Modules Teaching: []                                      
+Number of Students: 0                                       
+Types of Classes: [Civil Engineering, Construction Management]
+
+Lecturer Name: Andrew Wilson                           
+Role: Senior Lecturer                         
+Modules Teaching: []                                      
+Number of Students: 0                                       
+Types of Classes: [Mechanical Engineering, Robotics]      
+
+Lecturer Name: Emily Garcia                            
+Role: Professor                               
+Modules Teaching: []                                      
+Number of Students: 0                                       
+Types of Classes: [Aerospace Engineering, Electrical Engineering]
+
+Lecturer Name: Thomas Davis                            
+Role: Associate Lecturer                      
+Modules Teaching: []                                      
+Number of Students: 0                                       
+Types of Classes: [Computer Science, Software Engineering]
+
+Lecturer Name: Rebecca Thompson                        
+Role: Senior Lecturer                         
+Modules Teaching: []                                      
+Number of Students: 0                                       
+Types of Classes: [Mathematics, Statistics]               
+
+Lecturer Name: Jason Clark                             
+Role: Professor                               
+Modules Teaching: []                                      
+Number of Students: 0                                       
+Types of Classes: [Physics, Astrophysics]                 
+
+Lecturer Name: Melissa Taylor                          
+Role: Associate Lecturer                      
+Modules Teaching: []                                      
+Number of Students: 0                                       
+Types of Classes: [Biomedical Engineering, Bioinformatics]
+
+Lecturer Name: Robert Martinez                         
+Role: Senior Lecturer                         
+Modules Teaching: []                                      
+Number of Students: 0                                       
+Types of Classes: [Nursing, Public Health]                
+
+Lecturer Name: Amanda Johnson                          
+Role: Professor                               
+Modules Teaching: []                                      
+Number of Students: 0                                       
+Types of Classes: [Dental Hygiene, Nutrition Science]     
+
+Lecturer Name: Sarah Brown                             
+Role: Associate Lecturer                      
+Modules Teaching: []                                      
+Number of Students: 0                                       
+Types of Classes: [Law, Criminal Justice]                 
+
+Lecturer Name: Matthew Wilson                          
+Role: Senior Lecturer                         
+Modules Teaching: []                                      
+Number of Students: 0                                       
+Types of Classes: [Psychology, Sociology]                 
+
+Lecturer Name: Jessica Thompson                        
+Role: Professor                               
+Modules Teaching: []                                      
+Number of Students: 0                                       
+Types of Classes: [International Relations, Gender Studies]
+
+Lecturer Name: David Clark                             
+Role: Associate Lecturer                      
+Modules Teaching: []                                      
+Number of Students: 0                                       
+Types of Classes: [Philosophy, Ethics]                    
+
+Lecturer Name: Stephanie Miller                        
+Role: Senior Lecturer                         
+Modules Teaching: []                                      
+Number of Students: 0                                       
+Types of Classes: [History, Archaeology]                  
+
+Lecturer Name: Michael Johnson                         
+Role: Professor                               
+Modules Teaching: []                                      
+Number of Students: 0                                       
+Types of Classes: [English Literature, Comparative Literature]
+
+Lecturer Name: Lauren Davis                            
+Role: Associate Lecturer                      
+Modules Teaching: []                                      
+Number of Students: 0                                       
+Types of Classes: [Theater, Film Studies]                 
+
+Lecturer Name: Daniel Smith                            
+Role: Senior Lecturer                         
+Modules Teaching: []                                      
+Number of Students: 0                                       
+Types of Classes: [Music, Dance]                          
+
+Lecturer Name: Rachel Wilson                           
+Role: Professor                               
+Modules Teaching: []                                      
+Number of Students: 0                                       
+Types of Classes: [Fine Arts, Visual Arts]                
+
+Lecturer Name: Christopher Garcia                      
+Role: Associate Lecturer                      
+Modules Teaching: []                                      
+Number of Students: 0                                       
+Types of Classes: [Biology, Environmental Science]        
+
+Lecturer Name: Rebecca Brown                           
+Role: Senior Lecturer                         
+Modules Teaching: []                                      
+Number of Students: 0                                       
+Types of Classes: [Chemistry, Biochemistry]               
+
+Lecturer Name: Matthew Thompson                        
+Role: Professor                               
+Modules Teaching: []                                      
+Number of Students: 0                                       
+Types of Classes: [Geology, Oceanography]                 
+
+Lecturer Name: Jennifer Martinez                       
+Role: Associate Lecturer                      
+Modules Teaching: []                                      
+Number of Students: 0                                       
+Types of Classes: [Psychology, Neuroscience]              
+
+Lecturer Name: Brian Clark                             
+Role: Senior Lecturer                         
+Modules Teaching: []                                      
+Number of Students: 0                                       
+Types of Classes: [Anthropology, Sociology]               
+
+Lecturer Name: Michelle Johnson                        
+Role: Professor                               
+Modules Teaching: []                                      
+Number of Students: 0                                       
+Types of Classes: [Economics, Finance]                    
+
+Lecturer Name: David Davis                             
+Role: Associate Lecturer                      
+Modules Teaching: []                                      
+Number of Students: 0                                       
+Types of Classes: [Political Science, International Relations]
+
+Lecturer Name: Emily Smith                             
+Role: Senior Lecturer                         
+Modules Teaching: []                                      
+Number of Students: 0                                       
+Types of Classes: [Communication Studies, Journalism]     
+
+Lecturer Name: Thomas Garcia                           
+Role: Professor                               
+Modules Teaching: []                                      
+Number of Students: 0                                       
+Types of Classes: [Geography, Environmental Science]      
+
+Lecturer Name: Stephanie Brown                         
+Role: Associate Lecturer                      
+Modules Teaching: []                                      
+Number of Students: 0                                       
+Types of Classes: [Urban Planning, Architecture]          
+
+Lecturer Name: Michael Wilson                          
+Role: Senior Lecturer                         
+Modules Teaching: []                                      
+Number of Students: 0                                       
+Types of Classes: [Civil Engineering, Construction Management]
+
+Lecturer Name: Lauren Thompson                         
+Role: Professor                               
+Modules Teaching: []                                      
+Number of Students: 0                                       
+Types of Classes: [Mechanical Engineering, Robotics]      
+
+Lecturer Name: Daniel Johnson                          
+Role: Associate Lecturer                      
+Modules Teaching: []                                      
+Number of Students: 0                                       
+Types of Classes: [Aerospace Engineering, Electrical Engineering]
+
+Lecturer Name: Rachel Clark                            
+Role: Senior Lecturer                         
+Modules Teaching: []                                      
+Number of Students: 0                                       
+Types of Classes: [Computer Science, Software Engineering]
+
+Lecturer Name: Jason Martinez                          
+Role: Professor                               
+Modules Teaching: []                                      
+Number of Students: 0                                       
+Types of Classes: [Mathematics, Statistics]               
+
+Lecturer Name: Melissa Johnson                         
+Role: Associate Lecturer                      
+Modules Teaching: []                                      
+Number of Students: 0                                       
+Types of Classes: [Physics, Astrophysics]                 
+
+Lecturer Name: Robert Davis                            
+Role: Senior Lecturer                         
+Modules Teaching: []                                      
+Number of Students: 0                                       
+Types of Classes: [Biomedical Engineering, Bioinformatics]
+
+Lecturer Name: Amanda Clark                            
+Role: Professor                               
+Modules Teaching: []                                      
+Number of Students: 0                                       
+Types of Classes: [Nursing, Public Health]                
+
+Lecturer Name: Sarah Thompson                          
+Role: Associate Lecturer                      
+Modules Teaching: []                                      
+Number of Students: 0                                       
+Types of Classes: [Dental Hygiene, Nutrition Science]     
+
+Lecturer Name: Matthew Garcia                          
+Role: Senior Lecturer                         
+Modules Teaching: []                                      
+Number of Students: 0                                       
+Types of Classes: [Law, Criminal Justice]                 
+
+Lecturer Name: Jessica Brown                           
+Role: Professor                               
+Modules Teaching: []                                      
+Number of Students: 0                                       
+Types of Classes: [Psychology, Sociology]                 
+
+Lecturer Name: David Thompson                          
+Role: Associate Lecturer                      
+Modules Teaching: []                                      
+Number of Students: 0                                       
+Types of Classes: [International Relations, Gender Studies]
+
+Lecturer Name: Jennifer Taylor                         
+Role: Senior Lecturer                         
+Modules Teaching: []                                      
+Number of Students: 0                                       
+Types of Classes: [Philosophy, Ethics]                    
+
+Lecturer Name: Brian Miller                            
+Role: Professor                               
+Modules Teaching: []                                      
+Number of Students: 0                                       
+Types of Classes: [History, Archaeology]                  
+
+Lecturer Name: Michelle Lee                            
+Role: Associate Lecturer                      
+Modules Teaching: []                                      
+Number of Students: 0                                       
+Types of Classes: [English Literature, Comparative Literature]
+

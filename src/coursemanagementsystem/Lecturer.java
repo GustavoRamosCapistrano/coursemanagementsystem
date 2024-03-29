@@ -4,6 +4,7 @@
  */
 package coursemanagementsystem;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
@@ -22,9 +23,25 @@ public class Lecturer {
     public Lecturer(String lecturerName, String role, String modulesTaught, int studentCount, String classesTaught) {
         this.lecturerName = lecturerName;
         this.role = role;
-        this.modulesTaught = Arrays.asList(modulesTaught.split(", "));
+        if (modulesTaught != null && !modulesTaught.isEmpty()) {
+            this.modulesTaught = Arrays.asList(modulesTaught.split(", "));
+        } else {
+            this.modulesTaught = new ArrayList<>();
+        }
         this.studentCount = studentCount;
         this.classesTaught = Arrays.asList(classesTaught.split(", "));
+    }
+
+    public Lecturer(String lecturerName, String role, String modulesTaught, int studentCount, List<String> classesTaught) {
+        this.lecturerName = lecturerName;
+        this.role = role;
+        if (modulesTaught != null && !modulesTaught.isEmpty()) {
+            this.modulesTaught = Arrays.asList(modulesTaught.split(", "));
+        } else {
+            this.modulesTaught = new ArrayList<>();
+        }
+        this.studentCount = studentCount;
+        this.classesTaught = classesTaught;
     }
 
     public String getLecturerName() {
