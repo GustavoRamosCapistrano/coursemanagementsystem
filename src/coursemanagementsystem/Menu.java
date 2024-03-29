@@ -4,16 +4,15 @@
  */
 package coursemanagementsystem;
 
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.InputMismatchException;
 import java.util.List;
 import java.util.Scanner;
 
 /**
- *
+ * This class represents the menu of the course management system.
+ * It provides methods for displaying menus, handling user login, and processing user choices based on their role.
+ * 
  * @author grc29
  */
 public class Menu {
@@ -21,11 +20,18 @@ public class Menu {
     private final DBConnector dbConnector;
     private final ReportManager reportManager;
 
+    /**
+     * Constructor for the Menu class.
+     * 
+     * @param dbConnector The database connector.
+     * @param reportManager The report manager.
+     */
     public Menu(DBConnector dbConnector, ReportManager reportManager) {
         this.dbConnector = dbConnector;
         this.reportManager = reportManager;
     }
 
+    // Menu options for different user roles
     private static final String MENU_OPTIONS_ADMIN = "Menu Options:\n"
             + "1. Add User\n"
             + "2. Modify User\n"
@@ -47,6 +53,11 @@ public class Menu {
             + "3. Change Own Password\n"
             + "4. Exit";
 
+    /**
+     * Displays the menu based on the user role.
+     * 
+     * @param userRole The role of the user.
+     */
     public static void displayMenu(String userRole) {
         switch (userRole.toLowerCase()) {
             case "admin":
@@ -64,22 +75,37 @@ public class Menu {
         }
     }
 
+    /**
+     * Handles the user login process.
+     * 
+     * @param scanner The scanner object for user input.
+     * @param userManager The user manager.
+     * @return The username of the logged-in user.
+     * @throws SQLException If a SQL exception occurs.
+     */
     public static String login(Scanner scanner, UserManager userManager) throws SQLException {
-    while (true) {
-        System.out.print("Enter username: ");
-        String username = scanner.nextLine().toLowerCase(); // Convert username to lowercase
-        System.out.print("Enter password: ");
-        String password = scanner.nextLine();
+        while (true) {
+            System.out.print("Enter username: ");
+            String username = scanner.nextLine().toLowerCase(); // Convert username to lowercase
+            System.out.print("Enter password: ");
+            String password = scanner.nextLine();
 
-        if (userManager.authenticateUser(username, password)) {
-            System.out.println("Login successful!\n");
-            return username; // Return the username if login is successful
-        } else {
-            System.out.println("Invalid username or password. Please try again.\n");
+            if (userManager.authenticateUser(username, password)) {
+                System.out.println("Login successful!\n");
+                return username; // Return the username if login is successful
+            } else {
+                System.out.println("Invalid username or password. Please try again.\n");
+            }
         }
     }
-}
 
+    /**
+     * Gets the user's choice from the menu.
+     * 
+     * @param scanner The scanner object for user input.
+     * @param userRole The role of the logged-in user.
+     * @return The user's choice.
+     */
     public static int getUserChoice(Scanner scanner, String userRole) {
         while (true) {
             System.out.print("\nEnter your choice: ");
@@ -98,6 +124,13 @@ public class Menu {
         }
     }
 
+    /**
+     * Checks if the user's choice is valid.
+     * 
+     * @param choice The user's choice.
+     * @param userRole The role of the logged-in user.
+     * @return True if the choice is valid, otherwise false.
+     */
     private static boolean isValidChoice(int choice, String userRole) {
         switch (userRole) {
             case "admin":
@@ -111,6 +144,13 @@ public class Menu {
         }
     }
 
+    /**
+     * Starts the course management system.
+     * 
+     * @param scanner The scanner object for user input.
+     * @param userManager The user manager.
+     * @throws SQLException If a SQL exception occurs.
+     */
     public void startCourseManagementSystem(Scanner scanner, UserManager userManager) throws SQLException {
         String loggedInUser = login(scanner, userManager);
 
@@ -145,6 +185,15 @@ public class Menu {
         }
     }
 
+    /**
+     * Processes the admin's choice.
+     * 
+     * @param choice The admin's choice.
+     * @param userManager The user manager.
+     * @param loggedInUser The name of the logged-in user.
+     * @param scanner The scanner object for user input.
+     * @throws SQLException If a SQL exception occurs.
+     */
     public void processAdminChoice(int choice, UserManager userManager, String loggedInUser, Scanner scanner) throws SQLException {
         boolean success;
 
@@ -230,69 +279,22 @@ public class Menu {
         }
     }
 
+    /**
+     * Processes the lecturer's choice.
+     * 
+     * @param choice The lecturer's choice.
+     * @param userManager The user manager.
+     * @param loggedInUser The name of the logged-in user.
+     * @param scanner The scanner object for user input.
+     * @throws SQLException If a SQL exception occurs.
+     */
     public void processLecturerChoice(int choice, UserManager userManager, String loggedInUser, Scanner scanner) throws SQLException {
-    switch (choice) {
-        case 1:
-            handleOwnLecturerReportOptions(scanner, loggedInUser);
-            break;
-        case 2:
-            // Change own username
-            System.out.println("Enter your new username:");
-            String newUsername = scanner.nextLine().toLowerCase(); // Convert username to lowercase
-            boolean success = dbConnector.modifyOwnUser(loggedInUser, newUsername);
-            if (success) {
-                System.out.println("Username changed successfully. Please restart the program.");
-                System.exit(0); // Terminate the program
-            } else {
-                System.out.println("Failed to change username.");
-            }
-            break;
-        case 3:
-            // Change own password
-            System.out.println("Enter your new password:");
-            String newPassword = scanner.nextLine();
-            success = dbConnector.modifyOwnPassword(loggedInUser, newPassword);
-            if (success) {
-                System.out.println("Password changed successfully. Please restart the program.");
-                System.exit(0); // Terminate the program
-            } else {
-                System.out.println("Failed to change password.");
-            }
-            break;
-        case 4:
-            // Exit
-            System.out.println("Exiting program...");
-            System.exit(0); // Terminate the program
-            break;
-        default:
-            System.out.println("Invalid choice. Please try again.");
-    }
-}
-
-
-    // Method to process office choices
-    public void processOfficeChoice(int choice, UserManager userManager, String loggedInUser, Scanner scanner) throws SQLException {
-    boolean reportGenerated = false;
-    
-    while (!reportGenerated) {
         switch (choice) {
             case 1:
-                // Generate course report in txt csv and console
-                handleCourseReportOptions(scanner);
-                reportGenerated = true;
+                handleOwnLecturerReportOptions(scanner, loggedInUser);
                 break;
             case 2:
-                // Generate student report in txt csv and console
-                handleStudentReportOptions(scanner);
-                reportGenerated = true;
-                break;
-            case 3:
-                // Generate lecturer report in txt csv and console
-                handleLecturerReportOptions(scanner);
-                reportGenerated = true;
-                break;
-            case 4:
-                // Change own username/password
+                // Change own username
                 System.out.println("Enter your new username:");
                 String newUsername = scanner.nextLine().toLowerCase(); // Convert username to lowercase
                 boolean success = dbConnector.modifyOwnUser(loggedInUser, newUsername);
@@ -303,7 +305,19 @@ public class Menu {
                     System.out.println("Failed to change username.");
                 }
                 break;
-            case 5:
+            case 3:
+                // Change own password
+                System.out.println("Enter your new password:");
+                String newPassword = scanner.nextLine();
+                success = dbConnector.modifyOwnPassword(loggedInUser, newPassword);
+                if (success) {
+                    System.out.println("Password changed successfully. Please restart the program.");
+                    System.exit(0); // Terminate the program
+                } else {
+                    System.out.println("Failed to change password.");
+                }
+                break;
+            case 4:
                 // Exit
                 System.out.println("Exiting program...");
                 System.exit(0); // Terminate the program
@@ -312,167 +326,248 @@ public class Menu {
                 System.out.println("Invalid choice. Please try again.");
         }
     }
-}
-public void handleCourseReportOptions(Scanner scanner) throws SQLException {
-    // Fetch course information from the database
-    List<Course> courses = dbConnector.getCoursesReport();
 
-    System.out.println("Choose an option for course report:");
-    System.out.println("1. Generate report in TXT");
-    System.out.println("2. Generate report in CSV");
-    System.out.println("3. Print report to console");
-
-    int reportChoice;
-    while (true) {
-        try {
-            System.out.print("\nEnter your choice: ");
-            reportChoice = scanner.nextInt();
-            scanner.nextLine(); // Consume newline character
-            break; // Break the loop if input is valid
-        } catch (InputMismatchException e) {
-            System.out.println("Invalid input. Please enter a number.");
-            scanner.nextLine(); // Clear the invalid input
+    /**
+     * Processes the office's choice.
+     * 
+     * @param choice The office's choice.
+     * @param userManager The user manager.
+     * @param loggedInUser The name of the logged-in user.
+     * @param scanner The scanner object for user input.
+     * @throws SQLException If a SQL exception occurs.
+     */
+    public void processOfficeChoice(int choice, UserManager userManager, String loggedInUser, Scanner scanner) throws SQLException {
+        boolean reportGenerated = false;
+        
+        while (!reportGenerated) {
+            switch (choice) {
+                case 1:
+                    // Generate course report in txt, csv, and console
+                    handleCourseReportOptions(scanner);
+                    reportGenerated = true;
+                    break;
+                case 2:
+                    // Generate student report in txt, csv, and console
+                    handleStudentReportOptions(scanner);
+                    reportGenerated = true;
+                    break;
+                case 3:
+                    // Generate lecturer report in txt, csv, and console
+                    handleLecturerReportOptions(scanner);
+                    reportGenerated = true;
+                    break;
+                case 4:
+                    // Change own username/password
+                    System.out.println("Enter your new username:");
+                    String newUsername = scanner.nextLine().toLowerCase(); // Convert username to lowercase
+                    boolean success = dbConnector.modifyOwnUser(loggedInUser, newUsername);
+                    if (success) {
+                        System.out.println("Username changed successfully. Please restart the program.");
+                        System.exit(0); // Terminate the program
+                    } else {
+                        System.out.println("Failed to change username.");
+                    }
+                    break;
+                case 5:
+                    // Exit
+                    System.out.println("Exiting program...");
+                    System.exit(0); // Terminate the program
+                    break;
+                default:
+                    System.out.println("Invalid choice. Please try again.");
+            }
         }
     }
 
-    String reportFormat;
-    switch (reportChoice) {
-        case 1:
-            reportFormat = "TXT";
-            break;
-        case 2:
-            reportFormat = "CSV";
-            break;
-        case 3:
-            reportFormat = "CONSOLE";
-            break;
-        default:
-            System.out.println("Invalid report format choice! Please choose a valid option.");
-            return; // Return from the method if the choice is invalid
-    }
+    /**
+     * Handles the options for generating course reports.
+     * 
+     * @param scanner The scanner object for user input.
+     * @throws SQLException If a SQL exception occurs.
+     */
+    public void handleCourseReportOptions(Scanner scanner) throws SQLException {
+        // Fetch course information from the database
+        List<Course> courses = dbConnector.getCoursesReport();
 
-    // Pass the reportFormat and courses list to generateCourseReport method
-    reportManager.generateCourseReport(reportFormat, courses);
-}
+        System.out.println("Choose an option for course report:");
+        System.out.println("1. Generate report in TXT");
+        System.out.println("2. Generate report in CSV");
+        System.out.println("3. Print report to console");
+
+        int reportChoice;
+        while (true) {
+            try {
+                System.out.print("\nEnter your choice: ");
+                reportChoice = scanner.nextInt();
+                scanner.nextLine(); // Consume newline character
+                break; // Break the loop if input is valid
+            } catch (InputMismatchException e) {
+                System.out.println("Invalid input. Please enter a number.");
+                scanner.nextLine(); // Clear the invalid input
+            }
+        }
+
+        String reportFormat;
+        switch (reportChoice) {
+            case 1:
+                reportFormat = "TXT";
+                break;
+            case 2:
+                reportFormat = "CSV";
+                break;
+            case 3:
+                reportFormat = "CONSOLE";
+                break;
+            default:
+                System.out.println("Invalid report format choice! Please choose a valid option.");
+                return; // Return from the method if the choice is invalid
+        }
+
+        // Pass the reportFormat and courses list to generateCourseReport method
+        reportManager.generateCourseReport(reportFormat, courses);
+    }
 
     // Similarly, you can define methods for student and lecturer reports
-   public void handleStudentReportOptions(Scanner scanner) throws SQLException {
-    List<String> studentDetails = dbConnector.getStudentsReport();
 
-    System.out.println("Choose an option for course report:");
-    System.out.println("1. Generate report in TXT");
-    System.out.println("2. Generate report in CSV");
-    System.out.println("3. Print report to console");
+    /**
+     * Handles the options for generating student reports.
+     * 
+     * @param scanner The scanner object for user input.
+     * @throws SQLException If a SQL exception occurs.
+     */
+    public void handleStudentReportOptions(Scanner scanner) throws SQLException {
+        List<String> studentDetails = dbConnector.getStudentsReport();
 
-    int reportChoice;
-    while (true) {
-        try {
-            System.out.print("\nEnter your choice: ");
-            reportChoice = scanner.nextInt();
-            scanner.nextLine(); // Consume newline character
-            break; // Break the loop if input is valid
-        } catch (InputMismatchException e) {
-            System.out.println("Invalid input. Please enter a number.");
-            scanner.nextLine(); // Clear the invalid input
+        System.out.println("Choose an option for student report:");
+        System.out.println("1. Generate report in TXT");
+        System.out.println("2. Generate report in CSV");
+        System.out.println("3. Print report to console");
+
+        int reportChoice;
+        while (true) {
+            try {
+                System.out.print("\nEnter your choice: ");
+                reportChoice = scanner.nextInt();
+                scanner.nextLine(); // Consume newline character
+                break; // Break the loop if input is valid
+            } catch (InputMismatchException e) {
+                System.out.println("Invalid input. Please enter a number.");
+                scanner.nextLine(); // Clear the invalid input
+            }
         }
+
+        String reportFormat;
+        switch (reportChoice) {
+            case 1:
+                reportFormat = "TXT";
+                break;
+            case 2:
+                reportFormat = "CSV";
+                break;
+            case 3:
+                reportFormat = "CONSOLE";
+                break;
+            default:
+                System.out.println("Invalid report format choice! Please choose a valid option.");
+                return; // Return from the method if the choice is invalid
+        }
+
+        // Pass the reportFormat and studentDetails list to generateStudentReport method
+        reportManager.generateStudentReport(reportFormat, studentDetails);
     }
-    String reportFormat;
-    switch (reportChoice) {
-        case 1:
-            reportFormat = "TXT";
-            break;
-        case 2:
-            reportFormat = "CSV";
-            break;
-        case 3:
-            reportFormat = "CONSOLE";
-            break;
-        default:
-            System.out.println("Invalid report format choice! Please choose a valid option.");
-            return; // Return from the method if the choice is invalid
-    }
 
-
-    // Pass the reportFormat and courses list to generateCourseReport method
-    reportManager.generateStudentReport(reportFormat, studentDetails);
-}
-
-
+    /**
+     * Handles the options for generating lecturer reports.
+     * 
+     * @param scanner The scanner object for user input.
+     * @throws SQLException If a SQL exception occurs.
+     */
     public void handleLecturerReportOptions(Scanner scanner) throws SQLException {
-      List<Lecturer> lecturers = dbConnector.getLecturersReport();
+        List<Lecturer> lecturers = dbConnector.getLecturersReport();
 
-    System.out.println("Choose an option for course report:");
-    System.out.println("1. Generate report in TXT");
-    System.out.println("2. Generate report in CSV");
-    System.out.println("3. Print report to console");
+        System.out.println("Choose an option for lecturer report:");
+        System.out.println("1. Generate report in TXT");
+        System.out.println("2. Generate report in CSV");
+        System.out.println("3. Print report to console");
 
-    int reportChoice;
-    while (true) {
-        try {
-            System.out.print("\nEnter your choice: ");
-            reportChoice = scanner.nextInt();
-            scanner.nextLine(); // Consume newline character
-            break; // Break the loop if input is valid
-        } catch (InputMismatchException e) {
-            System.out.println("Invalid input. Please enter a number.");
-            scanner.nextLine(); // Clear the invalid input
+        int reportChoice;
+        while (true) {
+            try {
+                System.out.print("\nEnter your choice: ");
+                reportChoice = scanner.nextInt();
+                scanner.nextLine(); // Consume newline character
+                break; // Break the loop if input is valid
+            } catch (InputMismatchException e) {
+                System.out.println("Invalid input. Please enter a number.");
+                scanner.nextLine(); // Clear the invalid input
+            }
         }
-    }
-    String reportFormat;
-    switch (reportChoice) {
-        case 1:
-            reportFormat = "TXT";
-            break;
-        case 2:
-            reportFormat = "CSV";
-            break;
-        case 3:
-            reportFormat = "CONSOLE";
-            break;
-        default:
-            System.out.println("Invalid report format choice! Please choose a valid option.");
-            return; // Return from the method if the choice is invalid
-    }
-    reportManager.generateLecturerReport(reportFormat, lecturers);
 
-}
-   public void handleOwnLecturerReportOptions(Scanner scanner, String loggedInUser) throws SQLException {
-    Lecturer lecturer = dbConnector.getLecturerByUsername(loggedInUser); // Fetch lecturer details
-
-    System.out.println("Choose an option for your report:");
-    System.out.println("1. Generate report in TXT");
-    System.out.println("2. Generate report in CSV");
-    System.out.println("3. Print report to console");
-
-    int reportChoice;
-    while (true) {
-        try {
-            System.out.print("\nEnter your choice: ");
-            reportChoice = scanner.nextInt();
-            scanner.nextLine(); // Consume newline character
-            break; // Break the loop if input is valid
-        } catch (InputMismatchException e) {
-            System.out.println("Invalid input. Please enter a number.");
-            scanner.nextLine(); // Clear the invalid input
+        String reportFormat;
+        switch (reportChoice) {
+            case 1:
+                reportFormat = "TXT";
+                break;
+            case 2:
+                reportFormat = "CSV";
+                break;
+            case 3:
+                reportFormat = "CONSOLE";
+                break;
+            default:
+                System.out.println("Invalid report format choice! Please choose a valid option.");
+                return; // Return from the method if the choice is invalid
         }
+
+        // Pass the reportFormat and lecturers list to generateLecturerReport method
+        reportManager.generateLecturerReport(reportFormat, lecturers);
     }
 
-    String reportFormat;
-    switch (reportChoice) {
-        case 1:
-            reportFormat = "TXT";
-            break;
-        case 2:
-            reportFormat = "CSV";
-            break;
-        case 3:
-            reportFormat = "CONSOLE";
-            break;
-        default:
-            System.out.println("Invalid report format choice! Please choose a valid option.");
-            return; // Return from the method if the choice is invalid
-    }
+    /**
+     * Handles the options for generating a lecturer's own report.
+     * 
+     * @param scanner The scanner object for user input.
+     * @param loggedInUser The name of the logged-in user.
+     * @throws SQLException If a SQL exception occurs.
+     */
+    public void handleOwnLecturerReportOptions(Scanner scanner, String loggedInUser) throws SQLException {
+        Lecturer lecturer = dbConnector.getLecturerByUsername(loggedInUser); // Fetch lecturer details
 
-    reportManager.generateOwnLecturerReport(reportFormat, lecturer);
-}
+        System.out.println("Choose an option for your report:");
+        System.out.println("1. Generate report in TXT");
+        System.out.println("2. Generate report in CSV");
+        System.out.println("3. Print report to console");
+
+        int reportChoice;
+        while (true) {
+            try {
+                System.out.print("\nEnter your choice: ");
+                reportChoice = scanner.nextInt();
+                scanner.nextLine(); // Consume newline character
+                break; // Break the loop if input is valid
+            } catch (InputMismatchException e) {
+                System.out.println("Invalid input. Please enter a number.");
+                scanner.nextLine(); // Clear the invalid input
+            }
+        }
+
+        String reportFormat;
+        switch (reportChoice) {
+            case 1:
+                reportFormat = "TXT";
+                break;
+            case 2:
+                reportFormat = "CSV";
+                break;
+            case 3:
+                reportFormat = "CONSOLE";
+                break;
+            default:
+                System.out.println("Invalid report format choice! Please choose a valid option.");
+                return; // Return from the method if the choice is invalid
+        }
+
+        // Pass the reportFormat and lecturer details to generateOwnLecturerReport method
+        reportManager.generateOwnLecturerReport(reportFormat, lecturer);
+    }
 }

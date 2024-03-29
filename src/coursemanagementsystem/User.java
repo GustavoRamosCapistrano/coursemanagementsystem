@@ -4,12 +4,14 @@
  */
 package coursemanagementsystem;
 
-/**
- *
- * @author grc29
+/*
+ * This class represents a user in the course management system.
+ * It stores information such as username, password, and role.
  */
+
 public class User {
 
+    // Attributes
     private String username;
     private String password;
     private String role;
@@ -46,12 +48,13 @@ public class User {
         this.role = role;
     }
 
+    // Override toString method to provide a string representation of the object
     @Override
     public String toString() {
-        return "User{"
-                + "username='" + username + '\''
-                + ", password='" + password + '\''
-                + ", role='" + role + '\''
-                + '}';
+        return "User{" +
+                "username='" + username + '\'' +
+                ", password='" + password + '\'' +
+                ", role='" + role + '\'' +
+                '}';
     }
 }
