@@ -52,25 +52,55 @@ public List<Course> getAllCourses() throws SQLException {
     }
 
     // Method to retrieve all students from the database
-    public List<Student> getAllStudents() throws SQLException {
-        List<Student> students = new ArrayList<>();
-        String query = "SELECT * FROM Students";
-        try ( Connection connection = getConnection();  PreparedStatement statement = connection.prepareStatement(query);  ResultSet resultSet = statement.executeQuery()) {
-            while (resultSet.next()) {
-                Student student = new Student(
-                        resultSet.getInt("student_id"),
-                        resultSet.getString("student_name"),
-                        resultSet.getString("programme_name"),
-                        resultSet.getInt("enrolled_modules"),
-                        resultSet.getInt("completed_modules"),
-                        resultSet.getInt("repeat_modules")
-                );
-                // Assuming you have other attributes for student
-                students.add(student);
-            }
+public List<String> getAllStudents() throws SQLException {
+    List<String> studentDetails = new ArrayList<>();
+    String query = "SELECT " +
+                   "    s.student_name, " +
+                   "    s.student_id, " +
+                   "    p.programme_name, " +
+                   "    GROUP_CONCAT(DISTINCT c.course_name ORDER BY c.course_name SEPARATOR ', ') AS enrolled_courses, " +
+                   "    GROUP_CONCAT(DISTINCT CONCAT(c.course_name, ' (Grade: ', COALESCE(g.grade, 'N/A'), ')') ORDER BY c.course_name SEPARATOR ', ') AS completed_courses, " +
+                   "    GROUP_CONCAT(DISTINCT c2.course_name ORDER BY c2.course_name SEPARATOR ', ') AS courses_to_repeat " +
+                   "FROM " +
+                   "    Students s " +
+                   "        LEFT JOIN " +
+                   "    Enrollments e ON s.student_id = e.student_id " +
+                   "        LEFT JOIN " +
+                   "    Courses c ON e.course_id = c.course_id " +
+                   "        LEFT JOIN " +
+                   "    Programmes p ON s.programme_id = p.programme_id " +
+                   "        LEFT JOIN " +
+                   "    Grades g ON e.enrollment_id = g.enrollment_id " +
+                   "        LEFT JOIN " +
+                   "    (SELECT " +
+                   "        s.student_id, c.course_name " +
+                   "    FROM " +
+                   "        Students s " +
+                   "    JOIN Enrollments e ON s.student_id = e.student_id " +
+                   "    JOIN Courses c ON e.course_id = c.course_id " +
+                   "    LEFT JOIN Grades g ON e.enrollment_id = g.enrollment_id " +
+                   "    WHERE " +
+                   "        g.grade < 5 OR g.grade IS NULL) c2 ON s.student_id = c2.student_id " +
+                   "GROUP BY s.student_id, s.student_name, p.programme_name " +
+                   "ORDER BY s.student_name;";
+    try (Connection connection = DriverManager.getConnection(DB_URL, USER, PASSWORD);
+         Statement statement = connection.createStatement();
+         ResultSet resultSet = statement.executeQuery(query)) {
+        while (resultSet.next()) {
+            String studentName = resultSet.getString("student_name");
+            int studentId = resultSet.getInt("student_id");
+            String programmeName = resultSet.getString("programme_name");
+            String enrolledCourses = resultSet.getString("enrolled_courses");
+            String completedCourses = resultSet.getString("completed_courses");
+            String coursesToRepeat = resultSet.getString("courses_to_repeat");
+
+            String studentDetail = String.format("%s\t%d\t%s\t%s\t%s\t%s",
+                    studentName, studentId, programmeName, enrolledCourses, completedCourses, coursesToRepeat);
+            studentDetails.add(studentDetail);
         }
-        return students;
     }
+    return studentDetails;
+}
 
     // Method to retrieve all lecturers from the database
     public List<Lecturer> getAllLecturers() throws SQLException {
@@ -250,38 +280,6 @@ public List<Course> getAllCourses() throws SQLException {
         return false; // Return false by default (error or no result)
     }
 
-    public List<Student> executeQueryForStudents(String query) throws SQLException {
-        List<Student> students = new ArrayList<>();
-        try ( Connection conn = getConnection();  PreparedStatement stmt = conn.prepareStatement(query);  ResultSet rs = stmt.executeQuery()) {
-            while (rs.next()) {
-                Student student = new Student(
-                        rs.getInt("student_id"),
-                        rs.getString("student_name"),
-                        rs.getString("programme_name"),
-                        rs.getInt("enrolled_modules"),
-                        rs.getInt("completed_modules"),
-                        rs.getInt("repeat_modules")
-                );
-                students.add(student);
-            }
-        }
-        return students;
-    }
 
-    public List<Lecturer> executeQueryForLecturers(String query) throws SQLException {
-        List<Lecturer> lecturers = new ArrayList<>();
-        try ( Connection conn = getConnection();  PreparedStatement stmt = conn.prepareStatement(query);  ResultSet rs = stmt.executeQuery()) {
-            while (rs.next()) {
-                Lecturer lecturer = new Lecturer(
-                        rs.getString("lecturer_name"),
-                        rs.getString("role"),
-                        rs.getString("modules_taught"),
-                        rs.getInt("student_count"),
-                        rs.getString("classes_taught")
-                );
-                lecturers.add(lecturer);
-            }
-        }
-        return lecturers;
-    }
+
 }

@@ -55,16 +55,21 @@ public void generateCourseReportTXT(List<Course> courses) throws SQLException {
         BufferedWriter bufferedWriter = new BufferedWriter(fileWriter);
 
         // Write column headers
-        bufferedWriter.write(String.format("%-30s%-30s%-30s%-30s%-20s",
+        bufferedWriter.write(String.format("%-60s | %-30s | %-30s | %-30s | %-20s%n",
                 "Course Name", "Programme Name", "Lecturer Name", "Room Name", "Enrolled Students"));
+        bufferedWriter.newLine();
+
+        // Write separator
+        bufferedWriter.write(generateSeparator(60) + " | " + generateSeparator(30) + " | " +
+                generateSeparator(30) + " | " + generateSeparator(30) + " | " +
+                generateSeparator(20));
         bufferedWriter.newLine();
 
         // Write each course's information
         for (Course course : courses) {
-            bufferedWriter.write(String.format("%-30s%-30s%-30s%-30s%-20d",
+            bufferedWriter.write(String.format("%-60s | %-30s | %-30s | %-30s | %-20d%n",
                     course.getCourseName(), course.getProgrammeName(), course.getLecturerName(),
                     course.getRoomName(), course.getEnrolledStudents()));
-            bufferedWriter.newLine();
         }
 
         // Close BufferedWriter
@@ -114,11 +119,17 @@ public void generateCourseReportCSV(List<Course> courses) throws SQLException{
 
 public void generateCourseReportConsole(List<Course> courses) throws SQLException {
     // Write column headers to console
-    System.out.printf("%-30s%-30s%-30s%-30s%-20s%n", "Course Name", "Programme Name", "Lecturer Name", "Room Name", "Enrolled Students");
+    System.out.printf("%-60s | %-30s | %-30s | %-30s | %-20s%n",
+            "Course Name", "Programme Name", "Lecturer Name", "Room Name", "Enrolled Students");
+
+    // Write separator
+    System.out.println(generateSeparator(60) + " | " + generateSeparator(30) + " | " +
+                       generateSeparator(30) + " | " + generateSeparator(30) + " | " +
+                       generateSeparator(20));
 
     // Write each row of the report to console
     for (Course course : courses) {
-        System.out.printf("%-30s%-30s%-30s%-30s%-20d%n",
+        System.out.printf("%-60s | %-30s | %-30s | %-30s | %-20d%n",
                 course.getCourseName(), course.getProgrammeName(), course.getLecturerName(),
                 course.getRoomName(), course.getEnrolledStudents());
     }
@@ -126,83 +137,121 @@ public void generateCourseReportConsole(List<Course> courses) throws SQLExceptio
     System.out.println("Course report printed to console.");
 }
 
-    public void generateStudentReport(String format) throws SQLException {
-        String query = "SELECT student_name, student_id, programme_name, enrolled_modules, completed_modules, repeat_modules "
-                + "FROM Students";
-        List<Student> students = dbConnector.executeQueryForStudents(query);
-        // Code to generate report based on the format
-        if ("TXT".equalsIgnoreCase(format)) {
-            generateStudentReportTXT(students); // Call the method with the students list
-        } else if ("CSV".equalsIgnoreCase(format)) {
-            generateStudentReportCSV(students);
-        } else {
-            System.out.println("Invalid report format choice! Please choose either TXT or CSV.");
+   public void generateStudentReport(String format, List<String> studentsDetails) {
+    switch (format.toUpperCase()) {
+        case "TXT":
+            generateStudentReportTXT(studentsDetails);
+            break;
+        case "CSV":
+            generateStudentReportCSV(studentsDetails);
+            break;
+        case "CONSOLE":
+            generateStudentReportConsole(studentsDetails);
+            break;
+        default:
+            System.out.println("Invalid report format choice! Please choose either TXT, CSV, or CONSOLE.");
+    }
+}
+
+public void generateStudentReportTXT(List<String> studentDetails) {
+    try {
+        // Specify the file path for the TXT report
+        String filePath = "student_report.txt";
+
+        // Open FileWriter and BufferedWriter
+        FileWriter fileWriter = new FileWriter(filePath);
+        BufferedWriter bufferedWriter = new BufferedWriter(fileWriter);
+
+        // Write column headers
+        bufferedWriter.write(String.format("%-40s | %-15s | %-30s | %-40s | %-50s | %-30s%n",
+                "Student Name", "Student Number", "Programme", "Enrolled Modules", "Completed Modules", "Modules to Repeat"));
+        bufferedWriter.newLine();
+
+        // Write separator
+        bufferedWriter.write(generateSeparator(40) + " | " + generateSeparator(15) + " | " +
+                generateSeparator(30) + " | " + generateSeparator(40) + " | " +
+                generateSeparator(50) + " | " + generateSeparator(30));
+        bufferedWriter.newLine();
+
+        // Write each student's information
+        for (String studentDetail : studentDetails) {
+            String[] details = studentDetail.split("\t");
+            bufferedWriter.write(String.format("%-40s | %-15s | %-30s | %-40s | %-50s | %-30s%n",
+                    details[0], details[1], details[2], details[3], details[4], details[5]));
         }
+
+        // Close BufferedWriter
+        bufferedWriter.close();
+
+        System.out.println("Student report generated successfully as TXT file.");
+
+    } catch (IOException e) {
+        System.out.println("An error occurred while generating the student report.");
+        e.printStackTrace();
+    }
+}
+
+public void generateStudentReportCSV(List<String> studentDetails) {
+    try {
+        // Specify the file path for the CSV report
+        String filePath = "student_report.csv";
+
+        // Open FileWriter and BufferedWriter
+        FileWriter fileWriter = new FileWriter(filePath);
+        BufferedWriter bufferedWriter = new BufferedWriter(fileWriter);
+
+        // Write column headers
+        bufferedWriter.write("Student Name,Student Number,Programme,Enrolled Modules,Completed Modules,Modules to Repeat\n");
+
+        // Write each student's information
+        for (String studentDetail : studentDetails) {
+            bufferedWriter.write(studentDetail + "\n");
+        }
+
+        // Close BufferedWriter
+        bufferedWriter.close();
+
+        System.out.println("Student report generated successfully as CSV file.");
+
+    } catch (IOException e) {
+        System.out.println("An error occurred while generating the student report.");
+        e.printStackTrace();
+    }
+}
+
+public void generateStudentReportConsole(List<String> studentDetails) {
+    // Write column headers to console
+    System.out.printf("%-40s | %-15s | %-30s | %-40s | %-50s | %-30s%n",
+            "Student Name", "Student Number", "Programme", "Enrolled Modules", "Completed Modules", "Modules to Repeat");
+
+    // Write separator
+    System.out.println(generateSeparator(40) + " | " + generateSeparator(15) + " | " +
+                       generateSeparator(30) + " | " + generateSeparator(40) + " | " +
+                       generateSeparator(50) + " | " + generateSeparator(30));
+
+    // Write each student's information to console
+    for (String studentDetail : studentDetails) {
+        String[] details = studentDetail.split("\t");
+        System.out.printf("%-40s | %-15s | %-30s | %-40s | %-50s | %-30s%n",
+                details[0], details[1], details[2], details[3], details[4], details[5]);
     }
 
-    public void generateStudentReportTXT(List<Student> students) {
-        try {
-            FileWriter writer = new FileWriter("student_report.txt");
-            for (Student student : students) {
-                writer.write("Student Name: " + student.getStudentName() + "\n");
-                writer.write("Student Number: " + student.getStudentId() + "\n");
-                writer.write("Programme: " + student.getProgrammeName() + "\n");
-                writer.write("Enrolled Modules: " + student.getEnrolledModules() + "\n");
-                writer.write("Completed Modules: " + student.getCompletedModules() + "\n");
-                writer.write("Modules to Repeat: " + student.getRepeatModules() + "\n\n");
-            }
-            writer.close();
-            System.out.println("Student report generated successfully in TXT format.");
-        } catch (IOException e) {
-            System.out.println("An error occurred while generating the student report.");
-            e.printStackTrace();
-        }
-    }
-
-    public void generateStudentReportCSV(List<Student> students) {
-        try {
-            FileWriter writer = new FileWriter("student_report.csv");
-            writer.write("Student Name, Student Number, Programme, Enrolled Modules, Completed Modules, Modules to Repeat\n");
-            for (Student student : students) {
-                writer.write(student.getStudentName() + "," + student.getStudentId() + ","
-                        + student.getProgrammeName() + "," + student.getEnrolledModules() + ","
-                        + student.getCompletedModules() + "," + student.getRepeatModules() + "\n");
-            }
-            writer.close();
-            System.out.println("Student report generated successfully in CSV format.");
-        } catch (IOException e) {
-            System.out.println("An error occurred while generating the student report.");
-            e.printStackTrace();
-        }
-    }
-
-    public void displayStudentReport(List<Student> students) {
-        System.out.println("Student Report:");
-        System.out.println("-------------------------------------------------------");
-        for (Student student : students) {
-            System.out.println("Student Name: " + student.getStudentName());
-            System.out.println("Student Number: " + student.getStudentId());
-            System.out.println("Programme: " + student.getProgrammeName());
-            System.out.println("Enrolled Modules: " + student.getEnrolledModules());
-            System.out.println("Completed Modules: " + student.getCompletedModules());
-            System.out.println("Modules to Repeat: " + student.getRepeatModules());
-            System.out.println("-------------------------------------------------------");
-        }
-    }
-
-    public void generateLecturerReport(String format) throws SQLException {
-        String query = "SELECT lecturer_name, role, modules_taught, student_count, classes_taught "
-                + "FROM Lecturers";
-        List<Lecturer> lecturers = dbConnector.executeQueryForLecturers(query);
-        // Code to generate report based on the format
-        if ("TXT".equalsIgnoreCase(format)) {
-            generateLecturerReportTXT(lecturers); // Call the method with the lecturers list
-        } else if ("CSV".equalsIgnoreCase(format)) {
-            generateLecturerReportCSV(lecturers);
-        } else {
-            System.out.println("Invalid report format choice! Please choose either TXT or CSV.");
-        }
-    }
+    System.out.println("Student report printed to console.");
+}
+//
+//    public void generateLecturerReport(String format) throws SQLException {
+//        String query = "SELECT lecturer_name, role, modules_taught, student_count, classes_taught "
+//                + "FROM Lecturers";
+//        List<Lecturer> lecturers = dbConnector.executeQueryForLecturers(query);
+//        // Code to generate report based on the format
+//        if ("TXT".equalsIgnoreCase(format)) {
+//            generateLecturerReportTXT(lecturers); // Call the method with the lecturers list
+//        } else if ("CSV".equalsIgnoreCase(format)) {
+//            generateLecturerReportCSV(lecturers);
+//        } else {
+//            System.out.println("Invalid report format choice! Please choose either TXT or CSV.");
+//        }
+//    }
 
     public void generateLecturerReportTXT(List<Lecturer> lecturers) {
         try {
@@ -375,4 +424,10 @@ public void generateCourseReportConsole(List<Course> courses) throws SQLExceptio
             System.out.println("An error occurred while saving the " + reportType + " report: " + e.getMessage());
         }
     }
-}
+    public String generateSeparator(int length) {
+    StringBuilder separator = new StringBuilder();
+    for (int i = 0; i < length; i++) {
+        separator.append("-");
+    }
+    return separator.toString();
+}}

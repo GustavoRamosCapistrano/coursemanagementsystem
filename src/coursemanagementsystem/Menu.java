@@ -320,7 +320,7 @@ public class Menu {
                 break;
             case 3:
                 // Generate lecturer report in txt csv and console
-                handleLecturerReportOptions(scanner);
+//                handleLecturerReportOptions(scanner);
                 reportGenerated = true;
                 break;
             case 4:
@@ -388,65 +388,73 @@ public void handleCourseReportOptions(Scanner scanner) throws SQLException {
 }
 
     // Similarly, you can define methods for student and lecturer reports
-    public void handleStudentReportOptions(Scanner scanner) throws SQLException {
-        System.out.println("Choose an option for student report:");
-        System.out.println("1. Generate report in TXT");
-        System.out.println("2. Generate report in CSV");
-        System.out.println("3. Print report to console");
-        int reportChoice = scanner.nextInt();
-        scanner.nextLine(); // Consume newline character
+   public void handleStudentReportOptions(Scanner scanner) throws SQLException {
+    List<String> studentDetails = dbConnector.getAllStudents();
 
-        switch (reportChoice) {
-            case 1:
-                generateStudentReport("TXT");
-                // Assuming you have a method for generating student report in TXT format
-                break;
-            case 2:
-                generateStudentReport("CSV");
-                break;
-            case 3:
-                printStudentReport();
-                break;
-            default:
-                System.out.println("Invalid report format choice! Please choose a valid option.");
-                break;
+    System.out.println("Choose an option for course report:");
+    System.out.println("1. Generate report in TXT");
+    System.out.println("2. Generate report in CSV");
+    System.out.println("3. Print report to console");
+
+    int reportChoice;
+    while (true) {
+        try {
+            System.out.print("\nEnter your choice: ");
+            reportChoice = scanner.nextInt();
+            scanner.nextLine(); // Consume newline character
+            break; // Break the loop if input is valid
+        } catch (InputMismatchException e) {
+            System.out.println("Invalid input. Please enter a number.");
+            scanner.nextLine(); // Clear the invalid input
         }
     }
-
-    public void generateStudentReport(String format) throws SQLException {
-        reportManager.generateStudentReport(format);
+    String reportFormat;
+    switch (reportChoice) {
+        case 1:
+            reportFormat = "TXT";
+            break;
+        case 2:
+            reportFormat = "CSV";
+            break;
+        case 3:
+            reportFormat = "CONSOLE";
+            break;
+        default:
+            System.out.println("Invalid report format choice! Please choose a valid option.");
+            return; // Return from the method if the choice is invalid
     }
 
-    public void printStudentReport() throws SQLException {
-        List<Student> students = dbConnector.getAllStudents();
-        reportManager.displayStudentReport(students);
-    }
 
-    public void handleLecturerReportOptions(Scanner scanner) throws SQLException {
-        System.out.println("Choose an option for lecturer report:");
-        System.out.println("1. Generate report in TXT");
-        System.out.println("2. Generate report in CSV");
-        System.out.println("3. Print report to console");
-        int reportChoice = scanner.nextInt();
+    // Pass the reportFormat and courses list to generateCourseReport method
+    reportManager.generateStudentReport(reportFormat, studentDetails);
+}
 
-        switch (reportChoice) {
-            case 1:
-                generateLecturerReport("TXT");
-                break;
-            case 2:
-                generateLecturerReport("CSV");
-                break;
-            case 3:
-                printLecturerReport();
-                break;
-            default:
-                System.out.println("Invalid report format choice! Please choose a valid option.");
-        }
-    }
 
-    public void generateLecturerReport(String format) throws SQLException {
-        reportManager.generateLecturerReport(format);
-    }
+//    public void handleLecturerReportOptions(Scanner scanner) throws SQLException {
+//        System.out.println("Choose an option for lecturer report:");
+//        System.out.println("1. Generate report in TXT");
+//        System.out.println("2. Generate report in CSV");
+//        System.out.println("3. Print report to console");
+//        int reportChoice = scanner.nextInt();
+//
+//        switch (reportChoice) {
+//            case 1:
+//                generateLecturerReport("TXT");
+//                break;
+//            case 2:
+//                generateLecturerReport("CSV");
+//                break;
+//            case 3:
+//                printLecturerReport();
+//                break;
+//            default:
+//                System.out.println("Invalid report format choice! Please choose a valid option.");
+//        }
+//    }
+
+//    public void generateLecturerReport(String format) throws SQLException {
+//        reportManager.generateLecturerReport(format);
+//    }
 
     public void printLecturerReport() throws SQLException {
         List<Lecturer> lecturers = dbConnector.getAllLecturers();

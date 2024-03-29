@@ -1,101 +1,103 @@
-Course Name                   Programme Name                Lecturer Name                 Room Name                     Enrolled Students   
-Introduction to Computer ScienceComputer Science              john doe                      Room 101                      5                   
-Data Structures and AlgorithmsComputer Science              Jane Smith                    Room 102                      5                   
-Database Management Systems   Computer Science              Michael Johnson               Room 103                      5                   
-Software Engineering          Computer Science              Emily Brown                   Room 104                      5                   
-Web Development               Computer Science              David Wilson                  Room 105                      5                   
-Computer Networks             Computer Science              Jennifer Lee                  Room 106                      5                   
-Artificial Intelligence       Computer Science              Christopher Taylor            Room 107                      5                   
-Machine Learning              Computer Science              Sarah Martinez                Room 108                      5                   
-Cybersecurity                 Computer Science              Daniel Anderson               Room 109                      5                   
-Computer Graphics             Computer Science              Amanda White                  Room 110                      5                   
-Electrical Circuits           Electrical Engineering        john doe                      Room 111                      5                   
-Digital Signal Processing     Electrical Engineering        Jane Smith                    Room 112                      5                   
-Control Systems               Electrical Engineering        Michael Johnson               Room 113                      5                   
-Power Systems                 Electrical Engineering        Emily Brown                   Room 114                      5                   
-Electromagnetic Fields        Electrical Engineering        David Wilson                  Room 115                      5                   
-Microelectronics              Electrical Engineering        Jennifer Lee                  Room 116                      5                   
-Renewable Energy Systems      Electrical Engineering        Christopher Taylor            Room 117                      5                   
-Robotics                      Electrical Engineering        Sarah Martinez                Room 118                      5                   
-Embedded Systems              Electrical Engineering        Daniel Anderson               Room 119                      5                   
-VLSI Design                   Electrical Engineering        Amanda White                  Room 120                      5                   
-Principles of Management      Business Administration       john doe                      Room 121                      0                   
-Marketing Management          Business Administration       Jane Smith                    Room 122                      0                   
-Financial Management          Business Administration       Michael Johnson               Room 123                      0                   
-Human Resource Management     Business Administration       Emily Brown                   Room 124                      0                   
-Operations Management         Business Administration       David Wilson                  Room 125                      0                   
-Strategic Management          Business Administration       Jennifer Lee                  Room 126                      0                   
-Organizational Behavior       Business Administration       Christopher Taylor            Room 127                      0                   
-Business Ethics               Business Administration       Sarah Martinez                Room 128                      0                   
-International Business        Business Administration       Daniel Anderson               Room 129                      0                   
-Entrepreneurship              Business Administration       Amanda White                  Room 130                      0                   
-Engineering Mechanics         Mechanical Engineering        john doe                      Room 131                      0                   
-Mechanical Vibrations         Mechanical Engineering        Jane Smith                    Room 132                      0                   
-Thermodynamics                Mechanical Engineering        Michael Johnson               Room 133                      0                   
-Fluid Mechanics               Mechanical Engineering        Emily Brown                   Room 134                      0                   
-Heat Transfer                 Mechanical Engineering        David Wilson                  Room 135                      0                   
-Materials Science             Mechanical Engineering        Jennifer Lee                  Room 136                      0                   
-Manufacturing Processes       Mechanical Engineering        Christopher Taylor            Room 137                      0                   
-Mechatronics                  Mechanical Engineering        Sarah Martinez                Room 138                      0                   
-Automotive Engineering        Mechanical Engineering        Daniel Anderson               Room 139                      0                   
-Aerospace Structures          Mechanical Engineering        Amanda White                  Room 140                      0                   
-General Physics               Physics                       john doe                      Room 141                      0                   
-Classical Mechanics           Physics                       Jane Smith                    Room 142                      0                   
-Electromagnetism              Physics                       Michael Johnson               Room 143                      0                   
-Quantum Mechanics             Physics                       Emily Brown                   Room 144                      0                   
-Statistical Mechanics         Physics                       David Wilson                  Room 145                      0                   
-Solid State Physics           Physics                       Jennifer Lee                  Room 146                      0                   
-Nuclear Physics               Physics                       Christopher Taylor            Room 147                      0                   
-Particle Physics              Physics                       Sarah Martinez                Room 148                      0                   
-Astrophysics                  Physics                       Daniel Anderson               Room 149                      0                   
-Cosmology                     Physics                       Amanda White                  Room 150                      0                   
-Organic Chemistry             Chemistry                     john doe                      Room 151                      0                   
-Inorganic Chemistry           Chemistry                     Jane Smith                    Room 152                      0                   
-Physical Chemistry            Chemistry                     Michael Johnson               Room 153                      0                   
-Analytical Chemistry          Chemistry                     Emily Brown                   Room 154                      0                   
-Biochemistry                  Chemistry                     David Wilson                  Room 155                      0                   
-Polymer Chemistry             Chemistry                     Jennifer Lee                  Room 156                      0                   
-Environmental Chemistry       Chemistry                     Christopher Taylor            Room 157                      0                   
-Medicinal Chemistry           Chemistry                     Sarah Martinez                Room 158                      0                   
-Forensic Chemistry            Chemistry                     Daniel Anderson               Room 159                      0                   
-Nanochemistry                 Chemistry                     Amanda White                  Room 160                      0                   
-Calculus                      Mathematics                   john doe                      Room 161                      0                   
-Linear Algebra                Mathematics                   Jane Smith                    Room 162                      0                   
-Differential Equations        Mathematics                   Michael Johnson               Room 163                      0                   
-Probability Theory            Mathematics                   Emily Brown                   Room 164                      0                   
-Statistics                    Mathematics                   David Wilson                  Room 165                      0                   
-Numerical Analysis            Mathematics                   Jennifer Lee                  Room 166                      0                   
-Mathematical Modeling         Mathematics                   Christopher Taylor            Room 167                      0                   
-Operations Research           Mathematics                   Sarah Martinez                Room 168                      0                   
-Discrete Mathematics          Mathematics                   Daniel Anderson               Room 169                      0                   
-Topology                      Mathematics                   Amanda White                  Room 170                      0                   
-English Literature: From Chaucer to MiltonEnglish Literature            john doe                      Room 171                      0                   
-Romanticism and Victorian LiteratureEnglish Literature            Jane Smith                    Room 172                      0                   
-Modernism and Postmodernism   English Literature            Michael Johnson               Room 173                      0                   
-American Literature           English Literature            Emily Brown                   Room 174                      0                   
-World Literature              English Literature            David Wilson                  Room 175                      0                   
-Shakespearean Studies         English Literature            Jennifer Lee                  Room 176                      0                   
-Poetry and Poetics            English Literature            Christopher Taylor            Room 177                      0                   
-Drama and Performance         English Literature            Sarah Martinez                Room 178                      0                   
-Fiction and Narrative         English Literature            Daniel Anderson               Room 179                      0                   
-Literary Theory               English Literature            Amanda White                  Room 180                      0                   
-World History                 History                       john doe                      Room 181                      0                   
-European History              History                       Jane Smith                    Room 182                      0                   
-Asian History                 History                       Michael Johnson               Room 183                      0                   
-African History               History                       Emily Brown                   Room 184                      0                   
-Middle Eastern History        History                       David Wilson                  Room 185                      0                   
-Latin American History        History                       Jennifer Lee                  Room 186                      0                   
-North American History        History                       Christopher Taylor            Room 187                      0                   
-South American History        History                       Sarah Martinez                Room 188                      0                   
-Medieval History              History                       Daniel Anderson               Room 189                      0                   
-Renaissance History           History                       Amanda White                  Room 190                      0                   
-Cognitive Psychology          Psychology                    john doe                      Room 191                      0                   
-Social Psychology             Psychology                    Jane Smith                    Room 192                      0                   
-Developmental Psychology      Psychology                    Michael Johnson               Room 193                      0                   
-Abnormal Psychology           Psychology                    Emily Brown                   Room 194                      0                   
-Health Psychology             Psychology                    David Wilson                  Room 195                      0                   
-Industrial-Organizational PsychologyPsychology                    Jennifer Lee                  Room 196                      0                   
-Educational Psychology        Psychology                    Christopher Taylor            Room 197                      0                   
-Experimental Psychology       Psychology                    Sarah Martinez                Room 198                      0                   
-Clinical Psychology           Psychology                    Daniel Anderson               Room 199                      0                   
-Biopsychology                 Psychology                    Amanda White                  Room 200                      0                   
+Course Name                                                  | Programme Name                 | Lecturer Name                  | Room Name                      | Enrolled Students   
+
+------------------------------------------------------------ | ------------------------------ | ------------------------------ | ------------------------------ | --------------------
+Introduction to Computer Science                             | Computer Science               | john doe                       | Room 101                       | 5                   
+Data Structures and Algorithms                               | Computer Science               | Jane Smith                     | Room 102                       | 5                   
+Database Management Systems                                  | Computer Science               | Michael Johnson                | Room 103                       | 5                   
+Software Engineering                                         | Computer Science               | Emily Brown                    | Room 104                       | 5                   
+Web Development                                              | Computer Science               | David Wilson                   | Room 105                       | 5                   
+Computer Networks                                            | Computer Science               | Jennifer Lee                   | Room 106                       | 5                   
+Artificial Intelligence                                      | Computer Science               | Christopher Taylor             | Room 107                       | 5                   
+Machine Learning                                             | Computer Science               | Sarah Martinez                 | Room 108                       | 5                   
+Cybersecurity                                                | Computer Science               | Daniel Anderson                | Room 109                       | 5                   
+Computer Graphics                                            | Computer Science               | Amanda White                   | Room 110                       | 5                   
+Electrical Circuits                                          | Electrical Engineering         | john doe                       | Room 111                       | 5                   
+Digital Signal Processing                                    | Electrical Engineering         | Jane Smith                     | Room 112                       | 5                   
+Control Systems                                              | Electrical Engineering         | Michael Johnson                | Room 113                       | 5                   
+Power Systems                                                | Electrical Engineering         | Emily Brown                    | Room 114                       | 5                   
+Electromagnetic Fields                                       | Electrical Engineering         | David Wilson                   | Room 115                       | 5                   
+Microelectronics                                             | Electrical Engineering         | Jennifer Lee                   | Room 116                       | 5                   
+Renewable Energy Systems                                     | Electrical Engineering         | Christopher Taylor             | Room 117                       | 5                   
+Robotics                                                     | Electrical Engineering         | Sarah Martinez                 | Room 118                       | 5                   
+Embedded Systems                                             | Electrical Engineering         | Daniel Anderson                | Room 119                       | 5                   
+VLSI Design                                                  | Electrical Engineering         | Amanda White                   | Room 120                       | 5                   
+Principles of Management                                     | Business Administration        | john doe                       | Room 121                       | 0                   
+Marketing Management                                         | Business Administration        | Jane Smith                     | Room 122                       | 0                   
+Financial Management                                         | Business Administration        | Michael Johnson                | Room 123                       | 0                   
+Human Resource Management                                    | Business Administration        | Emily Brown                    | Room 124                       | 0                   
+Operations Management                                        | Business Administration        | David Wilson                   | Room 125                       | 0                   
+Strategic Management                                         | Business Administration        | Jennifer Lee                   | Room 126                       | 0                   
+Organizational Behavior                                      | Business Administration        | Christopher Taylor             | Room 127                       | 0                   
+Business Ethics                                              | Business Administration        | Sarah Martinez                 | Room 128                       | 0                   
+International Business                                       | Business Administration        | Daniel Anderson                | Room 129                       | 0                   
+Entrepreneurship                                             | Business Administration        | Amanda White                   | Room 130                       | 0                   
+Engineering Mechanics                                        | Mechanical Engineering         | john doe                       | Room 131                       | 0                   
+Mechanical Vibrations                                        | Mechanical Engineering         | Jane Smith                     | Room 132                       | 0                   
+Thermodynamics                                               | Mechanical Engineering         | Michael Johnson                | Room 133                       | 0                   
+Fluid Mechanics                                              | Mechanical Engineering         | Emily Brown                    | Room 134                       | 0                   
+Heat Transfer                                                | Mechanical Engineering         | David Wilson                   | Room 135                       | 0                   
+Materials Science                                            | Mechanical Engineering         | Jennifer Lee                   | Room 136                       | 0                   
+Manufacturing Processes                                      | Mechanical Engineering         | Christopher Taylor             | Room 137                       | 0                   
+Mechatronics                                                 | Mechanical Engineering         | Sarah Martinez                 | Room 138                       | 0                   
+Automotive Engineering                                       | Mechanical Engineering         | Daniel Anderson                | Room 139                       | 0                   
+Aerospace Structures                                         | Mechanical Engineering         | Amanda White                   | Room 140                       | 0                   
+General Physics                                              | Physics                        | john doe                       | Room 141                       | 0                   
+Classical Mechanics                                          | Physics                        | Jane Smith                     | Room 142                       | 0                   
+Electromagnetism                                             | Physics                        | Michael Johnson                | Room 143                       | 0                   
+Quantum Mechanics                                            | Physics                        | Emily Brown                    | Room 144                       | 0                   
+Statistical Mechanics                                        | Physics                        | David Wilson                   | Room 145                       | 0                   
+Solid State Physics                                          | Physics                        | Jennifer Lee                   | Room 146                       | 0                   
+Nuclear Physics                                              | Physics                        | Christopher Taylor             | Room 147                       | 0                   
+Particle Physics                                             | Physics                        | Sarah Martinez                 | Room 148                       | 0                   
+Astrophysics                                                 | Physics                        | Daniel Anderson                | Room 149                       | 0                   
+Cosmology                                                    | Physics                        | Amanda White                   | Room 150                       | 0                   
+Organic Chemistry                                            | Chemistry                      | john doe                       | Room 151                       | 0                   
+Inorganic Chemistry                                          | Chemistry                      | Jane Smith                     | Room 152                       | 0                   
+Physical Chemistry                                           | Chemistry                      | Michael Johnson                | Room 153                       | 0                   
+Analytical Chemistry                                         | Chemistry                      | Emily Brown                    | Room 154                       | 0                   
+Biochemistry                                                 | Chemistry                      | David Wilson                   | Room 155                       | 0                   
+Polymer Chemistry                                            | Chemistry                      | Jennifer Lee                   | Room 156                       | 0                   
+Environmental Chemistry                                      | Chemistry                      | Christopher Taylor             | Room 157                       | 0                   
+Medicinal Chemistry                                          | Chemistry                      | Sarah Martinez                 | Room 158                       | 0                   
+Forensic Chemistry                                           | Chemistry                      | Daniel Anderson                | Room 159                       | 0                   
+Nanochemistry                                                | Chemistry                      | Amanda White                   | Room 160                       | 0                   
+Calculus                                                     | Mathematics                    | john doe                       | Room 161                       | 0                   
+Linear Algebra                                               | Mathematics                    | Jane Smith                     | Room 162                       | 0                   
+Differential Equations                                       | Mathematics                    | Michael Johnson                | Room 163                       | 0                   
+Probability Theory                                           | Mathematics                    | Emily Brown                    | Room 164                       | 0                   
+Statistics                                                   | Mathematics                    | David Wilson                   | Room 165                       | 0                   
+Numerical Analysis                                           | Mathematics                    | Jennifer Lee                   | Room 166                       | 0                   
+Mathematical Modeling                                        | Mathematics                    | Christopher Taylor             | Room 167                       | 0                   
+Operations Research                                          | Mathematics                    | Sarah Martinez                 | Room 168                       | 0                   
+Discrete Mathematics                                         | Mathematics                    | Daniel Anderson                | Room 169                       | 0                   
+Topology                                                     | Mathematics                    | Amanda White                   | Room 170                       | 0                   
+English Literature: From Chaucer to Milton                   | English Literature             | john doe                       | Room 171                       | 0                   
+Romanticism and Victorian Literature                         | English Literature             | Jane Smith                     | Room 172                       | 0                   
+Modernism and Postmodernism                                  | English Literature             | Michael Johnson                | Room 173                       | 0                   
+American Literature                                          | English Literature             | Emily Brown                    | Room 174                       | 0                   
+World Literature                                             | English Literature             | David Wilson                   | Room 175                       | 0                   
+Shakespearean Studies                                        | English Literature             | Jennifer Lee                   | Room 176                       | 0                   
+Poetry and Poetics                                           | English Literature             | Christopher Taylor             | Room 177                       | 0                   
+Drama and Performance                                        | English Literature             | Sarah Martinez                 | Room 178                       | 0                   
+Fiction and Narrative                                        | English Literature             | Daniel Anderson                | Room 179                       | 0                   
+Literary Theory                                              | English Literature             | Amanda White                   | Room 180                       | 0                   
+World History                                                | History                        | john doe                       | Room 181                       | 0                   
+European History                                             | History                        | Jane Smith                     | Room 182                       | 0                   
+Asian History                                                | History                        | Michael Johnson                | Room 183                       | 0                   
+African History                                              | History                        | Emily Brown                    | Room 184                       | 0                   
+Middle Eastern History                                       | History                        | David Wilson                   | Room 185                       | 0                   
+Latin American History                                       | History                        | Jennifer Lee                   | Room 186                       | 0                   
+North American History                                       | History                        | Christopher Taylor             | Room 187                       | 0                   
+South American History                                       | History                        | Sarah Martinez                 | Room 188                       | 0                   
+Medieval History                                             | History                        | Daniel Anderson                | Room 189                       | 0                   
+Renaissance History                                          | History                        | Amanda White                   | Room 190                       | 0                   
+Cognitive Psychology                                         | Psychology                     | john doe                       | Room 191                       | 0                   
+Social Psychology                                            | Psychology                     | Jane Smith                     | Room 192                       | 0                   
+Developmental Psychology                                     | Psychology                     | Michael Johnson                | Room 193                       | 0                   
+Abnormal Psychology                                          | Psychology                     | Emily Brown                    | Room 194                       | 0                   
+Health Psychology                                            | Psychology                     | David Wilson                   | Room 195                       | 0                   
+Industrial-Organizational Psychology                         | Psychology                     | Jennifer Lee                   | Room 196                       | 0                   
+Educational Psychology                                       | Psychology                     | Christopher Taylor             | Room 197                       | 0                   
+Experimental Psychology                                      | Psychology                     | Sarah Martinez                 | Room 198                       | 0                   
+Clinical Psychology                                          | Psychology                     | Daniel Anderson                | Room 199                       | 0                   
+Biopsychology                                                | Psychology                     | Amanda White                   | Room 200                       | 0                   
